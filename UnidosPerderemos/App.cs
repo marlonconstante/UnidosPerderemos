@@ -5,16 +5,13 @@ namespace UnidosPerderemos
 {
 	public class App
 	{
+		/// <summary>
+		/// Gets the main page.
+		/// </summary>
+		/// <returns>The main page.</returns>
 		public static Page GetMainPage()
 		{	
-			return new ContentPage { 
-				Content = new Label {
-					Text = "Hello, Forms!",
-					VerticalOptions = LayoutOptions.CenterAndExpand,
-					HorizontalOptions = LayoutOptions.CenterAndExpand,
-				},
-			};
+			return new ContactsPage();
 		}
 	}
 }
-
