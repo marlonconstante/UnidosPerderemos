@@ -1,7 +1,0 @@
-/Users/marlon/Documents/Desenvolvimento/UnidosPerderemos/UnidosPerderemos/obj/Debug/.NETPortable,Version=v4.5,Profile=Profile78.AssemblyAttribute.cs
-/Users/marlon/Documents/Desenvolvimento/UnidosPerderemos/UnidosPerderemos/bin/Debug/UnidosPerderemos.dll.mdb
-/Users/marlon/Documents/Desenvolvimento/UnidosPerderemos/UnidosPerderemos/bin/Debug/UnidosPerderemos.dll
-/Users/marlon/Documents/Desenvolvimento/UnidosPerderemos/UnidosPerderemos/obj/Debug/UnidosPerderemos.dll
-/Users/marlon/Documents/Desenvolvimento/UnidosPerderemos/UnidosPerderemos/obj/Debug/UnidosPerderemos.dll.mdb
-/Users/marlon/Documents/Desenvolvimento/UnidosPerderemos/UnidosPerderemos/bin/Debug/Xamarin.Forms.Core.dll
-/Users/marlon/Documents/Desenvolvimento/UnidosPerderemos/UnidosPerderemos/bin/Debug/Xamarin.Forms.Xaml.dll
