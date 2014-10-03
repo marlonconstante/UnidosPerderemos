@@ -11,7 +11,7 @@ namespace UnidosPerderemos
 		/// <returns>The main page.</returns>
 		public static Page GetMainPage()
 		{	
-			return new ContactsPage();
+			return new ContactPage();
 		}
 	}
 }
