@@ -126,5 +126,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
+    <Folder Include="Renderers\" />
   </ItemGroup>
 </Project>
