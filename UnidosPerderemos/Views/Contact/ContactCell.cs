@@ -8,11 +8,11 @@ namespace UnidosPerderemos
 		/// <summary>
 		/// The identifier property.
 		/// </summary>
-		public static readonly BindableProperty IdProperty = BindableProperty.Create<ContactCell, string>(p => p.Id, null);
+		public static readonly BindableProperty IdContactProperty = BindableProperty.Create<ContactCell, string>(p => p.IdContact, null);
 
 		public ContactCell() : base()
 		{
-			this.SetBinding(IdProperty, "Id");
+			this.SetBinding(IdContactProperty, "Id");
 			this.SetBinding(TextProperty, "Name");
 			this.SetBinding(DetailProperty, "PhonesText");
 		}
@@ -32,23 +32,22 @@ namespace UnidosPerderemos
 		/// </summary>
 		async void LoadThumbnail()
 		{
-			var stream = await DependencyService.Get<IAddressBookService>().GetThumbnail(Id);
+			var stream = await DependencyService.Get<IAddressBookService>().GetThumbnail(IdContact);
 			ImageSource = ImageSource.FromStream(() => {
 				return stream;
 			});
 		}
 
 		/// <summary>
-		/// Gets a value that can be used to uniquely identify an element through the run of an application.
+		/// Gets or sets the identifier contact.
 		/// </summary>
-		/// <value>A Guid uniquely identifying the element.</value>
-		/// <remarks>This value is generated at runtime and is not stable across runs of your app.</remarks>
-		public string Id {
+		/// <value>The identifier contact.</value>
+		public string IdContact {
 			get {
-				return (string) GetValue(IdProperty);
+				return (string) GetValue(IdContactProperty);
 			}
 			set {
-				SetValue(IdProperty, value);
+				SetValue(IdContactProperty, value);
 			}
 		}
 	}
