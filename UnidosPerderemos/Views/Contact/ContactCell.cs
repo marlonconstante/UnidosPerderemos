@@ -3,23 +3,52 @@ using Xamarin.Forms;
 
 namespace UnidosPerderemos
 {
-	public class ContactCell : ViewCell
+	public class ContactCell : ImageCell
 	{
-		public ContactCell()
+		/// <summary>
+		/// The identifier property.
+		/// </summary>
+		public static readonly BindableProperty IdProperty = BindableProperty.Create<ContactCell, string>(p => p.Id, null);
+
+		public ContactCell() : base()
 		{
-			View = LabelName;
+			this.SetBinding(IdProperty, "Id");
+			this.SetBinding(TextProperty, "Name");
+			this.SetBinding(DetailProperty, "PhonesText");
 		}
 
 		/// <summary>
-		/// Gets the name of the label.
+		/// Raises the appearing event.
 		/// </summary>
-		/// <value>The name of the label.</value>
-		public Label LabelName {
-			get {
-				var label = new Label();
-				label.SetBinding(Label.TextProperty, "Name");
+		protected override void OnAppearing()
+		{
+			base.OnAppearing();
 
-				return label;
+			LoadThumbnail();
+		}
+
+		/// <summary>
+		/// Loads the thumbnail.
+		/// </summary>
+		async void LoadThumbnail()
+		{
+			var stream = await DependencyService.Get<IAddressBookService>().GetThumbnail(Id);
+			ImageSource = ImageSource.FromStream(() => {
+				return stream;
+			});
+		}
+
+		/// <summary>
+		/// Gets a value that can be used to uniquely identify an element through the run of an application.
+		/// </summary>
+		/// <value>A Guid uniquely identifying the element.</value>
+		/// <remarks>This value is generated at runtime and is not stable across runs of your app.</remarks>
+		public string Id {
+			get {
+				return (string) GetValue(IdProperty);
+			}
+			set {
+				SetValue(IdProperty, value);
 			}
 		}
 	}

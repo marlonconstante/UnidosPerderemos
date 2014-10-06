@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Xamarin.Contacts;
 using System.Linq;
 using System.Threading.Tasks;
+using System.IO;
 
 [assembly: Xamarin.Forms.Dependency(typeof(UnidosPerderemos.iOS.AddressBookService))]
 namespace UnidosPerderemos.iOS
@@ -11,6 +12,7 @@ namespace UnidosPerderemos.iOS
 	{
 		public AddressBookService()
 		{
+			AddressBook = new AddressBook();
 		}
 
 		/// <summary>
@@ -53,24 +55,67 @@ namespace UnidosPerderemos.iOS
 		/// <returns>The all contacts.</returns>
 		public async Task<IList<PersonContact>> FindAllContacts()
 		{
-			var book = new AddressBook();
 			var contacts = new List<PersonContact>();
 
-			await book.RequestPermission().ContinueWith(t => {
-				if (t.Result)
+			await RunIfPermissionIsGranted(() => {
+				foreach (var contact in AddressBook)
 				{
-					foreach (var contact in book)
-					{
-						contacts.Add(new PersonContact {
-							Name = contact.DisplayName,
-							Phones = GetPhones(contact),
-							Emails = GetEmails(contact)
-						});
-					}
+					contacts.Add(new PersonContact {
+						Id = contact.Id,
+						Name = contact.DisplayName,
+						Phones = GetPhones(contact),
+						Emails = GetEmails(contact)
+					});
 				}
-			}, TaskScheduler.FromCurrentSynchronizationContext());
+			});
 
 			return contacts.OrderBy(c => c.Name).ToList();
+		}
+
+		/// <summary>
+		/// Gets the thumbnail.
+		/// </summary>
+		/// <returns>The thumbnail.</returns>
+		/// <param name="id">Identifier.</param>
+		public async Task<Stream> GetThumbnail(string id)
+		{
+			var stream = Stream.Null;
+
+			await RunIfPermissionIsGranted(() => {
+				using (var image = AddressBook.Load(id).GetThumbnail())
+				{
+					if (image != null)
+					{
+						stream = image.AsPNG().AsStream();
+					}
+				}
+			});
+
+			return stream;
+		}
+
+		/// <summary>
+		/// Runs if permission is granted.
+		/// </summary>
+		/// <returns>The if permission is granted.</returns>
+		/// <param name="action">Action.</param>
+		async Task RunIfPermissionIsGranted(Action action)
+		{
+			await AddressBook.RequestPermission().ContinueWith(t => {
+				if (t.Result)
+				{
+					action();
+				}
+			}, TaskScheduler.FromCurrentSynchronizationContext());
+		}
+
+		/// <summary>
+		/// Gets the address book.
+		/// </summary>
+		/// <value>The address book.</value>
+		public AddressBook AddressBook {
+			get;
+			private set;
 		}
 	}
 }
