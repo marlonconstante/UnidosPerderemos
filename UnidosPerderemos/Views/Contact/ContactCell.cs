@@ -10,7 +10,7 @@ namespace UnidosPerderemos
 		/// </summary>
 		public static readonly BindableProperty IdContactProperty = BindableProperty.Create<ContactCell, string>(p => p.IdContact, null);
 
-		public ContactCell() : base()
+		public ContactCell()
 		{
 			this.SetBinding(IdContactProperty, "Id");
 			this.SetBinding(TextProperty, "Name");

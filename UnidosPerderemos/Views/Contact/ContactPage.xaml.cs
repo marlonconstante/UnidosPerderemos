@@ -38,7 +38,7 @@ namespace UnidosPerderemos
 		/// Gets or sets the list view.
 		/// </summary>
 		/// <value>The list view.</value>
-		public ListView ListView {
+		ListView ListView {
 			get;
 			set;
 		}
