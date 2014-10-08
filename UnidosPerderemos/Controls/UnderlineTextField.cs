@@ -3,31 +3,48 @@ using Xamarin.Forms;
 
 namespace UnidosPerderemos
 {
-	public class UnderlineTextField : Entry
+	public class UnderlineTextField : ContentView
 	{
 		/// <summary>
-		/// The max length property.
+		/// The additional text property.
 		/// </summary>
-		public static readonly BindableProperty MaxLengthProperty = BindableProperty.Create<UnderlineTextField, int>(p => p.MaxLength, -1);
+		public static readonly BindableProperty AdditionalTextProperty = BindableProperty.Create<UnderlineTextField, string>(p => p.AdditionalText, string.Empty);
 
 		/// <summary>
-		/// The font property.
+		/// The additional font property.
 		/// </summary>
-		public static readonly BindableProperty FontProperty = BindableProperty.Create<UnderlineTextField, Font>(p => p.Font, Font.OfSize("Roboto-Regular", 46));
+		public static readonly BindableProperty AdditionalFontProperty = BindableProperty.Create<UnderlineTextField, Font>(p => p.AdditionalFont, Font.Default);
 
 		/// <summary>
 		/// The bottom line color property.
 		/// </summary>
-		public static readonly BindableProperty BottomLineColorProperty = BindableProperty.Create<UnderlineTextField, Color>(p => p.BottomLineColor, Color.FromHex("fcff00"));
+		public static readonly BindableProperty BottomLineColorProperty = BindableProperty.Create<UnderlineTextField, Color>(p => p.BottomLineColor, Color.Default);
 
 		/// <summary>
 		/// The bottom line height property.
 		/// </summary>
-		public static readonly BindableProperty BottomLineHeightProperty = BindableProperty.Create<UnderlineTextField, double>(p => p.BottomLineHeight, 2d);
+		public static readonly BindableProperty BottomLineHeightProperty = BindableProperty.Create<UnderlineTextField, double>(p => p.BottomLineHeight, -1d);
 
 		public UnderlineTextField()
 		{
 			SetUp();
+
+			Content = new StackLayout {
+				Children = {
+					new Grid {
+						ColumnDefinitions = {
+							new ColumnDefinition {
+								Width = new GridLength(1d, GridUnitType.Star)
+							}
+						},
+						Children = {
+							TextField,
+							LabelAdditional
+						}
+					},
+					BoxBottomLine
+				}
+			};
 		}
 
 		/// <summary>
@@ -35,23 +52,78 @@ namespace UnidosPerderemos
 		/// </summary>
 		void SetUp()
 		{
-			HeightRequest = Font.FontSize;
-			TextColor = Color.FromHex("fafaf5");
+			TextField = new TextField();
+			TextField.AfterTextChanged += OnAfterTextChanged;
 
-			TextChanged += OnTextChanged;
+			LabelAdditional = new Label {
+				TextColor = TextColor,
+				VerticalOptions = LayoutOptions.Start
+			};
+			AddTappedAdditional();
+
+			BoxBottomLine = new BoxView {
+				TranslationY = -1d
+			};
+			BottomLineColor = Color.FromHex("fcff00");
+			BottomLineHeight = 2d;
 		}
 
 		/// <summary>
-		/// Raises the text changed event.
+		/// Adds the tapped additional.
+		/// </summary>
+		void AddTappedAdditional()
+		{
+			var gestureRecognizer = new TapGestureRecognizer();
+			gestureRecognizer.Tapped += OnTappedAdditional;
+			LabelAdditional.GestureRecognizers.Add(gestureRecognizer);
+		}
+
+		/// <summary>
+		/// Raises the tapped additional event.
 		/// </summary>
 		/// <param name="sender">Sender.</param>
-		/// <param name="ev">Event.</param>
-		void OnTextChanged(object sender, TextChangedEventArgs ev)
+		/// <param name="args">Arguments.</param>
+		void OnTappedAdditional(object sender, EventArgs args)
 		{
-			if (MaxLength >= 0 && Text.Length > MaxLength)
-			{
-				Text = Text.Substring(0, MaxLength);
-			}
+			TextField.RequestFocus();
+		}
+
+		/// <summary>
+		/// Raises the after text changed event.
+		/// </summary>
+		/// <param name="sender">Sender.</param>
+		/// <param name="args">Arguments.</param>
+		void OnAfterTextChanged(object sender, TextChangedEventArgs args)
+		{
+			var width = DependencyService.Get<ITextService>().PreferredSize(Text, Font).Width;
+			LabelAdditional.TranslationX = width + (string.IsNullOrWhiteSpace(Text) ? 0d : 5d);
+		}
+
+		/// <summary>
+		/// Gets the text field.
+		/// </summary>
+		/// <value>The text field.</value>
+		public TextField TextField {
+			get;
+			private set;
+		}
+
+		/// <summary>
+		/// Gets the label additional.
+		/// </summary>
+		/// <value>The label additional.</value>
+		public Label LabelAdditional {
+			get;
+			private set;
+		}
+
+		/// <summary>
+		/// Gets the box bottom line.
+		/// </summary>
+		/// <value>The box bottom line.</value>
+		public BoxView BoxBottomLine {
+			get;
+			private set;
 		}
 
 		/// <summary>
@@ -60,10 +132,10 @@ namespace UnidosPerderemos
 		/// <value>The length of the max.</value>
 		public int MaxLength {
 			get {
-				return (int) GetValue(MaxLengthProperty);
+				return TextField.MaxLength;
 			}
 			set {
-				SetValue(MaxLengthProperty, value);
+				TextField.MaxLength = value;
 			}
 		}
 
@@ -73,10 +145,108 @@ namespace UnidosPerderemos
 		/// <value>The font.</value>
 		public Font Font {
 			get {
-				return (Font) GetValue(FontProperty);
+				return TextField.Font;
 			}
 			set {
-				SetValue(FontProperty, value);
+				TextField.Font = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets a value indicating whether this instance is password.
+		/// </summary>
+		/// <value><c>true</c> if this instance is password; otherwise, <c>false</c>.</value>
+		public bool IsPassword {
+			get {
+				return TextField.IsPassword;
+			}
+			set {
+				TextField.IsPassword = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the placeholder.
+		/// </summary>
+		/// <value>The placeholder.</value>
+		public string Placeholder {
+			get {
+				return TextField.Placeholder;
+			}
+			set {
+				TextField.Placeholder = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the text.
+		/// </summary>
+		/// <value>The text.</value>
+		public string Text {
+			get {
+				return TextField.Text;
+			}
+			set {
+				TextField.Text = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the color of the text.
+		/// </summary>
+		/// <value>The color of the text.</value>
+		public Color TextColor {
+			get {
+				return TextField.TextColor;
+			}
+			set {
+				TextField.TextColor = value;
+
+				LabelAdditional.TextColor = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the keyboard.
+		/// </summary>
+		/// <value>The keyboard.</value>
+		public Keyboard Keyboard {
+			get {
+				return TextField.Keyboard;
+			}
+			set {
+				TextField.Keyboard = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the additional text.
+		/// </summary>
+		/// <value>The additional text.</value>
+		public string AdditionalText {
+			get {
+				return (string) GetValue(AdditionalTextProperty);
+			}
+			set {
+				SetValue(AdditionalTextProperty, value);
+
+				LabelAdditional.Text = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the additional font.
+		/// </summary>
+		/// <value>The additional font.</value>
+		public Font AdditionalFont {
+			get {
+				return (Font) GetValue(AdditionalFontProperty);
+			}
+			set {
+				SetValue(AdditionalFontProperty, value);
+
+				LabelAdditional.Font = value;
+				LabelAdditional.TranslationY = Math.Max(0d, Font.FontSize - value.FontSize - 8d);
 			}
 		}
 
@@ -90,6 +260,8 @@ namespace UnidosPerderemos
 			}
 			set {
 				SetValue(BottomLineColorProperty, value);
+
+				BoxBottomLine.BackgroundColor = value;
 			}
 		}
 
@@ -103,6 +275,8 @@ namespace UnidosPerderemos
 			}
 			set {
 				SetValue(BottomLineHeightProperty, value);
+
+				BoxBottomLine.HeightRequest = value;
 			}
 		}
 	}
