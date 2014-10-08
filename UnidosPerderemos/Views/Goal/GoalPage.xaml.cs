@@ -32,12 +32,14 @@ namespace UnidosPerderemos
 		/// Gets the label define goals.
 		/// </summary>
 		/// <value>The label define goals.</value>
-		Label LabelDefineGoals {
+		CompressedLabel LabelDefineGoals {
 			get {
-				return new Label {
+				return new CompressedLabel {
 					Font = Font.OfSize("Roboto-ThinItalic", 40),
 					TextColor = Color.FromHex("fcff00"),
-					Text = "VAMOS DEFINIR\nSUAS METAS?"
+					Text = "VAMOS DEFINIR\nSUAS METAS?",
+					TranslationY = 42d,
+					HeightRequest = 144d
 				}; 
 			}
 		}
@@ -46,9 +48,9 @@ namespace UnidosPerderemos
 		/// Gets the label question weight.
 		/// </summary>
 		/// <value>The label question weight.</value>
-		Label LabelQuestionWeight {
+		CompressedLabel LabelQuestionWeight {
 			get {
-				return new Label {
+				return new CompressedLabel {
 					Font = Font.OfSize("Roboto-Thin", 26),
 					TextColor = Color.FromHex("fafaf5"),
 					Text = "Quantos quilos você\rdeseja perder?"
@@ -63,8 +65,13 @@ namespace UnidosPerderemos
 		UnderlineTextField InputWeight {
 			get {
 				return new UnderlineTextField {
+					Font = Font.OfSize("Roboto-Regular", 46),
+					AdditionalFont = Font.OfSize("Roboto-Light", 28),
+					AdditionalText = "Quilos",
+					Text = "0",
 					MaxLength = 4,
-					Keyboard = Keyboard.Numeric
+					Keyboard = Keyboard.Numeric,
+					Padding = new Thickness(0d, 1d, 0d, 20d)
 				};
 			}
 		}
@@ -73,9 +80,9 @@ namespace UnidosPerderemos
 		/// Gets the label question time.
 		/// </summary>
 		/// <value>The label question time.</value>
-		Label LabelQuestionTime {
+		CompressedLabel LabelQuestionTime {
 			get {
-				return new Label {
+				return new CompressedLabel {
 					Font = Font.OfSize("Roboto-Thin", 26),
 					TextColor = Color.FromHex("fafaf5"),
 					Text = "Em quanto tempo?"
@@ -90,8 +97,13 @@ namespace UnidosPerderemos
 		UnderlineTextField InputTime {
 			get {
 				return new UnderlineTextField {
+					Font = Font.OfSize("Roboto-Regular", 46),
+					AdditionalFont = Font.OfSize("Roboto-Light", 28),
+					AdditionalText = "Dias",
+					Text = "0",
 					MaxLength = 4,
-					Keyboard = Keyboard.Numeric
+					Keyboard = Keyboard.Numeric,
+					Padding = new Thickness(0d, 1d, 0d, 37d)
 				};
 			}
 		}
