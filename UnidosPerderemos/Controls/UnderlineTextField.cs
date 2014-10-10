@@ -5,26 +5,6 @@ namespace UnidosPerderemos
 {
 	public class UnderlineTextField : ContentView
 	{
-		/// <summary>
-		/// The additional text property.
-		/// </summary>
-		public static readonly BindableProperty AdditionalTextProperty = BindableProperty.Create<UnderlineTextField, string>(p => p.AdditionalText, string.Empty);
-
-		/// <summary>
-		/// The additional font property.
-		/// </summary>
-		public static readonly BindableProperty AdditionalFontProperty = BindableProperty.Create<UnderlineTextField, Font>(p => p.AdditionalFont, Font.Default);
-
-		/// <summary>
-		/// The bottom line color property.
-		/// </summary>
-		public static readonly BindableProperty BottomLineColorProperty = BindableProperty.Create<UnderlineTextField, Color>(p => p.BottomLineColor, Color.Default);
-
-		/// <summary>
-		/// The bottom line height property.
-		/// </summary>
-		public static readonly BindableProperty BottomLineHeightProperty = BindableProperty.Create<UnderlineTextField, double>(p => p.BottomLineHeight, -1d);
-
 		public UnderlineTextField()
 		{
 			SetUp();
@@ -57,7 +37,7 @@ namespace UnidosPerderemos
 
 			LabelAdditional = new CompressedLabel {
 				TextColor = TextColor,
-				VerticalOptions = LayoutOptions.Start
+				VerticalOptions = LayoutOptions.End
 			};
 			AddTappedAdditional();
 
@@ -225,11 +205,9 @@ namespace UnidosPerderemos
 		/// <value>The additional text.</value>
 		public string AdditionalText {
 			get {
-				return (string) GetValue(AdditionalTextProperty);
+				return LabelAdditional.Text;
 			}
 			set {
-				SetValue(AdditionalTextProperty, value);
-
 				LabelAdditional.Text = value;
 			}
 		}
@@ -240,13 +218,23 @@ namespace UnidosPerderemos
 		/// <value>The additional font.</value>
 		public Font AdditionalFont {
 			get {
-				return (Font) GetValue(AdditionalFontProperty);
+				return LabelAdditional.Font;
 			}
 			set {
-				SetValue(AdditionalFontProperty, value);
-
 				LabelAdditional.Font = value;
-				LabelAdditional.TranslationY = Math.Max(0d, Font.FontSize - value.FontSize - 8d);
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the additional translation y.
+		/// </summary>
+		/// <value>The additional translation y.</value>
+		public double AdditionalTranslationY {
+			get {
+				return LabelAdditional.TranslationY;
+			}
+			set {
+				LabelAdditional.TranslationY = value;
 			}
 		}
 
@@ -256,11 +244,9 @@ namespace UnidosPerderemos
 		/// <value>The color of the bottom line.</value>
 		public Color BottomLineColor {
 			get {
-				return (Color) GetValue(BottomLineColorProperty);
+				return BoxBottomLine.BackgroundColor;
 			}
 			set {
-				SetValue(BottomLineColorProperty, value);
-
 				BoxBottomLine.BackgroundColor = value;
 			}
 		}
@@ -271,11 +257,9 @@ namespace UnidosPerderemos
 		/// <value>The height of the bottom line.</value>
 		public double BottomLineHeight {
 			get {
-				return (double) GetValue(BottomLineHeightProperty);
+				return BoxBottomLine.HeightRequest;
 			}
 			set {
-				SetValue(BottomLineHeightProperty, value);
-
 				BoxBottomLine.HeightRequest = value;
 			}
 		}
