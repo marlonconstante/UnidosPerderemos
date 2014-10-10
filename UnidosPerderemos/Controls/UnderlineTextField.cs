@@ -55,7 +55,7 @@ namespace UnidosPerderemos
 			TextField = new TextField();
 			TextField.AfterTextChanged += OnAfterTextChanged;
 
-			LabelAdditional = new Label {
+			LabelAdditional = new CompressedLabel {
 				TextColor = TextColor,
 				VerticalOptions = LayoutOptions.Start
 			};
@@ -112,7 +112,7 @@ namespace UnidosPerderemos
 		/// Gets the label additional.
 		/// </summary>
 		/// <value>The label additional.</value>
-		public Label LabelAdditional {
+		public CompressedLabel LabelAdditional {
 			get;
 			private set;
 		}
