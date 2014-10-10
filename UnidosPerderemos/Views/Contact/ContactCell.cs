@@ -8,7 +8,7 @@ namespace UnidosPerderemos
 		/// <summary>
 		/// The identifier property.
 		/// </summary>
-		public static readonly BindableProperty IdContactProperty = BindableProperty.Create<ContactCell, string>(p => p.IdContact, null);
+		public static readonly BindableProperty IdContactProperty = BindableProperty.Create<ContactCell, string>(p => p.IdContact, string.Empty);
 
 		public ContactCell()
 		{
