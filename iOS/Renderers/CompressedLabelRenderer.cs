@@ -45,10 +45,13 @@ namespace UnidosPerderemos.iOS
 		void UpdateLineHeight()
 		{
 			var lineHeight = (float) Source.Font.FontSize;
+			var spacing = lineHeight * 0.15f;
 
 			var style = new NSMutableParagraphStyle();
-			style.MinimumLineHeight = lineHeight;
-			style.MaximumLineHeight = lineHeight;
+			style.MinimumLineHeight = lineHeight + spacing;
+			style.MaximumLineHeight = lineHeight + spacing;
+			style.LineSpacing = -spacing;
+			style.ParagraphSpacing = -spacing;
 
 			var attributedString = new NSMutableAttributedString(Target.AttributedText);
 			attributedString.AddAttribute(new NSString("NSParagraphStyle"), style, new NSRange(0, attributedString.Length));
