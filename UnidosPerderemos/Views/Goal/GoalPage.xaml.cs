@@ -52,8 +52,7 @@ namespace UnidosPerderemos
 			get {
 				return new CompressedLabel {
 					Font = Font.OfSize("Roboto-Thin", 26),
-					TextColor = Color.FromHex("fafaf5"),
-					Text = "Quantos quilos você\rdeseja perder?"
+					Text = "Quantos quilos você\ndeseja perder?"
 				};
 			}
 		}
@@ -84,7 +83,6 @@ namespace UnidosPerderemos
 			get {
 				return new CompressedLabel {
 					Font = Font.OfSize("Roboto-Thin", 26),
-					TextColor = Color.FromHex("fafaf5"),
 					Text = "Em quanto tempo?"
 				};
 			}
