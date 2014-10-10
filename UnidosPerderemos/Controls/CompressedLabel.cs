@@ -7,6 +7,7 @@ namespace UnidosPerderemos
 	{
 		public CompressedLabel()
 		{
+			TextColor = Color.FromHex("fafaf5");
 		}
 	}
 }
