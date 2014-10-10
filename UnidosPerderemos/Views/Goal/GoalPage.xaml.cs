@@ -38,8 +38,8 @@ namespace UnidosPerderemos
 					Font = Font.OfSize("Roboto-ThinItalic", 40),
 					TextColor = Color.FromHex("fcff00"),
 					Text = "VAMOS DEFINIR\nSUAS METAS?",
-					TranslationY = 42d,
-					HeightRequest = 144d
+					TranslationY = 37d,
+					HeightRequest = 140d
 				}; 
 			}
 		}
@@ -103,7 +103,7 @@ namespace UnidosPerderemos
 					Text = "0",
 					MaxLength = 4,
 					Keyboard = Keyboard.Numeric,
-					Padding = new Thickness(0d, 1d, 0d, 37d)
+					Padding = new Thickness(0d, 1d, 0d, 34d)
 				};
 			}
 		}

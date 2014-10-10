@@ -27,7 +27,7 @@ namespace UnidosPerderemos
 						SwitchExercise,
 						SwitchFeed,
 						new StackLayout {
-							Padding = new Thickness(16d, 56d),
+							Padding = new Thickness(16d, 54d),
 							Children = {
 								ButtonContinue
 							}
@@ -47,7 +47,7 @@ namespace UnidosPerderemos
 					Font = Font.OfSize("Roboto-ThinItalic", 40),
 					TextColor = Color.FromHex("fcff00"),
 					Text = "QUAIS SERÃO\nSUAS TÁTICAS?",
-					TranslationY = 42d,
+					TranslationY = 37d,
 					HeightRequest = 144d
 				}; 
 			}

@@ -44,7 +44,8 @@ namespace UnidosPerderemos
 			};
 
 			LabelText = new CompressedLabel {
-				VerticalOptions = LayoutOptions.Center
+				VerticalOptions = LayoutOptions.Center,
+				TranslationY = 2d
 			};
 
 			BackgroundColor = Color.FromHex("fcff00").MultiplyAlpha(0.2d);
