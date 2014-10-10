@@ -46,6 +46,10 @@
     <Compile Include="Controls\TextField.cs" />
     <Compile Include="Services\ITextService.cs" />
     <Compile Include="Controls\CompressedLabel.cs" />
+    <Compile Include="Views\Tactic\TacticPage.xaml.cs">
+      <DependentUpon>TacticPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SwitchBox.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.1.2.3.6257\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.1.2.3.6257\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets')" />
@@ -56,12 +60,16 @@
     <Folder Include="Services\" />
     <Folder Include="Controls\" />
     <Folder Include="Views\Goal\" />
+    <Folder Include="Views\Tactic\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Contact\ContactPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Goal\GoalPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Tactic\TacticPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
