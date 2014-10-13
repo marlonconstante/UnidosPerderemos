@@ -4,6 +4,7 @@ using Xamarin.Forms;
 using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Core.Pages;
 using UnidosPerderemos.Core.Controls;
+using UnidosPerderemos.Views.Tactic;
 
 namespace UnidosPerderemos.Views.Goal
 {

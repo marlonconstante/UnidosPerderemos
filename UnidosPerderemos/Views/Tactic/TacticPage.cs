@@ -6,7 +6,7 @@ using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Core.Pages;
 using UnidosPerderemos.Core.Controls;
 
-namespace UnidosPerderemos
+namespace UnidosPerderemos.Views.Tactic
 {
 	public class TacticPage : ContentPage, IControlPage
 	{
