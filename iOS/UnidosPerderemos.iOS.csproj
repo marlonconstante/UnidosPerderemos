@@ -118,6 +118,10 @@
     <BundleResource Include="Resources\Roboto-Regular.ttf" />
     <BundleResource Include="Resources\Roboto-Thin.ttf" />
     <BundleResource Include="Resources\Roboto-ThinItalic.ttf" />
+    <BundleResource Include="Resources\TisaSansPro-Bold.ttf" />
+    <BundleResource Include="Resources\TisaSansPro-BoldItalic.ttf" />
+    <BundleResource Include="Resources\TisaSansPro-Italic.ttf" />
+    <BundleResource Include="Resources\TisaSansPro-Regular.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -131,6 +135,8 @@
     <Compile Include="Renderers\TextFieldRenderer.cs" />
     <Compile Include="Services\TextService.cs" />
     <Compile Include="Renderers\CompressedLabelRenderer.cs" />
+    <Compile Include="Renderers\ContentPageRenderer.cs" />
+    <Compile Include="Renderers\FlowPageRenderer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.1.2.3.6257\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.1.2.3.6257\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets')" />
