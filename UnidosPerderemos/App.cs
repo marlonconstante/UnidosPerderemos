@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using UnidosPerderemos.Views.Main;
 using UnidosPerderemos.Core.Pages;
+using UnidosPerderemos.Views.Goal;
 
 namespace UnidosPerderemos
 {
