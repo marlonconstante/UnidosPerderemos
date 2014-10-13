@@ -50,6 +50,10 @@
       <DependentUpon>TacticPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\SwitchBox.cs" />
+    <Compile Include="Views\MainPage.cs" />
+    <Compile Include="Core\Pages\FlowPage.cs" />
+    <Compile Include="Core\Pages\IControlPage.cs" />
+    <Compile Include="Core\Styles\StatusBarStyle.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.1.2.3.6257\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.1.2.3.6257\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets')" />
@@ -61,6 +65,9 @@
     <Folder Include="Controls\" />
     <Folder Include="Views\Goal\" />
     <Folder Include="Views\Tactic\" />
+    <Folder Include="Core\" />
+    <Folder Include="Core\Pages\" />
+    <Folder Include="Core\Styles\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Contact\ContactPage.xaml">

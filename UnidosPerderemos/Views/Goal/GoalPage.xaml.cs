@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace UnidosPerderemos
 {
-	public partial class GoalPage : ContentPage
+	public partial class GoalPage : ContentPage, IControlPage
 	{
 		public GoalPage()
 		{
@@ -119,6 +119,33 @@ namespace UnidosPerderemos
 					HeightRequest = 67d
 				};
 			}
+		}
+
+		/// <summary>
+		/// Preferreds the status bar style.
+		/// </summary>
+		/// <returns>The status bar style.</returns>
+		public StatusBarStyle PreferredStatusBarStyle()
+		{
+			return StatusBarStyle.Light;
+		}
+
+		/// <summary>
+		/// Determines whether this instance is show navigation bar.
+		/// </summary>
+		/// <returns><c>true</c> if this instance is show navigation bar; otherwise, <c>false</c>.</returns>
+		public bool IsShowNavigationBar()
+		{
+			return false;
+		}
+
+		/// <summary>
+		/// Determines whether this instance is show status bar.
+		/// </summary>
+		/// <returns><c>true</c> if this instance is show status bar; otherwise, <c>false</c>.</returns>
+		public bool IsShowStatusBar()
+		{
+			return true;
 		}
 	}
 }
