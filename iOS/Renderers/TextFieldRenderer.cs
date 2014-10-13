@@ -5,6 +5,7 @@ using UnidosPerderemos;
 using MonoTouch.UIKit;
 using MonoTouch.CoreAnimation;
 using System.Drawing;
+using UnidosPerderemos.Core.Controls;
 
 [assembly: ExportRenderer(typeof(TextField), typeof(UnidosPerderemos.iOS.TextFieldRenderer))]
 namespace UnidosPerderemos.iOS

@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace UnidosPerderemos
+namespace UnidosPerderemos.Core.Controls
 {
 	public class CompressedLabel : Label
 	{

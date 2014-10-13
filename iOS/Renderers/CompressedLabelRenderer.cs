@@ -4,6 +4,7 @@ using Xamarin.Forms.Platform.iOS;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using Xamarin.Forms;
+using UnidosPerderemos.Core.Controls;
 
 [assembly: ExportRenderer(typeof(CompressedLabel), typeof(UnidosPerderemos.iOS.CompressedLabelRenderer))]
 namespace UnidosPerderemos.iOS
