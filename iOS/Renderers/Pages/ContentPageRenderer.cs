@@ -6,8 +6,8 @@ using UnidosPerderemos;
 using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Core.Pages;
 
-[assembly: ExportRenderer(typeof(ContentPage), typeof(UnidosPerderemos.iOS.ContentPageRenderer))]
-namespace UnidosPerderemos.iOS
+[assembly: ExportRenderer(typeof(ContentPage), typeof(UnidosPerderemos.iOS.Renderers.Pages.ContentPageRenderer))]
+namespace UnidosPerderemos.iOS.Renderers.Pages
 {
 	public class ContentPageRenderer : PageRenderer
 	{

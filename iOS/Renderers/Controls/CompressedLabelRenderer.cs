@@ -6,8 +6,8 @@ using MonoTouch.UIKit;
 using Xamarin.Forms;
 using UnidosPerderemos.Core.Controls;
 
-[assembly: ExportRenderer(typeof(CompressedLabel), typeof(UnidosPerderemos.iOS.CompressedLabelRenderer))]
-namespace UnidosPerderemos.iOS
+[assembly: ExportRenderer(typeof(CompressedLabel), typeof(UnidosPerderemos.iOS.Renderers.Controls.CompressedLabelRenderer))]
+namespace UnidosPerderemos.iOS.Renderers.Controls
 {
 	public class CompressedLabelRenderer : LabelRenderer
 	{

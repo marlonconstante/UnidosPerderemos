@@ -5,8 +5,8 @@ using MonoTouch.UIKit;
 using Xamarin.Forms;
 using UnidosPerderemos.Core.Pages;
 
-[assembly: ExportRenderer(typeof(FlowPage), typeof(UnidosPerderemos.iOS.FlowPageRenderer))]
-namespace UnidosPerderemos.iOS
+[assembly: ExportRenderer(typeof(FlowPage), typeof(UnidosPerderemos.iOS.Renderers.Pages.FlowPageRenderer))]
+namespace UnidosPerderemos.iOS.Renderers.Pages
 {
 	public class FlowPageRenderer : NavigationRenderer
 	{

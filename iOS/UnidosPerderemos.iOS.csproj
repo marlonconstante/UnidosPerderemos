@@ -136,11 +136,11 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Services\AddressBookService.cs" />
-    <Compile Include="Renderers\TextFieldRenderer.cs" />
     <Compile Include="Services\TextService.cs" />
-    <Compile Include="Renderers\CompressedLabelRenderer.cs" />
-    <Compile Include="Renderers\ContentPageRenderer.cs" />
-    <Compile Include="Renderers\FlowPageRenderer.cs" />
+    <Compile Include="Renderers\Controls\CompressedLabelRenderer.cs" />
+    <Compile Include="Renderers\Controls\TextFieldRenderer.cs" />
+    <Compile Include="Renderers\Pages\ContentPageRenderer.cs" />
+    <Compile Include="Renderers\Pages\FlowPageRenderer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.1.2.3.6257\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.1.2.3.6257\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets')" />
@@ -153,5 +153,7 @@
   <ItemGroup>
     <Folder Include="Services\" />
     <Folder Include="Renderers\" />
+    <Folder Include="Renderers\Controls\" />
+    <Folder Include="Renderers\Pages\" />
   </ItemGroup>
 </Project>

@@ -7,8 +7,8 @@ using MonoTouch.CoreAnimation;
 using System.Drawing;
 using UnidosPerderemos.Core.Controls;
 
-[assembly: ExportRenderer(typeof(TextField), typeof(UnidosPerderemos.iOS.TextFieldRenderer))]
-namespace UnidosPerderemos.iOS
+[assembly: ExportRenderer(typeof(TextField), typeof(UnidosPerderemos.iOS.Renderers.Controls.TextFieldRenderer))]
+namespace UnidosPerderemos.iOS.Renderers.Controls
 {
 	public class TextFieldRenderer : EntryRenderer
 	{
