@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace UnidosPerderemos
+namespace UnidosPerderemos.Models
 {
 	public class PersonContact
 	{

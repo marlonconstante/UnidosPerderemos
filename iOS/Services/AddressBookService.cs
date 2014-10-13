@@ -4,6 +4,7 @@ using Xamarin.Contacts;
 using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
+using UnidosPerderemos.Models;
 
 [assembly: Xamarin.Forms.Dependency(typeof(UnidosPerderemos.iOS.AddressBookService))]
 namespace UnidosPerderemos.iOS
