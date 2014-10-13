@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using UnidosPerderemos.Views.Contact;
 using UnidosPerderemos.Views.History;
+using UnidosPerderemos.Views.Profile;
 
 namespace UnidosPerderemos.Views.Main
 {

@@ -3,7 +3,7 @@ using Xamarin.Forms;
 using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Core.Pages;
 
-namespace UnidosPerderemos
+namespace UnidosPerderemos.Views.Profile
 {
 	public class ProfilePage : ContentPage, IControlPage
 	{
