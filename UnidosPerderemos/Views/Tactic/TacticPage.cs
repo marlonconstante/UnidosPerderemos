@@ -52,7 +52,8 @@ namespace UnidosPerderemos
 		/// <param name="args">Arguments.</param>
 		void OnContinueClicked(object sender, EventArgs args)
 		{
-			Navigation.PushAsync(new MainPage());
+			MainFlow.PushAsync(new MainPage());
+			Navigation.PushModalAsync(MainFlow);
 		}
 
 		/// <summary>
@@ -124,6 +125,16 @@ namespace UnidosPerderemos
 			Text = "CONTINUAR",
 			HeightRequest = 67d
 		};
+
+		/// <summary>
+		/// Gets the main flow.
+		/// </summary>
+		/// <value>The main flow.</value>
+		public FlowPage MainFlow {
+			get {
+				return App.MainFlow;
+			}
+		} 
 
 		/// <summary>
 		/// Preferreds the status bar style.

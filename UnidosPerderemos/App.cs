@@ -11,15 +11,23 @@ namespace UnidosPerderemos
 		/// <returns>The main page.</returns>
 		public static Page GetMainPage()
 		{	
-			FlowPage.PushAsync(new GoalPage());
-			return FlowPage;
+			ActivationFlow.PushAsync(new GoalPage());
+			return ActivationFlow;
 		}
 
 		/// <summary>
-		/// Gets the flow page.
+		/// Gets the activation flow.
 		/// </summary>
-		/// <value>The flow page.</value>
-		public static FlowPage FlowPage {
+		/// <value>The activation flow.</value>
+		public static FlowPage ActivationFlow {
+			get;
+		} = new FlowPage();
+
+		/// <summary>
+		/// Gets the main flow.
+		/// </summary>
+		/// <value>The main flow.</value>
+		public static FlowPage MainFlow {
 			get;
 		} = new FlowPage();
 	}
