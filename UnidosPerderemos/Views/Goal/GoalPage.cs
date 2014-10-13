@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Xamarin.Forms;
 using UnidosPerderemos.Core.Styles;
+using UnidosPerderemos.Core.Pages;
 
 namespace UnidosPerderemos
 {

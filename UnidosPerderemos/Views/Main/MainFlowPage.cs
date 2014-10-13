@@ -1,5 +1,6 @@
 ﻿using System;
 using Xamarin.Forms;
+using UnidosPerderemos.Core.Pages;
 
 namespace UnidosPerderemos.Views.Main
 {

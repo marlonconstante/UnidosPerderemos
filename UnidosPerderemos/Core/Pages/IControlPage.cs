@@ -1,7 +1,7 @@
 ﻿using System;
 using UnidosPerderemos.Core.Styles;
 
-namespace UnidosPerderemos
+namespace UnidosPerderemos.Core.Pages
 {
 	public interface IControlPage
 	{
