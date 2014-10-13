@@ -2,7 +2,7 @@
 using Xamarin.Forms;
 using UnidosPerderemos.Services;
 
-namespace UnidosPerderemos
+namespace UnidosPerderemos.Views.Contact
 {
 	public class ContactCell : ImageCell
 	{

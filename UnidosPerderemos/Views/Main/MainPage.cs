@@ -1,5 +1,6 @@
 ﻿using System;
 using Xamarin.Forms;
+using UnidosPerderemos.Views.Contact;
 
 namespace UnidosPerderemos.Views.Main
 {

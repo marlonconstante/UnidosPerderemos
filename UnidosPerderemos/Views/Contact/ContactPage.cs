@@ -5,7 +5,7 @@ using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Core.Pages;
 using UnidosPerderemos.Services;
 
-namespace UnidosPerderemos
+namespace UnidosPerderemos.Views.Contact
 {
 	public class ContactPage : ContentPage, IControlPage
 	{
