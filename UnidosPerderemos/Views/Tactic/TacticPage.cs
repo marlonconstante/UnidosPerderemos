@@ -8,7 +8,7 @@ namespace UnidosPerderemos
 	{
 		public TacticPage()
 		{
-			BackgroundImage = "BackgroundGoal.png";
+			SetUp();
 
 			Content = new ScrollView {
 				Content = new StackLayout {
@@ -33,6 +33,26 @@ namespace UnidosPerderemos
 					}
 				}
 			};
+		}
+
+		/// <summary>
+		/// Sets up.
+		/// </summary>
+		void SetUp()
+		{
+			BackgroundImage = "BackgroundGoal.png";
+
+			ButtonContinue.Clicked += OnContinueClicked;
+		}
+
+		/// <summary>
+		/// Raises the continue clicked event.
+		/// </summary>
+		/// <param name="sender">Sender.</param>
+		/// <param name="args">Arguments.</param>
+		void OnContinueClicked(object sender, EventArgs args)
+		{
+			Navigation.PushAsync(new MainPage());
 		}
 
 		/// <summary>
@@ -99,13 +119,11 @@ namespace UnidosPerderemos
 		/// </summary>
 		/// <value>The button continue.</value>
 		GhostButton ButtonContinue {
-			get {
-				return new GhostButton {
-					Text = "CONTINUAR",
-					HeightRequest = 67d
-				};
-			}
-		}
+			get;
+		} = new GhostButton {
+			Text = "CONTINUAR",
+			HeightRequest = 67d
+		};
 
 		/// <summary>
 		/// Preferreds the status bar style.

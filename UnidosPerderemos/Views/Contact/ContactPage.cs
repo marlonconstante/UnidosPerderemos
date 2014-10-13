@@ -8,10 +8,18 @@ namespace UnidosPerderemos
 	{
 		public ContactPage()
 		{
-			ConfigListView();
-			LoadContacts();
+			SetUp();
 
 			Content = ListView;
+		}
+
+		/// <summary>
+		/// Sets up.
+		/// </summary>
+		void SetUp()
+		{
+			ConfigListView();
+			LoadContacts();
 		}
 
 		/// <summary>

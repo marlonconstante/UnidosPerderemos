@@ -11,6 +11,7 @@ namespace UnidosPerderemos
 		/// <returns>The main page.</returns>
 		public static Page GetMainPage()
 		{	
+			FlowPage.PushAsync(new GoalPage());
 			return FlowPage;
 		}
 
@@ -19,11 +20,7 @@ namespace UnidosPerderemos
 		/// </summary>
 		/// <value>The flow page.</value>
 		public static FlowPage FlowPage {
-			get {
-				var flowPage = new FlowPage();
-				flowPage.PushAsync(new MainPage());
-				return flowPage;
-			}
-		}
+			get;
+		} = new FlowPage();
 	}
 }
