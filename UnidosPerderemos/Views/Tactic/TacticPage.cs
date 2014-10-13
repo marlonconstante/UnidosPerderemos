@@ -4,12 +4,10 @@ using Xamarin.Forms;
 
 namespace UnidosPerderemos
 {
-	public partial class TacticPage : ContentPage, IControlPage
+	public class TacticPage : ContentPage, IControlPage
 	{
 		public TacticPage()
 		{
-			InitializeComponent();
-
 			BackgroundImage = "BackgroundGoal.png";
 
 			Content = new ScrollView {

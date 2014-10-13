@@ -4,12 +4,10 @@ using Xamarin.Forms;
 
 namespace UnidosPerderemos
 {
-	public partial class ContactPage : ContentPage, IControlPage
+	public class ContactPage : ContentPage, IControlPage
 	{
 		public ContactPage()
 		{
-			InitializeComponent();
-
 			ConfigListView();
 			LoadContacts();
 

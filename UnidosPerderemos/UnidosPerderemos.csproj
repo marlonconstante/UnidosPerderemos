@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -32,28 +32,22 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\Contact\ContactPage.xaml.cs">
-      <DependentUpon>ContactPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Contact\ContactCell.cs" />
     <Compile Include="Services\IAddressBookService.cs" />
     <Compile Include="Models\PersonContact.cs" />
-    <Compile Include="Views\Goal\GoalPage.xaml.cs">
-      <DependentUpon>GoalPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\GhostButton.cs" />
     <Compile Include="Controls\UnderlineTextField.cs" />
     <Compile Include="Controls\TextField.cs" />
     <Compile Include="Services\ITextService.cs" />
     <Compile Include="Controls\CompressedLabel.cs" />
-    <Compile Include="Views\Tactic\TacticPage.xaml.cs">
-      <DependentUpon>TacticPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\SwitchBox.cs" />
     <Compile Include="Views\MainPage.cs" />
     <Compile Include="Core\Pages\FlowPage.cs" />
     <Compile Include="Core\Pages\IControlPage.cs" />
     <Compile Include="Core\Styles\StatusBarStyle.cs" />
+    <Compile Include="Views\Contact\ContactPage.cs" />
+    <Compile Include="Views\Goal\GoalPage.cs" />
+    <Compile Include="Views\Tactic\TacticPage.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.1.2.3.6257\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.1.2.3.6257\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets')" />
@@ -68,17 +62,6 @@
     <Folder Include="Core\" />
     <Folder Include="Core\Pages\" />
     <Folder Include="Core\Styles\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Views\Contact\ContactPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Goal\GoalPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Tactic\TacticPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">
