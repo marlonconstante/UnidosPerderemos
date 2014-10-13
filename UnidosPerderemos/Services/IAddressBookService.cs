@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.IO;
 using UnidosPerderemos.Models;
 
-namespace UnidosPerderemos
+namespace UnidosPerderemos.Services
 {
 	public interface IAddressBookService
 	{

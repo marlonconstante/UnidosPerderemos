@@ -2,9 +2,10 @@
 using Xamarin.Forms;
 using MonoTouch.Foundation;
 using Xamarin.Forms.Platform.iOS;
+using UnidosPerderemos.Services;
 
-[assembly: Xamarin.Forms.Dependency(typeof(UnidosPerderemos.iOS.TextService))]
-namespace UnidosPerderemos.iOS
+[assembly: Xamarin.Forms.Dependency(typeof(UnidosPerderemos.iOS.Services.TextService))]
+namespace UnidosPerderemos.iOS.Services
 {
 	public class TextService : ITextService
 	{

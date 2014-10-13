@@ -5,9 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
 using UnidosPerderemos.Models;
+using UnidosPerderemos.Services;
 
-[assembly: Xamarin.Forms.Dependency(typeof(UnidosPerderemos.iOS.AddressBookService))]
-namespace UnidosPerderemos.iOS
+[assembly: Xamarin.Forms.Dependency(typeof(UnidosPerderemos.iOS.Services.AddressBookService))]
+namespace UnidosPerderemos.iOS.Services
 {
 	public class AddressBookService : IAddressBookService
 	{
