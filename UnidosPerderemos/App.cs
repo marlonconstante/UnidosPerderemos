@@ -11,7 +11,19 @@ namespace UnidosPerderemos
 		/// <returns>The main page.</returns>
 		public static Page GetMainPage()
 		{	
-			return new TacticPage();
+			return FlowPage;
+		}
+
+		/// <summary>
+		/// Gets the flow page.
+		/// </summary>
+		/// <value>The flow page.</value>
+		public static FlowPage FlowPage {
+			get {
+				var flowPage = new FlowPage();
+				flowPage.PushAsync(new MainPage());
+				return flowPage;
+			}
 		}
 	}
 }

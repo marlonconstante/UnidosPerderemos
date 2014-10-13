@@ -14,6 +14,12 @@ namespace UnidosPerderemos.iOS
 	{
 		UIWindow window;
 
+		/// <summary>
+		/// Finisheds the launching.
+		/// </summary>
+		/// <returns><c>true</c>, if launching was finisheded, <c>false</c> otherwise.</returns>
+		/// <param name="app">App.</param>
+		/// <param name="options">Options.</param>
 		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 		{
 			Forms.Init();
@@ -27,4 +33,3 @@ namespace UnidosPerderemos.iOS
 		}
 	}
 }
-
