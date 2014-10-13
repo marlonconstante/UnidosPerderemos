@@ -1,6 +1,7 @@
 ﻿using System;
 
-namespace UnidosPerderemos
+namespace UnidosPerderemos.Core.Styles
+
 {
 	/// <summary>
 	/// Status bar style.

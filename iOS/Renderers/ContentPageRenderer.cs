@@ -3,6 +3,7 @@ using Xamarin.Forms.Platform.iOS;
 using MonoTouch.UIKit;
 using Xamarin.Forms;
 using UnidosPerderemos;
+using UnidosPerderemos.Core.Styles;
 
 [assembly: ExportRenderer(typeof(ContentPage), typeof(UnidosPerderemos.iOS.ContentPageRenderer))]
 namespace UnidosPerderemos.iOS
