@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace UnidosPerderemos
+namespace UnidosPerderemos.Views.Main
 {
 	public class MainPage : TabbedPage
 	{

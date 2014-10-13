@@ -1,5 +1,6 @@
 ﻿using System;
 using Xamarin.Forms;
+using UnidosPerderemos.Views.Main;
 
 namespace UnidosPerderemos
 {
@@ -27,8 +28,8 @@ namespace UnidosPerderemos
 		/// Gets the main flow.
 		/// </summary>
 		/// <value>The main flow.</value>
-		public static FlowPage MainFlow {
+		public static MainFlowPage MainFlow {
 			get;
-		} = new FlowPage();
+		} = new MainFlowPage();
 	}
 }

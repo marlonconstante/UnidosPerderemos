@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
+using UnidosPerderemos.Views.Main;
 
 namespace UnidosPerderemos
 {
@@ -130,7 +131,7 @@ namespace UnidosPerderemos
 		/// Gets the main flow.
 		/// </summary>
 		/// <value>The main flow.</value>
-		public FlowPage MainFlow {
+		public MainFlowPage MainFlow {
 			get {
 				return App.MainFlow;
 			}
