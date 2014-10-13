@@ -122,6 +122,9 @@
     <BundleResource Include="Resources\TisaSansPro-BoldItalic.ttf" />
     <BundleResource Include="Resources\TisaSansPro-Italic.ttf" />
     <BundleResource Include="Resources\TisaSansPro-Regular.ttf" />
+    <BundleResource Include="Resources\Contact%402x.png" />
+    <BundleResource Include="Resources\History%402x.png" />
+    <BundleResource Include="Resources\Profile%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />

@@ -48,6 +48,8 @@
     <Compile Include="Views\Contact\ContactPage.cs" />
     <Compile Include="Views\Goal\GoalPage.cs" />
     <Compile Include="Views\Tactic\TacticPage.cs" />
+    <Compile Include="Views\Profile\ProfilePage.cs" />
+    <Compile Include="Views\History\HistoryPage.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.1.2.3.6257\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.1.2.3.6257\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets')" />
@@ -62,6 +64,8 @@
     <Folder Include="Core\" />
     <Folder Include="Core\Pages\" />
     <Folder Include="Core\Styles\" />
+    <Folder Include="Views\Profile\" />
+    <Folder Include="Views\History\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

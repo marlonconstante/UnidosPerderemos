@@ -18,6 +18,9 @@ namespace UnidosPerderemos
 		/// </summary>
 		void SetUp()
 		{
+			Title = "Contatos";
+			Icon = ImageSource.FromFile("Contact.png") as FileImageSource;
+
 			ConfigListView();
 			LoadContacts();
 		}

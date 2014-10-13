@@ -15,21 +15,19 @@ namespace UnidosPerderemos
 		/// </summary>
 		void SetUp()
 		{
-			ItemsSource = new PersonContact[] {
-				new PersonContact {
-					Name = "Título 1"
-				},
-				new PersonContact {
-					Name = "Título 2"
-				}
-			};
+			Children.Add(new HistoryPage());
+			Children.Add(new ProfilePage());
+			Children.Add(new ContactPage());
+		}
 
-			ItemTemplate = new DataTemplate(() => {
-				var page = new ContactPage();
-				Title = page.Title;
-				page.SetBinding(ContentPage.TitleProperty, "Name");
-				return page;
-			});
+		/// <summary>
+		/// Raises the current page changed event.
+		/// </summary>
+		protected override void OnCurrentPageChanged()
+		{
+			base.OnCurrentPageChanged();
+
+			Title = CurrentPage.Title;
 		}
 
 		/// <summary>
