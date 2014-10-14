@@ -10,6 +10,16 @@ namespace UnidosPerderemos.Views.Profile
 		public ProfilePage()
 		{
 			SetUp();
+
+			Content = new ScrollView {
+				Content = new StackLayout {
+					Spacing = 10d,
+					Children = {
+						BackgroundProfileBox,
+						ButtonUp
+					}
+				}
+			};
 		}
 
 		/// <summary>
@@ -19,7 +29,34 @@ namespace UnidosPerderemos.Views.Profile
 		{
 			Title = "Perfil";
 			Icon = ImageSource.FromFile("Profile.png") as FileImageSource;
-			BackgroundImage = "BackgroundGoal.png";
+			BackgroundImage = "BackgroundProfile.png";
+		}
+
+		/// <summary>
+		/// Gets the background profile box.
+		/// </summary>
+		/// <value>The background profile box.</value>
+		public Image BackgroundProfileBox {
+			get {
+				return new Image {
+					Source = ImageSource.FromFile("BackgroundProfileBox.png"),
+					Aspect = Aspect.AspectFill
+				};
+			}
+		}
+
+		/// <summary>
+		/// Gets the button up.
+		/// </summary>
+		/// <value>The button up.</value>
+		public Image ButtonUp {
+			get {
+				return new Image {
+					Source = ImageSource.FromFile("ButtonUp.png"),
+					WidthRequest = 239d,
+					HeightRequest = 208d
+				};
+			}
 		}
 
 		/// <summary>
