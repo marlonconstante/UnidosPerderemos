@@ -13,10 +13,18 @@ namespace UnidosPerderemos.Views.Profile
 
 			Content = new ScrollView {
 				Content = new StackLayout {
-					Spacing = 10d,
+					Spacing = 8d,
 					Children = {
-						BackgroundProfileBox,
-						ButtonUp
+						new StackLayout {
+							Spacing = 0d,
+							Children = {
+								BackgroundProfileBox,
+								YellowSeparator
+							}
+						},
+						ButtonUp,
+						TransparentSeparator,
+						GridGraphics
 					}
 				}
 			};
@@ -36,7 +44,7 @@ namespace UnidosPerderemos.Views.Profile
 		/// Gets the background profile box.
 		/// </summary>
 		/// <value>The background profile box.</value>
-		public Image BackgroundProfileBox {
+		Image BackgroundProfileBox {
 			get {
 				return new Image {
 					Source = ImageSource.FromFile("BackgroundProfileBox.png"),
@@ -46,15 +54,90 @@ namespace UnidosPerderemos.Views.Profile
 		}
 
 		/// <summary>
+		/// Gets the yellow separator.
+		/// </summary>
+		/// <value>The yellow separator.</value>
+		BoxView YellowSeparator {
+			get {
+				return new BoxView {
+					BackgroundColor = Color.FromHex("fcff00"),
+					HeightRequest = 2f
+				};
+			}
+		}
+
+		/// <summary>
 		/// Gets the button up.
 		/// </summary>
 		/// <value>The button up.</value>
-		public Image ButtonUp {
+		Image ButtonUp {
 			get {
 				return new Image {
 					Source = ImageSource.FromFile("ButtonUp.png"),
 					WidthRequest = 239d,
 					HeightRequest = 208d
+				};
+			}
+		}
+
+		/// <summary>
+		/// Gets the transparent separator.
+		/// </summary>
+		/// <value>The transparent separator.</value>
+		BoxView TransparentSeparator {
+			get {
+				return new BoxView {
+					BackgroundColor = Color.White.MultiplyAlpha(0.6d),
+					HeightRequest = 1f
+				};
+			}
+		}
+
+		/// <summary>
+		/// Gets the grid graphics.
+		/// </summary>
+		/// <value>The grid graphics.</value>
+		Grid GridGraphics {
+			get {
+				return new Grid {
+					ColumnDefinitions = {
+						new ColumnDefinition {
+							Width = new GridLength(1d, GridUnitType.Star)
+						},
+						new ColumnDefinition {
+							Width = new GridLength(1d, GridUnitType.Star)
+						}
+					},
+					Children = {
+						{ DedicationGraphics, 0, 0 },
+						{ GoalGraphics, 1, 0 }
+					}
+				};
+			}
+		}
+
+		/// <summary>
+		/// Gets the dedication graphics.
+		/// </summary>
+		/// <value>The dedication graphics.</value>
+		ProfileViewGraphics DedicationGraphics {
+			get {
+				return new ProfileViewGraphics {
+					Title = "Dedicação",
+					Percentage = 70
+				};
+			}
+		}
+
+		/// <summary>
+		/// Gets the goal graphics.
+		/// </summary>
+		/// <value>The goal graphics.</value>
+		ProfileViewGraphics GoalGraphics {
+			get {
+				return new ProfileViewGraphics {
+					Title = "Meta",
+					Percentage = 100
 				};
 			}
 		}
