@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Core.Pages;
+using UnidosPerderemos.Core.Controls;
 
 namespace UnidosPerderemos.Views.Profile
 {
@@ -10,6 +11,23 @@ namespace UnidosPerderemos.Views.Profile
 		public ProfilePage()
 		{
 			SetUp();
+
+			Content = new StackLayout
+			{
+				Spacing = 10d,
+				Children =
+				{
+					new StackLayout
+					{
+						Spacing = 10d,
+						Padding = new Thickness(16d, 25d),
+						Children =
+						{
+							DedicationBar
+						}
+					}
+				}
+			};
 		}
 
 		/// <summary>
@@ -47,6 +65,14 @@ namespace UnidosPerderemos.Views.Profile
 		public bool IsShowStatusBar()
 		{
 			return true;
+		}
+
+		public RadialProgressBar DedicationBar
+		{
+			get
+			{
+				return new RadialProgressBar();
+			}
 		}
 	}
 }
