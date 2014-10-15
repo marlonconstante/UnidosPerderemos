@@ -47,7 +47,7 @@ namespace UnidosPerderemos.Views.Profile
 			Font = Font.OfSize("Roboto-Regular", 16),
 			TextColor = Color.FromHex("f6f7f9"),
 			XAlign = TextAlignment.Center
-		}; 
+		};
 
 		/// <summary>
 		/// Gets the label percentage.
@@ -59,7 +59,7 @@ namespace UnidosPerderemos.Views.Profile
 			Font = Font.OfSize("Roboto-Light", 35),
 			TextColor = Color.FromHex("fcfbfb"),
 			XAlign = TextAlignment.Center
-		}; 
+		};
 
 		/// <summary>
 		/// Gets the label percent.

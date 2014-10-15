@@ -15,13 +15,7 @@ namespace UnidosPerderemos.Views.Profile
 				Content = new StackLayout {
 					Spacing = 8d,
 					Children = {
-						new StackLayout {
-							Spacing = 0d,
-							Children = {
-								BackgroundProfileBox,
-								YellowSeparator
-							}
-						},
+						ProfileViewBox,
 						ButtonUp,
 						TransparentSeparator,
 						GridGraphics
@@ -41,28 +35,12 @@ namespace UnidosPerderemos.Views.Profile
 		}
 
 		/// <summary>
-		/// Gets the background profile box.
+		/// Gets the profile view box.
 		/// </summary>
-		/// <value>The background profile box.</value>
-		Image BackgroundProfileBox {
+		/// <value>The profile view box.</value>
+		ProfileViewBox ProfileViewBox {
 			get {
-				return new Image {
-					Source = ImageSource.FromFile("BackgroundProfileBox.png"),
-					Aspect = Aspect.AspectFill
-				};
-			}
-		}
-
-		/// <summary>
-		/// Gets the yellow separator.
-		/// </summary>
-		/// <value>The yellow separator.</value>
-		BoxView YellowSeparator {
-			get {
-				return new BoxView {
-					BackgroundColor = Color.FromHex("fcff00"),
-					HeightRequest = 2f
-				};
+				return new ProfileViewBox();
 			}
 		}
 
@@ -88,7 +66,7 @@ namespace UnidosPerderemos.Views.Profile
 			get {
 				return new BoxView {
 					BackgroundColor = Color.White.MultiplyAlpha(0.6d),
-					HeightRequest = 1f
+					HeightRequest = 1d
 				};
 			}
 		}
