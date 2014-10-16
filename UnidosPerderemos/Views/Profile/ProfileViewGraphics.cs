@@ -10,6 +10,8 @@ namespace UnidosPerderemos.Views.Profile
 		{
 			SetUp();
 
+			RadialProgress.Progress = new Random().Next(0,100);
+
 			Content = new StackLayout
 			{
 				Children =
@@ -26,9 +28,7 @@ namespace UnidosPerderemos.Views.Profile
 						},
 						Children =
 						{
-//							LabelPercentage,
-//							LabelPercent,
-							DedicationProgress
+							RadialProgress
 						}
 					}
 				}
@@ -85,7 +85,7 @@ namespace UnidosPerderemos.Views.Profile
 			XAlign = TextAlignment.Center
 		};
 
-		RadialProgressBar DedicationProgress
+		RadialProgressBar RadialProgress
 		{
 			get;
 		} = new RadialProgressBar {
@@ -94,6 +94,7 @@ namespace UnidosPerderemos.Views.Profile
 			HorizontalOptions = LayoutOptions.Center,
 			VerticalOptions = LayoutOptions.Center,
 			ProgressColor = Color.Aqua,
+			Progress = 0
 		};
 
 		/// <summary>
