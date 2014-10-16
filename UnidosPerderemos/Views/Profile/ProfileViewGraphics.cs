@@ -10,18 +10,25 @@ namespace UnidosPerderemos.Views.Profile
 		{
 			SetUp();
 
-			Content = new StackLayout {
-				Children = {
+			Content = new StackLayout
+			{
+				Children =
+				{
 					LabelTitle,
-					new Grid {
-						ColumnDefinitions = {
-							new ColumnDefinition {
+					new Grid
+					{
+						ColumnDefinitions =
+						{
+							new ColumnDefinition
+							{
 								Width = new GridLength(1d, GridUnitType.Star)
 							}
 						},
-						Children = {
-							LabelPercentage,
-							LabelPercent
+						Children =
+						{
+//							LabelPercentage,
+//							LabelPercent,
+							DedicationProgress
 						}
 					}
 				}
@@ -41,7 +48,8 @@ namespace UnidosPerderemos.Views.Profile
 		/// Gets the label title.
 		/// </summary>
 		/// <value>The label title.</value>
-		CompressedLabel LabelTitle {
+		CompressedLabel LabelTitle
+		{
 			get;
 		} = new CompressedLabel {
 			Font = Font.OfSize("Roboto-Regular", 16),
@@ -53,7 +61,8 @@ namespace UnidosPerderemos.Views.Profile
 		/// Gets the label percentage.
 		/// </summary>
 		/// <value>The label percentage.</value>
-		CompressedLabel LabelPercentage {
+		CompressedLabel LabelPercentage
+		{
 			get;
 		} = new CompressedLabel {
 			Font = Font.OfSize("Roboto-Light", 35),
@@ -65,7 +74,8 @@ namespace UnidosPerderemos.Views.Profile
 		/// Gets the label percent.
 		/// </summary>
 		/// <value>The label percent.</value>
-		CompressedLabel LabelPercent {
+		CompressedLabel LabelPercent
+		{
 			get;
 		} = new CompressedLabel {
 			Font = Font.OfSize("Roboto-Light", 18),
@@ -75,15 +85,29 @@ namespace UnidosPerderemos.Views.Profile
 			XAlign = TextAlignment.Center
 		};
 
+		RadialProgressBar DedicationProgress
+		{
+			get;
+		} = new RadialProgressBar {
+			WidthRequest = 50d,
+			HeightRequest = 50d,
+			HorizontalOptions = LayoutOptions.Center,
+			VerticalOptions = LayoutOptions.Center,
+			ProgressColor = Color.Aqua,
+		};
+
 		/// <summary>
 		/// Gets or sets the title.
 		/// </summary>
 		/// <value>The title.</value>
-		public string Title {
-			get {
+		public string Title
+		{
+			get
+			{
 				return LabelTitle.Text;
 			}
-			set {
+			set
+			{
 				LabelTitle.Text = value;
 			}
 		}
@@ -92,11 +116,14 @@ namespace UnidosPerderemos.Views.Profile
 		/// Gets or sets the percentage.
 		/// </summary>
 		/// <value>The percentage.</value>
-		public int Percentage {
-			get {
+		public int Percentage
+		{
+			get
+			{
 				return int.Parse(LabelPercentage.Text);
 			}
-			set {
+			set
+			{
 				LabelPercentage.Text = value.ToString();
 
 				LabelPercent.TranslationX = 6d + (LabelPercentage.Text.Length * 10d);
