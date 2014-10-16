@@ -33,28 +33,35 @@ namespace UnidosPerderemos.iOS.Renderers.Pages
 		{
 			base.ViewWillAppear(animated);
 
-			foreach (var view in Target.Subviews)
+			if (!Initialized)
 			{
-				view.RemoveFromSuperview();
+				foreach (var view in Target.Subviews)
+				{
+					view.RemoveFromSuperview();
+				}
+
+				foreach (var item in Target.Items)
+				{
+					var button = new UIButton {
+						BackgroundColor = UIColor.White.ColorWithAlpha(0.2f)
+					};
+
+					button.SetImage(item.Image, UIControlState.Normal);
+					button.SetImage(item.Image, UIControlState.Highlighted);
+
+					Target.Add(button);
+					Buttons.Add(button);
+				}
+
+				SelectButton(0);
+
+				Initialized = true;
 			}
-			Buttons.Clear();
 
-			foreach (var item in Target.Items)
+			foreach (var button in Buttons)
 			{
-				var button = new UIButton {
-					BackgroundColor = UIColor.White.ColorWithAlpha(0.2f)
-				};
-
-				button.SetImage(item.Image, UIControlState.Normal);
-				button.SetImage(item.Image, UIControlState.Highlighted);
-
 				button.TouchUpInside += ChangeCurrentPage;
-
-				Target.Add(button);
-				Buttons.Add(button);
 			}
-
-			SelectButton(0);
 		}
 
 		/// <summary>
@@ -223,5 +230,15 @@ namespace UnidosPerderemos.iOS.Renderers.Pages
 				return TabBar;
 			}
 		}
+
+		/// <summary>
+		/// Gets or sets a value indicating whether this <see cref="UnidosPerderemos.iOS.Renderers.Pages.TabbedPageRenderer"/>
+		/// is initialized.
+		/// </summary>
+		/// <value><c>true</c> if initialized; otherwise, <c>false</c>.</value>
+		bool Initialized {
+			get;
+			set;
+		} = false;
 	}
 }
