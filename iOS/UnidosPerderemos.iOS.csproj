@@ -135,6 +135,10 @@
     <BundleResource Include="Resources\History%402x.png" />
     <BundleResource Include="Resources\Profile%402x.png" />
     <BundleResource Include="Resources\Gear%402x.png" />
+    <BundleResource Include="Resources\BackgroundProfileBox%402x.png" />
+    <BundleResource Include="Resources\ButtonUp%402x.png" />
+    <BundleResource Include="Resources\BackgroundProfile%402x.png" />
+    <BundleResource Include="Resources\EmptyLinearProgress%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -151,6 +155,8 @@
     <Compile Include="Renderers\Pages\ContentPageRenderer.cs" />
     <Compile Include="Renderers\Pages\FlowPageRenderer.cs" />
     <Compile Include="Renderers\Controls\RadialProgressBarRenderer.cs" />
+    <Compile Include="Renderers\Pages\TabbedPageRenderer.cs" />
+    <Compile Include="Renderers\Controls\RoundImageRenderer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.1.2.3.6257\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.1.2.3.6257\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets')" />

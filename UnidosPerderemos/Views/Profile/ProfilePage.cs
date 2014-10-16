@@ -2,7 +2,6 @@
 using Xamarin.Forms;
 using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Core.Pages;
-using UnidosPerderemos.Core.Controls;
 
 namespace UnidosPerderemos.Views.Profile
 {
@@ -12,19 +11,14 @@ namespace UnidosPerderemos.Views.Profile
 		{
 			SetUp();
 
-			Content = new StackLayout
-			{
-				Spacing = 10d,
-				Children =
-				{
-					new StackLayout
-					{
-						Spacing = 10d,
-						Padding = new Thickness(16d, 25d),
-						Children =
-						{
-							DedicationBar
-						}
+			Content = new ScrollView {
+				Content = new StackLayout {
+					Spacing = 8d,
+					Children = {
+						ProfileViewBox,
+						ButtonUp,
+						TransparentSeparator,
+						GridGraphics
 					}
 				}
 			};
@@ -37,7 +31,93 @@ namespace UnidosPerderemos.Views.Profile
 		{
 			Title = "Perfil";
 			Icon = ImageSource.FromFile("Profile.png") as FileImageSource;
-			BackgroundImage = "BackgroundGoal.png";
+			BackgroundImage = "BackgroundProfile.png";
+		}
+
+		/// <summary>
+		/// Gets the profile view box.
+		/// </summary>
+		/// <value>The profile view box.</value>
+		ProfileViewBox ProfileViewBox {
+			get {
+				return new ProfileViewBox();
+			}
+		}
+
+		/// <summary>
+		/// Gets the button up.
+		/// </summary>
+		/// <value>The button up.</value>
+		Image ButtonUp {
+			get {
+				return new Image {
+					Source = ImageSource.FromFile("ButtonUp.png"),
+					WidthRequest = 239d,
+					HeightRequest = 208d
+				};
+			}
+		}
+
+		/// <summary>
+		/// Gets the transparent separator.
+		/// </summary>
+		/// <value>The transparent separator.</value>
+		BoxView TransparentSeparator {
+			get {
+				return new BoxView {
+					BackgroundColor = Color.White.MultiplyAlpha(0.6d),
+					HeightRequest = 1d
+				};
+			}
+		}
+
+		/// <summary>
+		/// Gets the grid graphics.
+		/// </summary>
+		/// <value>The grid graphics.</value>
+		Grid GridGraphics {
+			get {
+				return new Grid {
+					ColumnDefinitions = {
+						new ColumnDefinition {
+							Width = new GridLength(1d, GridUnitType.Star)
+						},
+						new ColumnDefinition {
+							Width = new GridLength(1d, GridUnitType.Star)
+						}
+					},
+					Children = {
+						{ DedicationGraphics, 0, 0 },
+						{ GoalGraphics, 1, 0 }
+					}
+				};
+			}
+		}
+
+		/// <summary>
+		/// Gets the dedication graphics.
+		/// </summary>
+		/// <value>The dedication graphics.</value>
+		ProfileViewGraphics DedicationGraphics {
+			get {
+				return new ProfileViewGraphics {
+					Title = "Dedicação",
+					Percentage = 70
+				};
+			}
+		}
+
+		/// <summary>
+		/// Gets the goal graphics.
+		/// </summary>
+		/// <value>The goal graphics.</value>
+		ProfileViewGraphics GoalGraphics {
+			get {
+				return new ProfileViewGraphics {
+					Title = "Meta",
+					Percentage = 100
+				};
+			}
 		}
 
 		/// <summary>
@@ -65,14 +145,6 @@ namespace UnidosPerderemos.Views.Profile
 		public bool IsShowStatusBar()
 		{
 			return true;
-		}
-
-		public RadialProgressBar DedicationBar
-		{
-			get
-			{
-				return new RadialProgressBar();
-			}
 		}
 	}
 }

@@ -13,7 +13,6 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 	{
 		public CompressedLabelRenderer()
 		{
-			Initialized = false;
 		}
 
 		/// <Docs>Lays out subviews.</Docs>
@@ -81,12 +80,13 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 		}
 
 		/// <summary>
-		/// Gets or sets a value indicating whether this <see cref="UnidosPerderemos.iOS.CompressedLabelRenderer"/> is initialized.
+		/// Gets or sets a value indicating whether this
+		/// <see cref="UnidosPerderemos.iOS.Renderers.Controls.CompressedLabelRenderer"/> is initialized.
 		/// </summary>
 		/// <value><c>true</c> if initialized; otherwise, <c>false</c>.</value>
 		bool Initialized {
 			get;
 			set;
-		}
+		} = false;
 	}
 }
