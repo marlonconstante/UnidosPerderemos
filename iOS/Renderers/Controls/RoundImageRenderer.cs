@@ -34,29 +34,11 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 			if (!Initialized)
 			{
 				Target.Layer.CornerRadius = CornerRadius;
-				ShadowLayer.AddSublayer(Target.Layer);
-
-				SetNativeControl(BuildImageView());
+				Target.Layer.BorderWidth = 3.5f;
+				Target.Layer.BorderColor = UIColor.White.CGColor;
 
 				Initialized = true;
 			}
-		}
-
-		/// <summary>
-		/// Builds the image view.
-		/// </summary>
-		/// <returns>The image view.</returns>
-		UIImageView BuildImageView() {
-			var imageView = new UIImageView {
-				Frame = Target.Frame
-			};
-
-			imageView.Layer.CornerRadius = CornerRadius;
-			imageView.Layer.BorderWidth = 3.5f;
-			imageView.Layer.BorderColor = UIColor.White.CGColor;
-			imageView.Layer.AddSublayer(ShadowLayer);
-
-			return imageView;
 		}
 
 		/// <summary>
@@ -65,23 +47,9 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 		/// <value>The corner radius.</value>
 		float CornerRadius {
 			get {
-
 				return Math.Min(Size.Width, Size.Height) / 2f;
 			}
 		}
-
-		/// <summary>
-		/// Gets the shadow layer.
-		/// </summary>
-		/// <value>The shadow layer.</value>
-		CALayer ShadowLayer {
-			get;
-		} = new CALayer {
-			ShadowColor = UIColor.Black.CGColor,
-			ShadowOffset = new SizeF(0f, 2.5f),
-			ShadowOpacity = 0.4f,
-			ShadowRadius = 1f
-		};
 
 		/// <summary>
 		/// Gets the size.
