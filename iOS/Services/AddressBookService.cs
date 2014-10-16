@@ -12,11 +12,6 @@ namespace UnidosPerderemos.iOS.Services
 {
 	public class AddressBookService : IAddressBookService
 	{
-		public AddressBookService()
-		{
-			AddressBook = new AddressBook();
-		}
-
 		/// <summary>
 		/// Gets the phones.
 		/// </summary>
@@ -115,9 +110,8 @@ namespace UnidosPerderemos.iOS.Services
 		/// Gets the address book.
 		/// </summary>
 		/// <value>The address book.</value>
-		public AddressBook AddressBook {
+		AddressBook AddressBook {
 			get;
-			private set;
-		}
+		} = new AddressBook();
 	}
 }
