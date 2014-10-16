@@ -13,10 +13,10 @@ namespace UnidosPerderemos.Views.Profile
 
 			Content = new ScrollView {
 				Content = new StackLayout {
-					Spacing = 8d,
+					Spacing = 5d,
 					Children = {
 						ProfileViewBox,
-						ButtonUp,
+						UpButton,
 						TransparentSeparator,
 						GridGraphics
 					}
@@ -45,18 +45,12 @@ namespace UnidosPerderemos.Views.Profile
 		}
 
 		/// <summary>
-		/// Gets the button up.
+		/// Gets up button.
 		/// </summary>
-		/// <value>The button up.</value>
-		Image ButtonUp {
-			get {
-				return new Image {
-					Source = ImageSource.FromFile("ButtonUp.png"),
-					WidthRequest = 239d,
-					HeightRequest = 208d
-				};
-			}
-		}
+		/// <value>Up button.</value>
+		UpButton UpButton {
+			get;
+		} = new UpButton();
 
 		/// <summary>
 		/// Gets the transparent separator.
