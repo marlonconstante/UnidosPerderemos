@@ -143,6 +143,7 @@
     <BundleResource Include="Resources\FullStar%402x.png" />
     <BundleResource Include="Resources\Logo%402x.png" />
     <BundleResource Include="Resources\User%402x.png" />
+    <BundleResource Include="Resources\Facebook%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
