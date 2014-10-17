@@ -108,6 +108,24 @@ namespace UnidosPerderemos.Core.Controls
 		}
 
 		/// <summary>
+		/// Gets or sets the desired height override of this element.
+		/// </summary>
+		/// <value>The height this element desires to be.</value>
+		/// <remarks>HeightRequest does not immediately change the Bounds of a VisualElement, however setting the HeightRequest will
+		/// change the result of calls to GetSizeRequest, which will in turn modify the final size the element receives during
+		/// a layout cycle.</remarks>
+		public double HeightRequest {
+			get {
+				return base.HeightRequest;
+			}
+			set {
+				base.HeightRequest = value;
+
+				TextField.HeightRequest = value - BottomLineHeight;
+			}
+		}
+
+		/// <summary>
 		/// Gets or sets the length of the max.
 		/// </summary>
 		/// <value>The length of the max.</value>
