@@ -19,7 +19,7 @@ namespace UnidosPerderemos.Views.Goal
 					Spacing = 10d,
 					Padding = new Thickness(16d),
 					Children = {
-						LabelDefineGoals,
+						DefineGoalsBox,
 						LabelQuestionWeight,
 						InputWeight,
 						LabelQuestionTime,
@@ -51,18 +51,21 @@ namespace UnidosPerderemos.Views.Goal
 		}
 
 		/// <summary>
-		/// Gets the label define goals.
+		/// Gets the define goals box.
 		/// </summary>
-		/// <value>The label define goals.</value>
-		CompressedLabel LabelDefineGoals {
+		/// <value>The define goals box.</value>
+		StackLayout DefineGoalsBox {
 			get {
-				return new CompressedLabel {
-					Font = Font.OfSize("Roboto-ThinItalic", 40),
-					TextColor = Color.FromHex("fcff00"),
-					Text = "VAMOS DEFINIR\nSUAS METAS?",
-					TranslationY = 37d,
-					HeightRequest = 140d
-				}; 
+				return new StackLayout {
+					Padding = new Thickness(0d, 37d, 0d, 17d),
+					Children = {
+						new CompressedLabel {
+							Font = Font.OfSize("Roboto-ThinItalic", 40),
+							TextColor = Color.FromHex("fcff00"),
+							Text = "VAMOS DEFINIR SUAS METAS?"
+						}
+					}
+				};
 			}
 		}
 
@@ -74,7 +77,7 @@ namespace UnidosPerderemos.Views.Goal
 			get {
 				return new CompressedLabel {
 					Font = Font.OfSize("Roboto-Thin", 26),
-					Text = "Quantos quilos você\ndeseja perder?"
+					Text = "Quantos quilos você deseja perder?"
 				};
 			}
 		}

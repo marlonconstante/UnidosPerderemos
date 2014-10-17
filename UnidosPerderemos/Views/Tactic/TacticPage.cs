@@ -22,7 +22,7 @@ namespace UnidosPerderemos.Views.Tactic
 							Spacing = 10d,
 							Padding = new Thickness(16d, 25d),
 							Children = {
-								LabelQuestionTactics,
+								QuestionTacticsBox,
 								LabelPretension
 							}
 						},
@@ -61,18 +61,21 @@ namespace UnidosPerderemos.Views.Tactic
 		}
 
 		/// <summary>
-		/// Gets the label question tactics.
+		/// Gets the question tactics box.
 		/// </summary>
-		/// <value>The label question tactics.</value>
-		CompressedLabel LabelQuestionTactics {
+		/// <value>The question tactics box.</value>
+		StackLayout QuestionTacticsBox {
 			get {
-				return new CompressedLabel {
-					Font = Font.OfSize("Roboto-ThinItalic", 40),
-					TextColor = Color.FromHex("fcff00"),
-					Text = "QUAIS SERÃO\nSUAS TÁTICAS?",
-					TranslationY = 37d,
-					HeightRequest = 144d
-				}; 
+				return new StackLayout {
+					Padding = new Thickness(0d, 37d, 0d, 20d),
+					Children = {
+						new CompressedLabel {
+							Font = Font.OfSize("Roboto-ThinItalic", 40),
+							TextColor = Color.FromHex("fcff00"),
+							Text = "QUAIS SERÃO SUAS TÁTICAS?"
+						}
+					}
+				};
 			}
 		}
 
