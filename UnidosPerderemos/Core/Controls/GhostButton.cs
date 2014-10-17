@@ -3,7 +3,7 @@ using Xamarin.Forms;
 
 namespace UnidosPerderemos.Core.Controls
 {
-	public class GhostButton : Button
+	public class GhostButton : ImageButton
 	{
 		public GhostButton()
 		{
