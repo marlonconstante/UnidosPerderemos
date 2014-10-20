@@ -4,7 +4,7 @@ using UnidosPerderemos.Services;
 
 namespace UnidosPerderemos.Core.Controls
 {
-	public class UnderlineTextField : ContentView
+	public class UnderlineTextField : ContentBottomLine
 	{
 		public UnderlineTextField()
 		{
@@ -41,12 +41,6 @@ namespace UnidosPerderemos.Core.Controls
 				VerticalOptions = LayoutOptions.End
 			};
 			AddTappedAdditional();
-
-			BoxBottomLine = new BoxView {
-				TranslationY = -1d
-			};
-			BottomLineColor = Color.FromHex("fcff00");
-			BottomLineHeight = 2d;
 		}
 
 		/// <summary>
@@ -94,15 +88,6 @@ namespace UnidosPerderemos.Core.Controls
 		/// </summary>
 		/// <value>The label additional.</value>
 		public CompressedLabel LabelAdditional {
-			get;
-			private set;
-		}
-
-		/// <summary>
-		/// Gets the box bottom line.
-		/// </summary>
-		/// <value>The box bottom line.</value>
-		public BoxView BoxBottomLine {
 			get;
 			private set;
 		}
@@ -254,32 +239,6 @@ namespace UnidosPerderemos.Core.Controls
 			}
 			set {
 				LabelAdditional.TranslationY = value;
-			}
-		}
-
-		/// <summary>
-		/// Gets or sets the color of the bottom line.
-		/// </summary>
-		/// <value>The color of the bottom line.</value>
-		public Color BottomLineColor {
-			get {
-				return BoxBottomLine.BackgroundColor;
-			}
-			set {
-				BoxBottomLine.BackgroundColor = value;
-			}
-		}
-
-		/// <summary>
-		/// Gets or sets the height of the bottom line.
-		/// </summary>
-		/// <value>The height of the bottom line.</value>
-		public double BottomLineHeight {
-			get {
-				return BoxBottomLine.HeightRequest;
-			}
-			set {
-				BoxBottomLine.HeightRequest = value;
 			}
 		}
 	}
