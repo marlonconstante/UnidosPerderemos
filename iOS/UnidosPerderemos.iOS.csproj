@@ -144,6 +144,10 @@
     <BundleResource Include="Resources\Logo%402x.png" />
     <BundleResource Include="Resources\User%402x.png" />
     <BundleResource Include="Resources\Facebook%402x.png" />
+    <BundleResource Include="Resources\Calendar%402x.png" />
+    <BundleResource Include="Resources\Gender%402x.png" />
+    <BundleResource Include="Resources\Balance%402x.png" />
+    <BundleResource Include="Resources\Ruler%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -164,6 +168,7 @@
     <Compile Include="Renderers\Controls\RoundImageRenderer.cs" />
     <Compile Include="Renderers\Controls\ImageButtonRenderer.cs" />
     <Compile Include="Services\MediaService.cs" />
+    <Compile Include="Renderers\Controls\DateFieldRenderer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.1.2.3.6257\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.1.2.3.6257\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets')" />
