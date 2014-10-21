@@ -14,17 +14,14 @@ namespace UnidosPerderemos.Views.About
 
 			Content = new ScrollView {
 				Content = new StackLayout {
-					Spacing = 25d,
+					Spacing = 22d,
 					Padding = new Thickness(16d),
 					Children = {
 						AboutYouBox,
-						LabelDateOfBirth,
-						InputDateOfBirth,
-						LabelGender,
-						LabelWeight,
-						InputWeight,
-						LabelHeight,
-						InputHeight,
+						DateOfBirthBox,
+						GenderBox,
+						WeightBox,
+						HeightBox,
 						ButtonContinue
 					}
 				}
@@ -46,13 +43,77 @@ namespace UnidosPerderemos.Views.About
 		StackLayout AboutYouBox {
 			get {
 				return new StackLayout {
-					Padding = new Thickness(0d, 22d, 0d, -14d),
+					Padding = new Thickness(0d, 19d, 0d, -10d),
 					Children = {
 						new CompressedLabel {
 							Font = Font.OfSize("Roboto-ThinItalic", 40),
 							TextColor = Color.FromHex("fcff00"),
 							Text = "SOBRE VOCÊ"
 						}
+					}
+				};
+			}
+		}
+
+		/// <summary>
+		/// Gets the date of birth box.
+		/// </summary>
+		/// <value>The date of birth box.</value>
+		StackLayout DateOfBirthBox {
+			get {
+				return new StackLayout {
+					Spacing = 1d,
+					Children = {
+						LabelDateOfBirth,
+						InputDateOfBirth
+					}
+				};
+			}
+		}
+
+		/// <summary>
+		/// Gets the gender box.
+		/// </summary>
+		/// <value>The gender box.</value>
+		StackLayout GenderBox {
+			get {
+				return new StackLayout {
+					Spacing = 6d,
+					Children = {
+						LabelGender,
+						InputGender
+					}
+				};
+			}
+		}
+
+		/// <summary>
+		/// Gets the weight box.
+		/// </summary>
+		/// <value>The weight box.</value>
+		StackLayout WeightBox {
+			get {
+				return new StackLayout {
+					Spacing = 0d,
+					Children = {
+						LabelWeight,
+						InputWeight
+					}
+				};
+			}
+		}
+
+		/// <summary>
+		/// Gets the height box.
+		/// </summary>
+		/// <value>The height box.</value>
+		StackLayout HeightBox {
+			get {
+				return new StackLayout {
+					Spacing = 0d,
+					Children = {
+						LabelHeight,
+						InputHeight
 					}
 				};
 			}
@@ -80,7 +141,6 @@ namespace UnidosPerderemos.Views.About
 			get {
 				return new UnderlineDateField {
 					Font = Font.OfSize("Roboto-Light", 25),
-					Padding = new Thickness(0d, -20d, 0d, -3d),
 					HeightRequest = 35d
 				};
 			}
@@ -96,6 +156,18 @@ namespace UnidosPerderemos.Views.About
 					Image = ImageSource.FromFile("Gender.png"),
 					Font = Font.OfSize("Roboto-Thin", 26),
 					Text = "Sexo"
+				};
+			}
+		}
+
+		/// <summary>
+		/// Gets the input gender.
+		/// </summary>
+		/// <value>The input gender.</value>
+		OptionButton InputGender {
+			get {
+				return new OptionButton {
+					Items = new string[] { "Masculino", "Feminino" }
 				};
 			}
 		}
@@ -127,8 +199,7 @@ namespace UnidosPerderemos.Views.About
 					AdditionalTranslationY = 3.5d,
 					Text = "0",
 					MaxLength = 4,
-					Keyboard = Keyboard.Numeric,
-					Padding = new Thickness(0d, -23d, 0d, -7d)
+					Keyboard = Keyboard.Numeric
 				};
 			}
 		}
@@ -160,8 +231,7 @@ namespace UnidosPerderemos.Views.About
 					AdditionalTranslationY = 3.5d,
 					Text = "0",
 					MaxLength = 4,
-					Keyboard = Keyboard.Numeric,
-					Padding = new Thickness(0d, -23d, 0d, -7d)
+					Keyboard = Keyboard.Numeric
 				};
 			}
 		}
