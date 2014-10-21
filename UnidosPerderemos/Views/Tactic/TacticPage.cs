@@ -137,7 +137,7 @@ namespace UnidosPerderemos.Views.Tactic
 		/// Gets the main flow.
 		/// </summary>
 		/// <value>The main flow.</value>
-		public MainFlowPage MainFlow {
+		MainFlowPage MainFlow {
 			get {
 				return App.MainFlow;
 			}

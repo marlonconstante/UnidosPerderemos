@@ -1,8 +1,8 @@
 ﻿using System;
 using Xamarin.Forms;
-using UnidosPerderemos.Views.Main;
 using UnidosPerderemos.Core.Pages;
-using UnidosPerderemos.Views.Goal;
+using UnidosPerderemos.Views.Main;
+using UnidosPerderemos.Views.Login;
 
 namespace UnidosPerderemos
 {
@@ -14,7 +14,7 @@ namespace UnidosPerderemos
 		/// <returns>The main page.</returns>
 		public static Page GetMainPage()
 		{	
-			ActivationFlow.PushAsync(new GoalPage());
+			ActivationFlow.PushAsync(new HomePage());
 			return ActivationFlow;
 		}
 

@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using UnidosPerderemos.Core.Pages;
 using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Core.Controls;
+using UnidosPerderemos.Views.Goal;
 
 namespace UnidosPerderemos.Views.About
 {
@@ -34,6 +35,18 @@ namespace UnidosPerderemos.Views.About
 		void SetUp()
 		{
 			BackgroundImage = "BackgroundGoal.png";
+
+			ButtonContinue.Clicked += OnContinueClicked;
+		}
+
+		/// <summary>
+		/// Raises the continue clicked event.
+		/// </summary>
+		/// <param name="sender">Sender.</param>
+		/// <param name="args">Arguments.</param>
+		void OnContinueClicked(object sender, EventArgs args)
+		{
+			Navigation.PushAsync(new GoalPage());
 		}
 
 		/// <summary>

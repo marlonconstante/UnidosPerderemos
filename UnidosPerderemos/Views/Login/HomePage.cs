@@ -43,8 +43,31 @@ namespace UnidosPerderemos.Views.Login
 		void SetUp()
 		{
 			BackgroundImage = "BackgroundGoal.png";
+
+			ButtonSignUp.Clicked += OnSignUpClicked;
+			ButtonLogin.Clicked += OnLoginClicked;
 		}
 
+		/// <summary>
+		/// Raises the sign up clicked event.
+		/// </summary>
+		/// <param name="sender">Sender.</param>
+		/// <param name="args">Arguments.</param>
+		void OnSignUpClicked(object sender, EventArgs args)
+		{
+			Navigation.PushAsync(new SignUpPage());
+		}
+
+		/// <summary>
+		/// Raises the login clicked event.
+		/// </summary>
+		/// <param name="sender">Sender.</param>
+		/// <param name="args">Arguments.</param>
+		void OnLoginClicked(object sender, EventArgs args)
+		{
+			Navigation.PushAsync(new LoginPage());
+		}
+			
 		/// <summary>
 		/// Gets the logo box.
 		/// </summary>
