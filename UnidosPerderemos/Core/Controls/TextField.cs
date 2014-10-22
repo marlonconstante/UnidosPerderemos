@@ -42,7 +42,7 @@ namespace UnidosPerderemos.Core.Controls
 			{
 				Text = Text.Substring(0, MaxLength);
 			}
-			else
+			else if (AfterTextChanged != null)
 			{
 				AfterTextChanged.Invoke(sender, args);
 			}
