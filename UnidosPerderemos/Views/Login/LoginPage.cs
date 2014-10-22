@@ -4,6 +4,8 @@ using UnidosPerderemos.Core.Pages;
 using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Core.Controls;
 using UnidosPerderemos.Views.About;
+using UnidosPerderemos.Models;
+using UnidosPerderemos.Services;
 
 namespace UnidosPerderemos.Views.Login
 {
@@ -45,9 +47,30 @@ namespace UnidosPerderemos.Views.Login
 		/// </summary>
 		/// <param name="sender">Sender.</param>
 		/// <param name="args">Arguments.</param>
-		void OnContinueClicked(object sender, EventArgs args)
+		async void OnContinueClicked(object sender, EventArgs args)
 		{
-			Navigation.PushAsync(new AboutPage());
+			if (await DependencyService.Get<IUserService>().Login(User))
+			{
+				await Navigation.PushAsync(new AboutPage());
+			}
+			else
+			{
+				await DisplayAlert("Ops...", "E-mail e senha não conferem.", "Entendi");
+			}
+		}
+
+		/// <summary>
+		/// Gets the user.
+		/// </summary>
+		/// <value>The user.</value>
+		User User {
+			get {
+				return new User {
+					Email = InputEmail.Text,
+					Username = InputEmail.Text,
+					Password = InputPassword.Text
+				};
+			}
 		}
 
 		/// <summary>
