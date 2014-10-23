@@ -5,6 +5,7 @@ using UnidosPerderemos.Views.Main;
 using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Core.Pages;
 using UnidosPerderemos.Core.Controls;
+using UnidosPerderemos.Views.Login;
 
 namespace UnidosPerderemos.Views.Tactic
 {
@@ -54,10 +55,27 @@ namespace UnidosPerderemos.Views.Tactic
 		/// </summary>
 		/// <param name="sender">Sender.</param>
 		/// <param name="args">Arguments.</param>
-		void OnContinueClicked(object sender, EventArgs args)
+		async void OnContinueClicked(object sender, EventArgs args)
 		{
-			MainFlow.PushAsync(new MainPage());
-			Navigation.PushModalAsync(MainFlow);
+			await Navigation.PushModalAsync(MainFlow);
+
+			await ActivationFlow.PopToRootAsync();
+			if (!IsHomePage)
+			{
+				await ActivationFlow.PopAsync();
+				await ActivationFlow.PushAsync(new HomePage());
+			}
+		}
+
+		/// <summary>
+		/// Gets a value indicating whether this instance is home page.
+		/// </summary>
+		/// <value><c>true</c> if this instance is home page; otherwise, <c>false</c>.</value>
+		bool IsHomePage
+		{
+			get {
+				return ActivationFlow.CurrentPage is HomePage;
+			}
 		}
 
 		/// <summary>
@@ -134,6 +152,16 @@ namespace UnidosPerderemos.Views.Tactic
 		};
 
 		/// <summary>
+		/// Gets the activation flow.
+		/// </summary>
+		/// <value>The activation flow.</value>
+		FlowPage ActivationFlow {
+			get {
+				return App.ActivationFlow;
+			}
+		}
+
+		/// <summary>
 		/// Gets the main flow.
 		/// </summary>
 		/// <value>The main flow.</value>
@@ -141,7 +169,7 @@ namespace UnidosPerderemos.Views.Tactic
 			get {
 				return App.MainFlow;
 			}
-		} 
+		}
 
 		/// <summary>
 		/// Preferreds the status bar style.

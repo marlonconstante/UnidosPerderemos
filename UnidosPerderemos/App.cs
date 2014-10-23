@@ -3,9 +3,12 @@ using Xamarin.Forms;
 using UnidosPerderemos.Core.Pages;
 using UnidosPerderemos.Views.Main;
 using UnidosPerderemos.Views.Login;
+using UnidosPerderemos.Services;
+using UnidosPerderemos.Models;
+using UnidosPerderemos.Views.About;
 
 namespace UnidosPerderemos
-{
+{	
 	public class App
 	{
 		/// <summary>
@@ -14,7 +17,15 @@ namespace UnidosPerderemos
 		/// <returns>The main page.</returns>
 		public static Page GetMainPage()
 		{	
-			ActivationFlow.PushAsync(new HomePage());
+			MainFlow.PushAsync(new MainPage());
+			if (IsLoggedUser)
+			{
+				ActivationFlow.PushAsync(new AboutPage());
+			}
+			else
+			{
+				ActivationFlow.PushAsync(new HomePage());
+			}
 			return ActivationFlow;
 		}
 
@@ -33,5 +44,23 @@ namespace UnidosPerderemos
 		public static MainFlowPage MainFlow {
 			get;
 		} = new MainFlowPage();
+
+		/// <summary>
+		/// Gets a value indicating is logged user.
+		/// </summary>
+		/// <value><c>true</c> if is logged user; otherwise, <c>false</c>.</value>
+		public static bool IsLoggedUser {
+			get {
+				return CurrentUser != null;
+			}
+		}
+
+		/// <summary>
+		/// Gets the current user.
+		/// </summary>
+		/// <value>The current user.</value>
+		public static User CurrentUser {
+			get;
+		} = DependencyService.Get<IUserService>().CurrentUser;
 	}
 }
