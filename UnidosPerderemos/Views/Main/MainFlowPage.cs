@@ -1,6 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 using UnidosPerderemos.Core.Pages;
+using UnidosPerderemos.Services;
 
 namespace UnidosPerderemos.Views.Main
 {
@@ -27,7 +28,16 @@ namespace UnidosPerderemos.Views.Main
 		/// <param name="sender">Sender.</param>
 		/// <param name="args">Arguments.</param>
 		void OnConfigActivated(object sender, EventArgs args) {
-			DisplayAlert("Configurações", "Abrir tela de configurações", "Cancelar");
+			Logout();
+		}
+
+		/// <summary>
+		/// Logout this instance.
+		/// </summary>
+		void Logout()
+		{
+			DependencyService.Get<IUserService>().Logout();
+			Navigation.PopModalAsync();
 		}
 
 		/// <summary>
