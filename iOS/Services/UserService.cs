@@ -49,12 +49,20 @@ namespace UnidosPerderemos.iOS.Services
 		}
 
 		/// <summary>
+		/// Logout this instance.
+		/// </summary>
+		public void Logout()
+		{
+			ParseUser.LogOut();
+		}
+
+		/// <summary>
 		/// Gets the current user.
 		/// </summary>
 		/// <value>The current user.</value>
 		public User CurrentUser {
 			get {
-				return ParseUser.CurrentUser.ToDomain<User>();
+				return ParseUser.CurrentUser?.ToDomain<User>();
 			}
 		}
 	}

@@ -20,6 +20,11 @@ namespace UnidosPerderemos.Services
 		Task<bool> SignUp(User user);
 
 		/// <summary>
+		/// Logout this instance.
+		/// </summary>
+		void Logout();
+
+		/// <summary>
 		/// Gets the current user.
 		/// </summary>
 		/// <value>The current user.</value>
