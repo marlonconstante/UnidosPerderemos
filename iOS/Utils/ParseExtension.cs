@@ -21,6 +21,10 @@ namespace UnidosPerderemos.iOS.Utils
 				if (source.TryGetValue(key, out value))
 				{
 					var property = target.GetType().GetProperty(key.ToFirstUppercase());
+					if (property.PropertyType.IsEnum)
+					{
+						value = Enum.Parse(property.PropertyType, value.ToString());
+					}
 					property.SetValue(target, value);
 				}
 			}
@@ -38,7 +42,12 @@ namespace UnidosPerderemos.iOS.Utils
 			var target = Activator.CreateInstance<T>();
 			foreach (var property in source.GetType().GetProperties())
 			{
-				target.Add(property.Name.ToFirstLowercase(), property.GetValue(source));
+				var value = property.GetValue(source);
+				if (value is Enum)
+				{
+					value = value.ToString();
+				}
+				target.Add(property.Name.ToFirstLowercase(), value);
 			}
 			return target;
 		}

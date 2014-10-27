@@ -4,12 +4,54 @@ using System.Threading.Tasks;
 using Parse;
 using UnidosPerderemos.Models;
 using UnidosPerderemos.iOS.Utils;
+using MonoTouch.FacebookConnect;
+using UnidosPerderemos.Utils;
+using System.Security.Authentication;
 
 [assembly: Xamarin.Forms.Dependency(typeof(UnidosPerderemos.iOS.Services.UserService))]
 namespace UnidosPerderemos.iOS.Services
 {
 	public class UserService : IUserService
 	{
+		/// <summary>
+		/// Logins the with facebook.
+		/// </summary>
+		/// <param name="successfulAction">Successful action.</param>
+		/// <param name="faultAction">Fault action.</param>
+		public void LoginWithFacebook(Action successfulAction, Action faultAction)
+		{
+			FBSession.OpenActiveSession(new string[] { "public_profile", "email", "user_friends" }, true, async (session, status, error) => {
+				try
+				{
+					var token = session.AccessTokenData;
+					if (token != null)
+					{
+						var response = await FBRequest.ForMe.StartAsync();
+						var result = response.Result as FBGraphObject;
+						var userId = result["id"].ToString();
+
+						var parseUser = await ParseFacebookUtils.LogInAsync(userId, token.AccessToken, token.ExpirationDate);
+						if (parseUser.IsAuthenticated)
+						{
+							successfulAction();
+
+							parseUser["name"] = result["name"].ToString();
+							parseUser["gender"] = result["gender"].ToString().ToFirstUppercase();
+							parseUser.SaveAsync();
+						}
+						else
+						{
+							throw new InvalidCredentialException();
+						}
+					}
+				}
+				catch (Exception ex)
+				{
+					faultAction();
+				}
+			});
+		}
+
 		/// <summary>
 		/// Login the specified user.
 		/// </summary>
@@ -54,6 +96,7 @@ namespace UnidosPerderemos.iOS.Services
 		public void Logout()
 		{
 			ParseUser.LogOut();
+			FBSession.ActiveSession.CloseAndClearTokenInformation();
 		}
 
 		/// <summary>

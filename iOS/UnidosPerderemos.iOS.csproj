@@ -101,17 +101,14 @@
     <Reference Include="Xamarin.Forms.Xaml">
       <HintPath>..\packages\Xamarin.Forms.1.2.3.6257\lib\MonoTouch10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
-    <Reference Include="Xamarin.Auth.iOS">
-      <HintPath>..\Components\xamarin.social-1.1.1\lib\ios\Xamarin.Auth.iOS.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Social.iOS">
-      <HintPath>..\Components\xamarin.social-1.1.1\lib\ios\Xamarin.Social.iOS.dll</HintPath>
-    </Reference>
     <Reference Include="RadialProgress.iOS">
       <HintPath>..\Components\radialprogress-1.0.1\lib\ios\RadialProgress.iOS.dll</HintPath>
     </Reference>
     <Reference Include="Parse.iOS">
       <HintPath>..\Components\parse-1.3.1\lib\ios\Parse.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoTouch.FacebookConnect">
+      <HintPath>..\Components\facebookios-3.19.0.1\lib\ios\MonoTouch.FacebookConnect.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -195,6 +192,10 @@
     </XamarinComponentReference>
     <XamarinComponentReference Include="parse">
       <Version>1.3.1</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="facebookios">
+      <Version>3.19.0.1</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>
