@@ -45,7 +45,10 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 
 		protected override void OnElementChanged(ElementChangedEventArgs<Image> e)
 		{
-			SetNativeControl(new UIImageView(new UIImage("70percent.png")));
+			if (Source.Progress == 70)
+				SetNativeControl(new UIImageView(new UIImage("70percent.png")));
+			else
+				SetNativeControl(new UIImageView(new UIImage("100percent.png")));
 		}
 
 //		protected override void OnElementChanged(ElementChangedEventArgs<RadialProgressBar> e)

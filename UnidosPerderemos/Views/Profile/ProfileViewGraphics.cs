@@ -10,9 +10,9 @@ namespace UnidosPerderemos.Views.Profile
 		/// <summary>
 		/// Initializes a new instance of the <see cref="UnidosPerderemos.Views.Profile.ProfileViewGraphics"/> class.
 		/// </summary>
-		public ProfileViewGraphics(Color progressColor)
+		public ProfileViewGraphics(int percent)
 		{
-			SetUp(progressColor);
+			SetUp(percent);
 
 			Content = new StackLayout
 			{
@@ -42,17 +42,16 @@ namespace UnidosPerderemos.Views.Profile
 		/// <summary>
 		/// Sets up.
 		/// </summary>
-		void SetUp(Color progressColor)
+		void SetUp(int percent)
 		{
 			Title = "Percentual";
-			Percentage = 0;
+			Percentage = percent;
 
 			RadialProgress = new RadialProgressBar
 			{
 				WidthRequest = 80d,
 				HeightRequest = 80d,
-				Progress = 51,
-				ProgressColor = progressColor,
+				Progress = percent,
 				HorizontalOptions = LayoutOptions.CenterAndExpand
 			};
 

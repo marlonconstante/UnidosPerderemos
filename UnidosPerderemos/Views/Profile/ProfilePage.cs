@@ -114,10 +114,9 @@ namespace UnidosPerderemos.Views.Profile
 		{
 			get
 			{
-				return new ProfileViewGraphics(Color.Red)
+				return new ProfileViewGraphics(70)
 				{
-					Title = "Dedicação",
-					Percentage = 70
+					Title = "Dedicação"
 				};
 			}
 		}
@@ -130,10 +129,9 @@ namespace UnidosPerderemos.Views.Profile
 		{
 			get
 			{
-				return new ProfileViewGraphics(Color.Blue)
+				return new ProfileViewGraphics(100)
 				{
-					Title = "Meta",
-					Percentage = 100
+					Title = "Meta"
 				};
 			}
 		}

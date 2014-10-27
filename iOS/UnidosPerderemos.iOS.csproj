@@ -154,11 +154,13 @@
     <BundleResource Include="Resources\Balance%402x.png" />
     <BundleResource Include="Resources\Ruler%402x.png" />
     <BundleResource Include="Resources\70percent.png" />
+    <BundleResource Include="Resources\100percent.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
     <None Include="packages.config" />
+    <None Include="RELEASE-NOTES.txt" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
