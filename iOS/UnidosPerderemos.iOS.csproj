@@ -156,6 +156,7 @@
     <BundleResource Include="Resources\Gender%402x.png" />
     <BundleResource Include="Resources\Balance%402x.png" />
     <BundleResource Include="Resources\Ruler%402x.png" />
+    <BundleResource Include="Resources\70percent.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -203,5 +204,6 @@
     <Folder Include="Renderers\Controls\" />
     <Folder Include="Renderers\Pages\" />
     <Folder Include="Utils\" />
+    <Folder Include="Resources\RadialProgress\" />
   </ItemGroup>
 </Project>

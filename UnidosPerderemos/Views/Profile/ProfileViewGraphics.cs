@@ -14,7 +14,6 @@ namespace UnidosPerderemos.Views.Profile
 		{
 			SetUp(progressColor);
 
-
 			Content = new StackLayout
 			{
 				Children =
@@ -31,6 +30,8 @@ namespace UnidosPerderemos.Views.Profile
 						},
 						Children =
 						{
+							LabelPercentage,
+							LabelPercent,
 							RadialProgress
 						}
 					}
@@ -48,8 +49,8 @@ namespace UnidosPerderemos.Views.Profile
 
 			RadialProgress = new RadialProgressBar
 			{
-				WidthRequest = 50d,
-				HeightRequest = 50d,
+				WidthRequest = 80d,
+				HeightRequest = 80d,
 				Progress = 51,
 				ProgressColor = progressColor,
 				HorizontalOptions = LayoutOptions.CenterAndExpand
@@ -78,9 +79,12 @@ namespace UnidosPerderemos.Views.Profile
 		{
 			get;
 		} = new CompressedLabel {
-			Font = Font.OfSize("Roboto-Light", 35),
+			Font = Font.OfSize("Roboto-Light", 32),
 			TextColor = Color.FromHex("fcfbfb"),
-			XAlign = TextAlignment.Center
+			XAlign = TextAlignment.Center,
+			YAlign = TextAlignment.Center,
+			HeightRequest = 80d,
+			TranslationX = -5d
 		};
 
 		/// <summary>
@@ -94,8 +98,11 @@ namespace UnidosPerderemos.Views.Profile
 			Font = Font.OfSize("Roboto-Light", 18),
 			TextColor = Color.FromHex("fcfbfb"),
 			Text = "%",
-			TranslationY = 15d,
-			XAlign = TextAlignment.Center
+			XAlign = TextAlignment.Center,
+			YAlign = TextAlignment.Center,
+			TranslationY = 5d,
+			TranslationX = -15d,
+			HeightRequest = 80d
 		};
 
 		RadialProgressBar RadialProgress

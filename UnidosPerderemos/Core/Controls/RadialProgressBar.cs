@@ -3,7 +3,7 @@ using Xamarin.Forms;
 
 namespace UnidosPerderemos.Core.Controls
 {
-	public class RadialProgressBar : View
+	public class RadialProgressBar : Image
 	{
 		/// <summary>
 		/// The progress property.
