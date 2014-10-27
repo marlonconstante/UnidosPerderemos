@@ -57,6 +57,20 @@
     <Compile Include="Core\Controls\RoundImage.cs" />
     <Compile Include="Views\Profile\UpButton.cs" />
     <Compile Include="Core\Controls\ImageButton.cs" />
+    <Compile Include="Services\IMediaService.cs" />
+    <Compile Include="Views\Login\HomePage.cs" />
+    <Compile Include="Views\Login\SignUpPage.cs" />
+    <Compile Include="Views\Login\FacebookButton.cs" />
+    <Compile Include="Views\Login\LoginPage.cs" />
+    <Compile Include="Views\About\AboutPage.cs" />
+    <Compile Include="Core\Controls\IconLabel.cs" />
+    <Compile Include="Core\Controls\DateField.cs" />
+    <Compile Include="Core\Controls\UnderlineDateField.cs" />
+    <Compile Include="Core\Controls\ContentBottomLine.cs" />
+    <Compile Include="Core\Controls\OptionButton.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Utils\StringExtension.cs" />
+    <Compile Include="Services\IUserService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.1.2.3.6257\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.1.2.3.6257\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets')" />
@@ -73,6 +87,9 @@
     <Folder Include="Views\Profile\" />
     <Folder Include="Views\History\" />
     <Folder Include="Views\Main\" />
+    <Folder Include="Views\Login\" />
+    <Folder Include="Views\About\" />
+    <Folder Include="Utils\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

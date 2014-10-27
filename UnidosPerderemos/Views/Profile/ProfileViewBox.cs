@@ -1,6 +1,8 @@
 ﻿using System;
 using Xamarin.Forms;
 using UnidosPerderemos.Core.Controls;
+using UnidosPerderemos.Services;
+using System.IO;
 
 namespace UnidosPerderemos.Views.Profile
 {
@@ -34,6 +36,33 @@ namespace UnidosPerderemos.Views.Profile
 		/// </summary>
 		void SetUp()
 		{
+			AddTappedPhoto();
+		}
+
+		/// <summary>
+		/// Adds the tapped photo.
+		/// </summary>
+		void AddTappedPhoto()
+		{
+			var gestureRecognizer = new TapGestureRecognizer();
+			gestureRecognizer.Tapped += OnTappedPhoto;
+			Photo.GestureRecognizers.Add(gestureRecognizer);
+		}
+
+		/// <summary>
+		/// Raises the tapped photo event.
+		/// </summary>
+		/// <param name="sender">Sender.</param>
+		/// <param name="args">Arguments.</param>
+		async void OnTappedPhoto(object sender, EventArgs args)
+		{
+			var stream = await DependencyService.Get<IMediaService>().GetPhoto();
+			if (stream != Stream.Null)
+			{
+				Photo.Source = ImageSource.FromStream(() => {
+					return stream;
+				});
+			}
 		}
 
 		/// <summary>
@@ -92,6 +121,19 @@ namespace UnidosPerderemos.Views.Profile
 		}
 
 		/// <summary>
+		/// Gets the photo.
+		/// </summary>
+		/// <value>The photo.</value>
+		RoundImage Photo {
+			get;
+		} = new RoundImage {
+			Source = ImageSource.FromFile("BackgroundGoal.png"),
+			Aspect = Aspect.AspectFill,
+			WidthRequest = 100d,
+			HeightRequest = 100d
+		};
+
+		/// <summary>
 		/// Gets the photo box.
 		/// </summary>
 		/// <value>The photo box.</value>
@@ -102,13 +144,7 @@ namespace UnidosPerderemos.Views.Profile
 					HorizontalOptions = LayoutOptions.Center,
 					VerticalOptions = LayoutOptions.Center,
 					Children = {
-						new RoundImage {
-							Source = ImageSource.FromFile("BackgroundGoal.png"),
-							Aspect = Aspect.AspectFill,
-							BackgroundColor = Color.White,
-							WidthRequest = 100d,
-							HeightRequest = 100d
-						}
+						Photo
 					}
 				};
 			}

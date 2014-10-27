@@ -6,6 +6,7 @@ using MonoTouch.UIKit;
 using MonoTouch.CoreAnimation;
 using System.Drawing;
 using UnidosPerderemos.Core.Controls;
+using MonoTouch.Foundation;
 
 [assembly: ExportRenderer(typeof(TextField), typeof(UnidosPerderemos.iOS.Renderers.Controls.TextFieldRenderer))]
 namespace UnidosPerderemos.iOS.Renderers.Controls
@@ -37,6 +38,7 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 				Target.BackgroundColor = UIColor.Clear;
 				Target.BorderStyle = UITextBorderStyle.None;
 				Target.Font = Source.Font.ToUIFont();
+				Target.SetValueForKeyPath(Source.TextColor.ToUIColor(), new NSString("_placeholderLabel.textColor"));
 
 				Initialized = true;
 			}

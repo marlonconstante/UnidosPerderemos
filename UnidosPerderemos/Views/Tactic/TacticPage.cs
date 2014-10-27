@@ -5,6 +5,7 @@ using UnidosPerderemos.Views.Main;
 using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Core.Pages;
 using UnidosPerderemos.Core.Controls;
+using UnidosPerderemos.Views.Login;
 
 namespace UnidosPerderemos.Views.Tactic
 {
@@ -22,7 +23,7 @@ namespace UnidosPerderemos.Views.Tactic
 							Spacing = 10d,
 							Padding = new Thickness(16d, 25d),
 							Children = {
-								LabelQuestionTactics,
+								QuestionTacticsBox,
 								LabelPretension
 							}
 						},
@@ -54,25 +55,45 @@ namespace UnidosPerderemos.Views.Tactic
 		/// </summary>
 		/// <param name="sender">Sender.</param>
 		/// <param name="args">Arguments.</param>
-		void OnContinueClicked(object sender, EventArgs args)
+		async void OnContinueClicked(object sender, EventArgs args)
 		{
-			MainFlow.PushAsync(new MainPage());
-			Navigation.PushModalAsync(MainFlow);
+			await Navigation.PushModalAsync(MainFlow);
+
+			await ActivationFlow.PopToRootAsync();
+			if (!IsHomePage)
+			{
+				await ActivationFlow.PopAsync();
+				await ActivationFlow.PushAsync(new HomePage());
+			}
 		}
 
 		/// <summary>
-		/// Gets the label question tactics.
+		/// Gets a value indicating whether this instance is home page.
 		/// </summary>
-		/// <value>The label question tactics.</value>
-		CompressedLabel LabelQuestionTactics {
+		/// <value><c>true</c> if this instance is home page; otherwise, <c>false</c>.</value>
+		bool IsHomePage
+		{
 			get {
-				return new CompressedLabel {
-					Font = Font.OfSize("Roboto-ThinItalic", 40),
-					TextColor = Color.FromHex("fcff00"),
-					Text = "QUAIS SERÃO\nSUAS TÁTICAS?",
-					TranslationY = 37d,
-					HeightRequest = 144d
-				}; 
+				return ActivationFlow.CurrentPage is HomePage;
+			}
+		}
+
+		/// <summary>
+		/// Gets the question tactics box.
+		/// </summary>
+		/// <value>The question tactics box.</value>
+		StackLayout QuestionTacticsBox {
+			get {
+				return new StackLayout {
+					Padding = new Thickness(0d, 37d, 0d, 20d),
+					Children = {
+						new CompressedLabel {
+							Font = Font.OfSize("Roboto-ThinItalic", 40),
+							TextColor = Color.FromHex("fcff00"),
+							Text = "QUAIS SERÃO SUAS TÁTICAS?"
+						}
+					}
+				};
 			}
 		}
 
@@ -131,14 +152,24 @@ namespace UnidosPerderemos.Views.Tactic
 		};
 
 		/// <summary>
+		/// Gets the activation flow.
+		/// </summary>
+		/// <value>The activation flow.</value>
+		FlowPage ActivationFlow {
+			get {
+				return App.ActivationFlow;
+			}
+		}
+
+		/// <summary>
 		/// Gets the main flow.
 		/// </summary>
 		/// <value>The main flow.</value>
-		public MainFlowPage MainFlow {
+		MainFlowPage MainFlow {
 			get {
 				return App.MainFlow;
 			}
-		} 
+		}
 
 		/// <summary>
 		/// Preferreds the status bar style.

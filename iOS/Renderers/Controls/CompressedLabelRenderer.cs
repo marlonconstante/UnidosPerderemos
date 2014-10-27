@@ -45,7 +45,7 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 		void UpdateLineHeight()
 		{
 			var lineHeight = (float) Source.Font.FontSize;
-			var spacing = lineHeight * 0.15f;
+			var spacing = lineHeight * 0.2f;
 
 			var style = new NSMutableParagraphStyle();
 			style.MinimumLineHeight = lineHeight + spacing;

@@ -6,6 +6,7 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 
 using Xamarin.Forms;
+using Parse;
 
 namespace UnidosPerderemos.iOS
 {
@@ -23,6 +24,8 @@ namespace UnidosPerderemos.iOS
 		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 		{
 			Forms.Init();
+
+			ParseClient.Initialize("N13dhq1tjbvEsofWXmznVl3UwduSAz8DqxbVYAXo", "3rHleZk64cDu9qssw8PGo738aocb9rYUStNFft7a");
 
 			window = new UIWindow(UIScreen.MainScreen.Bounds);
 			

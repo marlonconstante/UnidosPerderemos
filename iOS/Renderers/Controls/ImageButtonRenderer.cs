@@ -44,7 +44,11 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 		/// <value>The original image.</value>
 		UIImage OriginalImage {
 			get {
-				return Target.CurrentImage.ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal);
+				if (Target.CurrentImage != null)
+				{
+					return Target.CurrentImage.ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal);
+				}
+				return null;
 			}
 		}
 
