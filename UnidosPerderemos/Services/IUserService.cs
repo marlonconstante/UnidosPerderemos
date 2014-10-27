@@ -7,6 +7,13 @@ namespace UnidosPerderemos.Services
 	public interface IUserService
 	{
 		/// <summary>
+		/// Logins the with facebook.
+		/// </summary>
+		/// <param name="successfulAction">Successful action.</param>
+		/// <param name="faultAction">Fault action.</param>
+		void LoginWithFacebook(Action successfulAction, Action faultAction);
+
+		/// <summary>
 		/// Login the specified user.
 		/// </summary>
 		/// <param name="user">User.</param>
