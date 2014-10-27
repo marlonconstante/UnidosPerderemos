@@ -4,6 +4,7 @@ using Xamarin.Forms.Platform.iOS;
 using RadialProgress;
 using System.Drawing;
 using UnidosPerderemos.Core.Controls;
+using System.ComponentModel;
 
 [assembly: ExportRenderer(typeof(RadialProgressBar), typeof(UnidosPerderemos.iOS.Renderers.Controls.RadialProgressBarRenderer))]
 namespace UnidosPerderemos.iOS.Renderers.Controls
@@ -18,19 +19,25 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 		{
 			base.OnElementChanged(e);
 
-			var radialProgress = new RadialProgressView(RadialProgressViewStyle.Small)
+			var radialProgress = new RadialProgressView(RadialProgressViewStyle.Big)
 			{
 				MinValue = 0,
 				MaxValue = 100,
-				Center = new PointF(NativeView.Center.X, NativeView.Center.Y - 100),
+//				Center = new PointF(NativeView.Center.X, NativeView.Center.Y - 100),
 				Value = Element.Progress,
-				ProgressColor = Element.ProgressColor.ToUIColor()
+				ProgressColor = Element.ProgressColor.ToUIColor(),
+				BackgroundColor = Color.Blue.ToUIColor(),
+//				AutoresizingMask = MonoTouch.UIKit.UIViewAutoresizing.All,
+				AutosizesSubviews = true,
+				ClipsToBounds = true,
+				ContentMode = MonoTouch.UIKit.UIViewContentMode.ScaleAspectFit
 			};
+
 
 			SetNativeControl(radialProgress);
 		}
 
-		protected override void OnElementPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (Control == null || Element == null)
 				return;

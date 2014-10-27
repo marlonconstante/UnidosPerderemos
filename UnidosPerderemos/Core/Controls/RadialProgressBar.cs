@@ -8,12 +8,12 @@ namespace UnidosPerderemos.Core.Controls
 		/// <summary>
 		/// The progress property.
 		/// </summary>
-		public static readonly BindableProperty ProgressProperty = BindableProperty.Create<RadialProgressBar, float>(p => p.Progress, 0);
+		public static readonly BindableProperty ProgressProperty = BindableProperty.Create<RadialProgressBar, float>(p => p.Progress, 0, BindingMode.TwoWay);
 
 		/// <summary>
 		/// The progress color property.
 		/// </summary>
-		public static readonly BindableProperty ProgressColorProperty = BindableProperty.Create<RadialProgressBar, Color>(p => p.ProgressColor, Color.Red);
+		public static readonly BindableProperty ProgressColorProperty = BindableProperty.Create<RadialProgressBar, Color>(p => p.ProgressColor, Color.Red, BindingMode.TwoWay);
 
 		/// <summary>
 		/// Gets or sets the current progress

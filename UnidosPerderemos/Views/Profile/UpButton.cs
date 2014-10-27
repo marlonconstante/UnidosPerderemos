@@ -45,6 +45,7 @@ namespace UnidosPerderemos.Views.Profile
 		/// <param name="args">Arguments.</param>
 		void OnButtonClicked(object sender, EventArgs args)
 		{
+
 			IsStar = !IsStar;
 
 			CurrentPage.DisplayAlert("UP!", "Como foi seu dia?", "Cancelar");

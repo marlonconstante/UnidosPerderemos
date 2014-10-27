@@ -1,16 +1,19 @@
 ﻿using System;
 using Xamarin.Forms;
 using UnidosPerderemos.Core.Controls;
+using System.Diagnostics;
 
 namespace UnidosPerderemos.Views.Profile
 {
 	public class ProfileViewGraphics : ContentView
 	{
-		public ProfileViewGraphics()
+		/// <summary>
+		/// Initializes a new instance of the <see cref="UnidosPerderemos.Views.Profile.ProfileViewGraphics"/> class.
+		/// </summary>
+		public ProfileViewGraphics(Color progressColor)
 		{
-			SetUp();
+			SetUp(progressColor);
 
-			RadialProgress.Progress = new Random().Next(0,100);
 
 			Content = new StackLayout
 			{
@@ -38,10 +41,20 @@ namespace UnidosPerderemos.Views.Profile
 		/// <summary>
 		/// Sets up.
 		/// </summary>
-		void SetUp()
+		void SetUp(Color progressColor)
 		{
 			Title = "Percentual";
 			Percentage = 0;
+
+			RadialProgress = new RadialProgressBar
+			{
+				WidthRequest = 50d,
+				HeightRequest = 50d,
+				Progress = 51,
+				ProgressColor = progressColor,
+				HorizontalOptions = LayoutOptions.CenterAndExpand
+			};
+
 		}
 
 		/// <summary>
@@ -88,14 +101,8 @@ namespace UnidosPerderemos.Views.Profile
 		RadialProgressBar RadialProgress
 		{
 			get;
-		} = new RadialProgressBar {
-			WidthRequest = 50d,
-			HeightRequest = 50d,
-			HorizontalOptions = LayoutOptions.Center,
-			VerticalOptions = LayoutOptions.Center,
-			ProgressColor = Color.Aqua,
-			Progress = 0
-		};
+			set;
+		}
 
 		/// <summary>
 		/// Gets or sets the title.

@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Core.Pages;
+using System.Diagnostics;
 
 namespace UnidosPerderemos.Views.Profile
 {
@@ -11,10 +12,13 @@ namespace UnidosPerderemos.Views.Profile
 		{
 			SetUp();
 
-			Content = new ScrollView {
-				Content = new StackLayout {
+			Content = new ScrollView
+			{
+				Content = new StackLayout
+				{
 					Spacing = 5d,
-					Children = {
+					Children =
+					{
 						ProfileViewBox,
 						UpButton,
 						TransparentSeparator,
@@ -38,8 +42,10 @@ namespace UnidosPerderemos.Views.Profile
 		/// Gets the profile view box.
 		/// </summary>
 		/// <value>The profile view box.</value>
-		ProfileViewBox ProfileViewBox {
-			get {
+		ProfileViewBox ProfileViewBox
+		{
+			get
+			{
 				return new ProfileViewBox();
 			}
 		}
@@ -48,17 +54,22 @@ namespace UnidosPerderemos.Views.Profile
 		/// Gets up button.
 		/// </summary>
 		/// <value>Up button.</value>
-		UpButton UpButton {
+		UpButton UpButton
+		{
 			get;
+			set;
 		} = new UpButton();
 
 		/// <summary>
 		/// Gets the transparent separator.
 		/// </summary>
 		/// <value>The transparent separator.</value>
-		BoxView TransparentSeparator {
-			get {
-				return new BoxView {
+		BoxView TransparentSeparator
+		{
+			get
+			{
+				return new BoxView
+				{
 					BackgroundColor = Color.White.MultiplyAlpha(0.6d),
 					HeightRequest = 1d
 				};
@@ -69,18 +80,25 @@ namespace UnidosPerderemos.Views.Profile
 		/// Gets the grid graphics.
 		/// </summary>
 		/// <value>The grid graphics.</value>
-		Grid GridGraphics {
-			get {
-				return new Grid {
-					ColumnDefinitions = {
-						new ColumnDefinition {
+		Grid GridGraphics
+		{
+			get
+			{
+				return new Grid
+				{
+					ColumnDefinitions =
+					{
+						new ColumnDefinition
+						{
 							Width = new GridLength(1d, GridUnitType.Star)
 						},
-						new ColumnDefinition {
+						new ColumnDefinition
+						{
 							Width = new GridLength(1d, GridUnitType.Star)
 						}
 					},
-					Children = {
+					Children =
+					{
 						{ DedicationGraphics, 0, 0 },
 						{ GoalGraphics, 1, 0 }
 					}
@@ -92,9 +110,12 @@ namespace UnidosPerderemos.Views.Profile
 		/// Gets the dedication graphics.
 		/// </summary>
 		/// <value>The dedication graphics.</value>
-		ProfileViewGraphics DedicationGraphics {
-			get {
-				return new ProfileViewGraphics {
+		ProfileViewGraphics DedicationGraphics
+		{
+			get
+			{
+				return new ProfileViewGraphics(Color.Red)
+				{
 					Title = "Dedicação",
 					Percentage = 70
 				};
@@ -105,9 +126,12 @@ namespace UnidosPerderemos.Views.Profile
 		/// Gets the goal graphics.
 		/// </summary>
 		/// <value>The goal graphics.</value>
-		ProfileViewGraphics GoalGraphics {
-			get {
-				return new ProfileViewGraphics {
+		ProfileViewGraphics GoalGraphics
+		{
+			get
+			{
+				return new ProfileViewGraphics(Color.Blue)
+				{
 					Title = "Meta",
 					Percentage = 100
 				};
