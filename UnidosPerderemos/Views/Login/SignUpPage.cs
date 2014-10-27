@@ -39,8 +39,22 @@ namespace UnidosPerderemos.Views.Login
 		{
 			BackgroundImage = "BackgroundGoal.png";
 
-			FacebookButton.Clicked += OnContinueClicked;
+			FacebookButton.Clicked += OnFacebookClicked;
 			ButtonContinue.Clicked += OnContinueClicked;
+		}
+
+		/// <summary>
+		/// Raises the facebook clicked event.
+		/// </summary>
+		/// <param name="sender">Sender.</param>
+		/// <param name="args">Arguments.</param>
+		void OnFacebookClicked(object sender, EventArgs args)
+		{
+			DependencyService.Get<IUserService>().LoginWithFacebook(() => {
+				Navigation.PushAsync(new AboutPage());
+			}, () => {
+				DisplayAlert("Ops...", "Ocorreu um erro durante o processo de autenticação com o Facebook.", "Entendi");
+			});
 		}
 
 		/// <summary>
