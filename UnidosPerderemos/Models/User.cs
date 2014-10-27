@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 
 namespace UnidosPerderemos.Models
 {
@@ -13,6 +14,15 @@ namespace UnidosPerderemos.Models
 		/// </summary>
 		/// <value>The name.</value>
 		public string Name {
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// Gets or sets the gender.
+		/// </summary>
+		/// <value>The gender.</value>
+		public Gender Gender {
 			get;
 			set;
 		}
@@ -40,6 +50,15 @@ namespace UnidosPerderemos.Models
 		/// </summary>
 		/// <value>The password.</value>
 		public string Password {
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// Gets or sets the auth data.
+		/// </summary>
+		/// <value>The auth data.</value>
+		public IDictionary AuthData {
 			get;
 			set;
 		}
