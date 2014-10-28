@@ -53,14 +53,5 @@ namespace UnidosPerderemos.Models
 			get;
 			set;
 		}
-
-		/// <summary>
-		/// Gets or sets the auth data.
-		/// </summary>
-		/// <value>The auth data.</value>
-		public IDictionary AuthData {
-			get;
-			set;
-		}
 	}
 }
