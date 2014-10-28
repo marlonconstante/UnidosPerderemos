@@ -21,11 +21,14 @@ namespace UnidosPerderemos.iOS.Utils
 				if (source.TryGetValue(key, out value))
 				{
 					var property = target.GetType().GetProperty(key.ToFirstUppercase());
-					if (property.PropertyType.IsEnum)
+					if (property != null)
 					{
-						value = Enum.Parse(property.PropertyType, value.ToString());
+						if (property.PropertyType.IsEnum)
+						{
+							value = Enum.Parse(property.PropertyType, value.ToString());
+						}
+						property.SetValue(target, value);
 					}
-					property.SetValue(target, value);
 				}
 			}
 			return target;
@@ -39,7 +42,15 @@ namespace UnidosPerderemos.iOS.Utils
 		/// <typeparam name="T">The 1st type parameter.</typeparam>
 		public static T ToParseObject<T>(this object source) where T : ParseObject
 		{
-			var target = Activator.CreateInstance<T>();
+			T target;
+			if (typeof(T) == typeof(ParseObject))
+			{
+				target = (T) Activator.CreateInstance(typeof(T), source.GetType().Name);
+			}
+			else
+			{
+				target = Activator.CreateInstance<T>();
+			}
 			foreach (var property in source.GetType().GetProperties())
 			{
 				var value = property.GetValue(source);
