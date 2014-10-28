@@ -60,7 +60,9 @@ namespace UnidosPerderemos
 		/// </summary>
 		/// <value>The current user.</value>
 		public static User CurrentUser {
-			get;
-		} = DependencyService.Get<IUserService>().CurrentUser;
+			get {
+				return DependencyService.Get<IUserService>().CurrentUser;
+			}
+		}
 	}
 }
