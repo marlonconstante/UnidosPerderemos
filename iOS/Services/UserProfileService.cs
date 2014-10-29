@@ -36,6 +36,8 @@ namespace UnidosPerderemos.iOS.Services
 		{
 			try
 			{
+				userProfile.UserName = ParseUser.CurrentUser.Get<string>("name");
+
 				var parseObject = userProfile.ToParseObject<ParseObject>();
 				await parseObject.SaveAsync();
 

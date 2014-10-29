@@ -5,6 +5,8 @@ using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Core.Pages;
 using UnidosPerderemos.Core.Controls;
 using UnidosPerderemos.Views.Tactic;
+using UnidosPerderemos.Models;
+using UnidosPerderemos.Services;
 
 namespace UnidosPerderemos.Views.Goal
 {
@@ -45,9 +47,12 @@ namespace UnidosPerderemos.Views.Goal
 		/// </summary>
 		/// <param name="sender">Sender.</param>
 		/// <param name="args">Arguments.</param>
-		void OnContinueClicked(object sender, EventArgs args)
+		async void OnContinueClicked(object sender, EventArgs args)
 		{
-			Navigation.PushAsync(new TacticPage());
+			UserProfile.GoalWeight = double.Parse(InputWeight.Text);
+			UserProfile.GoalTime = double.Parse(InputTime.Text);
+
+			await Navigation.PushAsync(new TacticPage());
 		}
 
 		/// <summary>
@@ -87,19 +92,17 @@ namespace UnidosPerderemos.Views.Goal
 		/// </summary>
 		/// <value>The input weight.</value>
 		UnderlineTextField InputWeight {
-			get {
-				return new UnderlineTextField {
-					Font = Font.OfSize("Roboto-Regular", 46),
-					AdditionalFont = Font.OfSize("Roboto-Light", 28),
-					AdditionalText = "Quilos",
-					AdditionalTranslationY = 1.5d,
-					Text = "0",
-					MaxLength = 4,
-					Keyboard = Keyboard.Numeric,
-					Padding = new Thickness(0d, 1d, 0d, 20d)
-				};
-			}
-		}
+			get;
+		} = new UnderlineTextField {
+			Font = Font.OfSize("Roboto-Regular", 46),
+			AdditionalFont = Font.OfSize("Roboto-Light", 28),
+			AdditionalText = "Quilos",
+			AdditionalTranslationY = 1.5d,
+			Text = "0",
+			MaxLength = 4,
+			Keyboard = Keyboard.Numeric,
+			Padding = new Thickness(0d, 1d, 0d, 20d)
+		};
 
 		/// <summary>
 		/// Gets the label question time.
@@ -119,19 +122,17 @@ namespace UnidosPerderemos.Views.Goal
 		/// </summary>
 		/// <value>The input time.</value>
 		UnderlineTextField InputTime {
-			get {
-				return new UnderlineTextField {
-					Font = Font.OfSize("Roboto-Regular", 46),
-					AdditionalFont = Font.OfSize("Roboto-Light", 28),
-					AdditionalText = "Dias",
-					AdditionalTranslationY = 1.5d,
-					Text = "0",
-					MaxLength = 4,
-					Keyboard = Keyboard.Numeric,
-					Padding = new Thickness(0d, 1d, 0d, 34d)
-				};
-			}
-		}
+			get;
+		} = new UnderlineTextField {
+			Font = Font.OfSize("Roboto-Regular", 46),
+			AdditionalFont = Font.OfSize("Roboto-Light", 28),
+			AdditionalText = "Dias",
+			AdditionalTranslationY = 1.5d,
+			Text = "0",
+			MaxLength = 4,
+			Keyboard = Keyboard.Numeric,
+			Padding = new Thickness(0d, 1d, 0d, 34d)
+		};
 
 		/// <summary>
 		/// Gets the button continue.
@@ -143,6 +144,16 @@ namespace UnidosPerderemos.Views.Goal
 			Text = "CONTINUAR",
 			HeightRequest = 67d
 		};
+
+		/// <summary>
+		/// Gets the user profile.
+		/// </summary>
+		/// <value>The user profile.</value>
+		UserProfile UserProfile {
+			get {
+				return App.CurrentUserProfile;
+			}
+		}
 
 		/// <summary>
 		/// Preferreds the status bar style.

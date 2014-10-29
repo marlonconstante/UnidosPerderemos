@@ -18,6 +18,15 @@ namespace UnidosPerderemos.Models
 		}
 
 		/// <summary>
+		/// Gets or sets the name of the user.
+		/// </summary>
+		/// <value>The name of the user.</value>
+		public string UserName {
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// Gets or sets the date of birth.
 		/// </summary>
 		/// <value>The date of birth.</value>
@@ -49,6 +58,42 @@ namespace UnidosPerderemos.Models
 		/// </summary>
 		/// <value>The height.</value>
 		public double Height {
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// Gets or sets the goal weight.
+		/// </summary>
+		/// <value>The goal weight.</value>
+		public double GoalWeight {
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// Gets or sets the goal time.
+		/// </summary>
+		/// <value>The goal time.</value>
+		public double GoalTime {
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// Gets or sets a value indicating whether this instance is tactic exercise.
+		/// </summary>
+		/// <value><c>true</c> if this instance is tactic exercise; otherwise, <c>false</c>.</value>
+		public bool IsTacticExercise {
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// Gets or sets a value indicating whether this instance is tactic feed.
+		/// </summary>
+		/// <value><c>true</c> if this instance is tactic feed; otherwise, <c>false</c>.</value>
+		public bool IsTacticFeed {
 			get;
 			set;
 		}

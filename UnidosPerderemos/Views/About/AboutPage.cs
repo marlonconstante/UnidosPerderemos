@@ -4,7 +4,6 @@ using UnidosPerderemos.Core.Pages;
 using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Core.Controls;
 using UnidosPerderemos.Views.Goal;
-using UnidosPerderemos.Services;
 using UnidosPerderemos.Models;
 using System.Collections.Generic;
 
@@ -54,17 +53,10 @@ namespace UnidosPerderemos.Views.About
 		{
 			UserProfile.DateOfBirth = InputDateOfBirth.Date;
 			UserProfile.Gender = (Gender) InputGender.SelectedItem;
-			UserProfile.Weight = float.Parse(InputWeight.Text);
-			UserProfile.Height = float.Parse(InputHeight.Text);
+			UserProfile.Weight = double.Parse(InputWeight.Text);
+			UserProfile.Height = double.Parse(InputHeight.Text);
 
-			if (await DependencyService.Get<IUserProfileService>().Save(UserProfile))
-			{
-				await Navigation.PushAsync(new GoalPage());
-			}
-			else
-			{
-				DisplayAlert("Ops...", "Ocorreu uma falha na conexão com o servidor.", "Entendi");
-			}
+			await Navigation.PushAsync(new GoalPage());
 		}
 
 		/// <summary>
@@ -272,8 +264,7 @@ namespace UnidosPerderemos.Views.About
 		/// Gets the user profile.
 		/// </summary>
 		/// <value>The user profile.</value>
-		UserProfile UserProfile
-		{
+		UserProfile UserProfile {
 			get {
 				return App.CurrentUserProfile;
 			}
@@ -283,8 +274,7 @@ namespace UnidosPerderemos.Views.About
 		/// Gets the gender items.
 		/// </summary>
 		/// <value>The gender items.</value>
-		IDictionary<string, object> GenderItems
-		{
+		IDictionary<string, object> GenderItems {
 			get {
 				var genderItems = new Dictionary<string, object>();
 				genderItems.Add("Masculino", Gender.Male);
