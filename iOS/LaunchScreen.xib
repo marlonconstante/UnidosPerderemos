@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="TisaSansPro-Italic.ttf">
+            <string>TisaSansPro-Italic</string>
+        </mutableArray>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="1">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="BackgroundSplashScreen.png" translatesAutoresizingMaskIntoConstraints="NO" id="i3E-Cb-ptG">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="569"/>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jIm-5e-Dc5">
+                    <rect key="frame" x="8" y="172" width="304" height="225"/>
+                    <subviews>
+                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="UPLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="T5B-0B-Z5r">
+                            <rect key="frame" x="100" y="10" width="105" height="145"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unidos Perderemos" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dfg-YG-m9T">
+                            <rect key="frame" x="8" y="168" width="288" height="49"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="49" id="e4B-pH-MZH"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="TisaSansPro-Italic" family="Tisa Sans Pro" pointSize="33"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="Dfg-YG-m9T" firstAttribute="leading" secondItem="jIm-5e-Dc5" secondAttribute="leadingMargin" id="8lv-Ir-s9T"/>
+                        <constraint firstItem="T5B-0B-Z5r" firstAttribute="top" secondItem="jIm-5e-Dc5" secondAttribute="top" constant="10" id="AAc-sd-N18"/>
+                        <constraint firstAttribute="trailing" secondItem="T5B-0B-Z5r" secondAttribute="trailing" constant="99" id="FGJ-Da-0sU"/>
+                        <constraint firstItem="T5B-0B-Z5r" firstAttribute="centerX" secondItem="Dfg-YG-m9T" secondAttribute="centerX" id="LW7-5S-s4u"/>
+                        <constraint firstItem="Dfg-YG-m9T" firstAttribute="bottom" secondItem="jIm-5e-Dc5" secondAttribute="bottomMargin" id="WEX-So-QBr"/>
+                        <constraint firstItem="Dfg-YG-m9T" firstAttribute="top" secondItem="T5B-0B-Z5r" secondAttribute="bottom" constant="13" id="Zgl-td-SwB"/>
+                        <constraint firstItem="Dfg-YG-m9T" firstAttribute="trailing" secondItem="jIm-5e-Dc5" secondAttribute="trailingMargin" id="myZ-Mm-3oc"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="i3E-Cb-ptG" firstAttribute="top" secondItem="1" secondAttribute="top" id="0Dj-u1-ZHn"/>
+                <constraint firstItem="jIm-5e-Dc5" firstAttribute="top" secondItem="1" secondAttribute="top" constant="172" id="Eqd-AY-Dju"/>
+                <constraint firstItem="jIm-5e-Dc5" firstAttribute="centerX" secondItem="i3E-Cb-ptG" secondAttribute="centerX" id="ISZ-mC-Mbr"/>
+                <constraint firstItem="jIm-5e-Dc5" firstAttribute="leading" secondItem="1" secondAttribute="leadingMargin" id="QF0-V0-jHf"/>
+                <constraint firstItem="jIm-5e-Dc5" firstAttribute="centerY" secondItem="i3E-Cb-ptG" secondAttribute="centerY" id="QxI-9c-Oy0"/>
+                <constraint firstItem="jIm-5e-Dc5" firstAttribute="centerY" secondItem="1" secondAttribute="centerY" id="Zlz-DW-NVp"/>
+                <constraint firstItem="i3E-Cb-ptG" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="t5Q-Tf-L5R"/>
+                <constraint firstAttribute="trailing" secondItem="i3E-Cb-ptG" secondAttribute="trailing" id="z1r-Vg-Zmm"/>
+            </constraints>
+            <point key="canvasLocation" x="328" y="415"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="BackgroundSplashScreen.png" width="375" height="667"/>
+        <image name="UPLogo.png" width="147" height="202"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

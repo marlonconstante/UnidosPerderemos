@@ -1,5 +1,4 @@
-﻿using System;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace UnidosPerderemos.Core.Controls
 {
@@ -13,7 +12,7 @@ namespace UnidosPerderemos.Core.Controls
 		/// <summary>
 		/// The progress color property.
 		/// </summary>
-		public static readonly BindableProperty ProgressColorProperty = BindableProperty.Create<RadialProgressBar, Color>(p => p.ProgressColor, Color.Red, BindingMode.TwoWay);
+		public static readonly BindableProperty ProgressTypeProperty = BindableProperty.Create<RadialProgressBar, string>(p => p.ProgressType, string.Empty, BindingMode.TwoWay);
 
 		/// <summary>
 		/// Gets or sets the current progress
@@ -29,17 +28,10 @@ namespace UnidosPerderemos.Core.Controls
 		/// Gets or sets the progress color
 		/// </summary>
 		/// <value>The color of the progress.</value>
-		public Color ProgressColor {
-			get { return (Color)GetValue (ProgressColorProperty); }
-			set { SetValue (ProgressColorProperty, value); }
-		}
-			
-		/// <summary>
-		/// Initializes a new instance of the <see cref="UnidosPerderemos.Core.Controls.RadialProgressBar"/> class.
-		/// </summary>
-		public RadialProgressBar()
+		public string ProgressType
 		{
+			get { return (string)GetValue(ProgressTypeProperty); }
+			set { SetValue(ProgressTypeProperty, value); }
 		}
 	}
 }
-
