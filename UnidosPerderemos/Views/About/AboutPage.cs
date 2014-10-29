@@ -4,6 +4,8 @@ using UnidosPerderemos.Core.Pages;
 using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Core.Controls;
 using UnidosPerderemos.Views.Goal;
+using UnidosPerderemos.Models;
+using System.Collections.Generic;
 
 namespace UnidosPerderemos.Views.About
 {
@@ -37,6 +39,9 @@ namespace UnidosPerderemos.Views.About
 			BackgroundImage = "BackgroundGoal.png";
 
 			ButtonContinue.Clicked += OnContinueClicked;
+
+			InputGender.Items = GenderItems;
+			InputGender.SelectedItem = App.CurrentUser.Gender;
 		}
 
 		/// <summary>
@@ -44,9 +49,14 @@ namespace UnidosPerderemos.Views.About
 		/// </summary>
 		/// <param name="sender">Sender.</param>
 		/// <param name="args">Arguments.</param>
-		void OnContinueClicked(object sender, EventArgs args)
+		async void OnContinueClicked(object sender, EventArgs args)
 		{
-			Navigation.PushAsync(new GoalPage());
+			UserProfile.DateOfBirth = InputDateOfBirth.Date;
+			UserProfile.Gender = (Gender) InputGender.SelectedItem;
+			UserProfile.Weight = double.Parse(InputWeight.Text);
+			UserProfile.Height = double.Parse(InputHeight.Text);
+
+			await Navigation.PushAsync(new GoalPage());
 		}
 
 		/// <summary>
@@ -151,13 +161,11 @@ namespace UnidosPerderemos.Views.About
 		/// </summary>
 		/// <value>The input date of birth.</value>
 		UnderlineDateField InputDateOfBirth {
-			get {
-				return new UnderlineDateField {
-					Font = Font.OfSize("Roboto-Light", 25),
-					HeightRequest = 35d
-				};
-			}
-		}
+			get;
+		} = new UnderlineDateField {
+			Font = Font.OfSize("Roboto-Light", 25),
+			HeightRequest = 35d
+		};
 
 		/// <summary>
 		/// Gets the label gender.
@@ -178,12 +186,8 @@ namespace UnidosPerderemos.Views.About
 		/// </summary>
 		/// <value>The input gender.</value>
 		OptionButton InputGender {
-			get {
-				return new OptionButton {
-					Items = new string[] { "Masculino", "Feminino" }
-				};
-			}
-		}
+			get;
+		} = new OptionButton();
 
 		/// <summary>
 		/// Gets the label weight.
@@ -204,18 +208,16 @@ namespace UnidosPerderemos.Views.About
 		/// </summary>
 		/// <value>The input weight.</value>
 		UnderlineTextField InputWeight {
-			get {
-				return new UnderlineTextField {
-					Font = Font.OfSize("Roboto-Regular", 41),
-					AdditionalFont = Font.OfSize("Roboto-Light", 28),
-					AdditionalText = "Quilos",
-					AdditionalTranslationY = 3.5d,
-					Text = "0",
-					MaxLength = 4,
-					Keyboard = Keyboard.Numeric
-				};
-			}
-		}
+			get;
+		} = new UnderlineTextField {
+			Font = Font.OfSize("Roboto-Regular", 41),
+			AdditionalFont = Font.OfSize("Roboto-Light", 28),
+			AdditionalText = "Quilos",
+			AdditionalTranslationY = 3.5d,
+			Text = "0",
+			MaxLength = 4,
+			Keyboard = Keyboard.Numeric
+		};
 
 		/// <summary>
 		/// Gets the height of the label.
@@ -236,18 +238,16 @@ namespace UnidosPerderemos.Views.About
 		/// </summary>
 		/// <value>The height of the input.</value>
 		UnderlineTextField InputHeight {
-			get {
-				return new UnderlineTextField {
-					Font = Font.OfSize("Roboto-Regular", 41),
-					AdditionalFont = Font.OfSize("Roboto-Light", 28),
-					AdditionalText = "Metros",
-					AdditionalTranslationY = 3.5d,
-					Text = "0",
-					MaxLength = 4,
-					Keyboard = Keyboard.Numeric
-				};
-			}
-		}
+			get;
+		} = new UnderlineTextField {
+			Font = Font.OfSize("Roboto-Regular", 41),
+			AdditionalFont = Font.OfSize("Roboto-Light", 28),
+			AdditionalText = "Metros",
+			AdditionalTranslationY = 3.5d,
+			Text = "0",
+			MaxLength = 4,
+			Keyboard = Keyboard.Numeric
+		};
 
 		/// <summary>
 		/// Gets the button continue.
@@ -259,6 +259,29 @@ namespace UnidosPerderemos.Views.About
 			Text = "CONTINUAR",
 			HeightRequest = 67d
 		};
+
+		/// <summary>
+		/// Gets the user profile.
+		/// </summary>
+		/// <value>The user profile.</value>
+		UserProfile UserProfile {
+			get {
+				return App.CurrentUserProfile;
+			}
+		}
+
+		/// <summary>
+		/// Gets the gender items.
+		/// </summary>
+		/// <value>The gender items.</value>
+		IDictionary<string, object> GenderItems {
+			get {
+				var genderItems = new Dictionary<string, object>();
+				genderItems.Add("Masculino", Gender.Male);
+				genderItems.Add("Feminino", Gender.Female);
+				return genderItems;
+			}
+		}
 
 		/// <summary>
 		/// Preferreds the status bar style.

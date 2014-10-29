@@ -3,8 +3,8 @@ using Xamarin.Forms.Platform.iOS;
 using MonoTouch.UIKit;
 using UnidosPerderemos.Core.Controls;
 using Xamarin.Forms;
-using System.Drawing;
-using System.ComponentModel;
+using System.Linq;
+using System.Collections;
 
 [assembly: ExportRenderer(typeof(OptionButton), typeof(UnidosPerderemos.iOS.Renderers.Controls.OptionButtonRenderer))]
 namespace UnidosPerderemos.iOS.Renderers.Controls
@@ -27,12 +27,12 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 				TintColor = UIColor.FromRGB(252, 255, 0)
 			});
 
-			foreach (var item in Source.Items)
+			foreach (var item in Source.Items.Keys)
 			{
 				Target.InsertSegment(item, Target.NumberOfSegments, false);
 			}
 
-			Target.SelectedSegment = 0;
+			Target.SelectedSegment = Math.Max(Items.IndexOf(Source.SelectedItem), 0);
 			Target.ValueChanged += SelectSegment;
 			SelectSegment(Target, EventArgs.Empty);
 		}
@@ -44,7 +44,7 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 		/// <param name="args">Arguments.</param>
 		void SelectSegment(object sender, EventArgs args)
 		{
-			Source.SelectedItem = Source.Items[Target.SelectedSegment];
+			Source.SelectedItem = Items[Target.SelectedSegment];
 		}
 
 		/// <summary>
@@ -59,6 +59,16 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 			}
 
 			base.Dispose(disposing);
+		}
+
+		/// <summary>
+		/// Gets the items.
+		/// </summary>
+		/// <value>The items.</value>
+		IList Items {
+			get {
+				return Source.Items.Values.ToList();
+			}
 		}
 
 		/// <summary>

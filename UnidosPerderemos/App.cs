@@ -18,6 +18,7 @@ namespace UnidosPerderemos
 		public static Page GetMainPage()
 		{	
 			MainFlow.PushAsync(new MainPage());
+			LoadUserProfile();
 			if (IsLoggedUser)
 			{
 				ActivationFlow.PushAsync(new AboutPage());
@@ -27,6 +28,13 @@ namespace UnidosPerderemos
 				ActivationFlow.PushAsync(new HomePage());
 			}
 			return ActivationFlow;
+		}
+
+		/// <summary>
+		/// Loads the user profile.
+		/// </summary>
+		static async void LoadUserProfile() {
+			CurrentUserProfile = await DependencyService.Get<IUserProfileService>().Load();
 		}
 
 		/// <summary>
@@ -60,7 +68,18 @@ namespace UnidosPerderemos
 		/// </summary>
 		/// <value>The current user.</value>
 		public static User CurrentUser {
+			get {
+				return DependencyService.Get<IUserService>().CurrentUser;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the current user profile.
+		/// </summary>
+		/// <value>The current user profile.</value>
+		public static UserProfile CurrentUserProfile {
 			get;
-		} = DependencyService.Get<IUserService>().CurrentUser;
+			set;
+		}
 	}
 }

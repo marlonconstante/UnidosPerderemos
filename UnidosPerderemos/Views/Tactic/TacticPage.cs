@@ -6,6 +6,8 @@ using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Core.Pages;
 using UnidosPerderemos.Core.Controls;
 using UnidosPerderemos.Views.Login;
+using UnidosPerderemos.Models;
+using UnidosPerderemos.Services;
 
 namespace UnidosPerderemos.Views.Tactic
 {
@@ -57,13 +59,23 @@ namespace UnidosPerderemos.Views.Tactic
 		/// <param name="args">Arguments.</param>
 		async void OnContinueClicked(object sender, EventArgs args)
 		{
-			await Navigation.PushModalAsync(MainFlow);
+			UserProfile.IsTacticExercise = SwitchExercise.IsToggled;
+			UserProfile.IsTacticFeed = SwitchFeed.IsToggled;
 
-			await ActivationFlow.PopToRootAsync();
-			if (!IsHomePage)
+			if (await DependencyService.Get<IUserProfileService>().Save(UserProfile))
 			{
-				await ActivationFlow.PopAsync();
-				await ActivationFlow.PushAsync(new HomePage());
+				await Navigation.PushModalAsync(MainFlow);
+
+				await ActivationFlow.PopToRootAsync();
+				if (!IsHomePage)
+				{
+					await ActivationFlow.PopAsync();
+					await ActivationFlow.PushAsync(new HomePage());
+				}
+			}
+			else
+			{
+				DisplayAlert("Ops...", "Ocorreu uma falha na conexão com o servidor.", "Entendi");
 			}
 		}
 
@@ -71,8 +83,7 @@ namespace UnidosPerderemos.Views.Tactic
 		/// Gets a value indicating whether this instance is home page.
 		/// </summary>
 		/// <value><c>true</c> if this instance is home page; otherwise, <c>false</c>.</value>
-		bool IsHomePage
-		{
+		bool IsHomePage {
 			get {
 				return ActivationFlow.CurrentPage is HomePage;
 			}
@@ -115,30 +126,26 @@ namespace UnidosPerderemos.Views.Tactic
 		/// </summary>
 		/// <value>The switch exercise.</value>
 		SwitchBox SwitchExercise {
-			get {
-				return new SwitchBox {
-					IsToggled = true,
-					Font = Font.OfSize("Roboto-Light", 22),
-					Text = "Fazer exercícios",
-					TranslationY = 10d
-				};
-			}
-		}
+			get;
+		} = new SwitchBox {
+			IsToggled = true,
+			Font = Font.OfSize("Roboto-Light", 22),
+			Text = "Fazer exercícios",
+			TranslationY = 10d
+		};
 
 		/// <summary>
 		/// Gets the switch feed.
 		/// </summary>
 		/// <value>The switch feed.</value>
 		SwitchBox SwitchFeed {
-			get {
-				return new SwitchBox {
-					IsToggled = true,
-					Font = Font.OfSize("Roboto-Light", 22),
-					Text = "Cuidar da alimentação",
-					TranslationY = 10d
-				};
-			}
-		}
+			get;
+		} = new SwitchBox {
+			IsToggled = true,
+			Font = Font.OfSize("Roboto-Light", 22),
+			Text = "Cuidar da alimentação",
+			TranslationY = 10d
+		};
 
 		/// <summary>
 		/// Gets the button continue.
@@ -150,6 +157,16 @@ namespace UnidosPerderemos.Views.Tactic
 			Text = "CONTINUAR",
 			HeightRequest = 67d
 		};
+
+		/// <summary>
+		/// Gets the user profile.
+		/// </summary>
+		/// <value>The user profile.</value>
+		UserProfile UserProfile {
+			get {
+				return App.CurrentUserProfile;
+			}
+		}
 
 		/// <summary>
 		/// Gets the activation flow.

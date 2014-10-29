@@ -10,12 +10,12 @@ namespace UnidosPerderemos.Core.Controls
 		/// <summary>
 		/// The selected item property.
 		/// </summary>
-		public static readonly BindableProperty SelectedItemProperty = BindableProperty.Create<OptionButton, string>(p => p.SelectedItem, null);
+		public static readonly BindableProperty SelectedItemProperty = BindableProperty.Create<OptionButton, object>(p => p.SelectedItem, null);
 
 		/// <summary>
 		/// The items property.
 		/// </summary>
-		public static readonly BindableProperty ItemsProperty = BindableProperty.Create<OptionButton, IList<string>>(p => p.Items, new string[] {});
+		public static readonly BindableProperty ItemsProperty = BindableProperty.Create<OptionButton, IDictionary<string, object>>(p => p.Items, null);
 
 		public OptionButton()
 		{
@@ -25,9 +25,9 @@ namespace UnidosPerderemos.Core.Controls
 		/// Gets or sets the selected item.
 		/// </summary>
 		/// <value>The selected item.</value>
-		public string SelectedItem {
+		public object SelectedItem {
 			get {
-				return (string) GetValue(SelectedItemProperty);
+				return (object) GetValue(SelectedItemProperty);
 			}
 			set {
 				SetValue(SelectedItemProperty, value);
@@ -38,9 +38,9 @@ namespace UnidosPerderemos.Core.Controls
 		/// Gets or sets the items.
 		/// </summary>
 		/// <value>The items.</value>
-		public IList<string> Items {
+		public IDictionary<string, object> Items {
 			get {
-				return (IList<string>) GetValue(ItemsProperty);
+				return (IDictionary<string, object>) GetValue(ItemsProperty);
 			}
 			set {
 				SetValue(ItemsProperty, value);

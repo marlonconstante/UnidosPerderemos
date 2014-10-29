@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "UnidosPerderemos": {
+            "applicationId": "N13dhq1tjbvEsofWXmznVl3UwduSAz8DqxbVYAXo", 
+            "masterKey": "Omnj9i4st4rEF4vo6g4boDoWVBbUQU181gmDxgra"
+        }, 
+        "_default": {
+            "link": "UnidosPerderemos"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.3.1"
+    }
+}
