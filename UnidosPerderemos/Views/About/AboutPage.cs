@@ -52,9 +52,19 @@ namespace UnidosPerderemos.Views.About
 		/// <param name="args">Arguments.</param>
 		async void OnContinueClicked(object sender, EventArgs args)
 		{
-			await DependencyService.Get<IUserProfileService>().Save(UserProfile);
+			UserProfile.DateOfBirth = InputDateOfBirth.Date;
+			UserProfile.Gender = (Gender) InputGender.SelectedItem;
+			UserProfile.Weight = float.Parse(InputWeight.Text);
+			UserProfile.Height = float.Parse(InputHeight.Text);
 
-			await Navigation.PushAsync(new GoalPage());
+			if (await DependencyService.Get<IUserProfileService>().Save(UserProfile))
+			{
+				await Navigation.PushAsync(new GoalPage());
+			}
+			else
+			{
+				DisplayAlert("Ops...", "Ocorreu uma falha na conexão com o servidor.", "Entendi");
+			}
 		}
 
 		/// <summary>
@@ -265,12 +275,7 @@ namespace UnidosPerderemos.Views.About
 		UserProfile UserProfile
 		{
 			get {
-				return new UserProfile {
-					DateOfBirth = InputDateOfBirth.Date,
-					Gender = (Gender) InputGender.SelectedItem,
-					Weight = float.Parse(InputWeight.Text),
-					Height = float.Parse(InputHeight.Text)
-				};
+				return App.CurrentUserProfile;
 			}
 		}
 

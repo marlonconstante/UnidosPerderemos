@@ -11,15 +11,42 @@ namespace UnidosPerderemos.iOS.Services
 	public class UserProfileService : IUserProfileService
 	{
 		/// <summary>
+		/// Load this instance.
+		/// </summary>
+		public async Task<UserProfile> Load()
+		{
+			try
+			{
+				var query = ParseObject.GetQuery("UserProfile").WhereEqualTo("user", ParseUser.CurrentUser);
+				var parseObject = await query.FirstOrDefaultAsync() ?? new ParseObject("UserProfile");
+
+				return parseObject.ToDomain<UserProfile>();
+			}
+			catch (Exception ex)
+			{
+				return new UserProfile();
+			}
+		}
+
+		/// <summary>
 		/// Save the specified userProfile.
 		/// </summary>
 		/// <param name="userProfile">User profile.</param>
-		public async Task Save(UserProfile userProfile)
+		public async Task<bool> Save(UserProfile userProfile)
 		{
-			var parseObject = userProfile.ToParseObject<ParseObject>();
-			await parseObject.SaveAsync();
+			try
+			{
+				var parseObject = userProfile.ToParseObject<ParseObject>();
+				await parseObject.SaveAsync();
 
-			userProfile.ObjectId = parseObject.ObjectId;
+				userProfile.ObjectId = parseObject.ObjectId;
+
+				return true;
+			}
+			catch (Exception ex)
+			{
+				return false;
+			}
 		}
 	}
 }

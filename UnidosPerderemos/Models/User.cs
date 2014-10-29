@@ -10,6 +10,15 @@ namespace UnidosPerderemos.Models
 		}
 
 		/// <summary>
+		/// Gets or sets the object identifier.
+		/// </summary>
+		/// <value>The object identifier.</value>
+		public Object ObjectId {
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// Gets or sets the name.
 		/// </summary>
 		/// <value>The name.</value>

@@ -39,7 +39,7 @@ namespace UnidosPerderemos.Models
 		/// Gets or sets the weight.
 		/// </summary>
 		/// <value>The weight.</value>
-		public float Weight {
+		public double Weight {
 			get;
 			set;
 		}
@@ -48,7 +48,7 @@ namespace UnidosPerderemos.Models
 		/// Gets or sets the height.
 		/// </summary>
 		/// <value>The height.</value>
-		public float Height {
+		public double Height {
 			get;
 			set;
 		}
