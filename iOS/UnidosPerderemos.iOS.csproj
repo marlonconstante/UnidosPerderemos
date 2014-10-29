@@ -158,6 +158,8 @@
     <BundleResource Include="Resources\BackgroundSplashScreen%402x.png" />
     <BundleResource Include="Resources\UPLogo%403x.png" />
     <BundleResource Include="Resources\BackgroundSplashScreen%403x.png" />
+    <BundleResource Include="Resources\Default%402x.png" />
+    <BundleResource Include="Resources\Default-568h%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -210,8 +212,5 @@
     <Folder Include="Renderers\Controls\" />
     <Folder Include="Renderers\Pages\" />
     <Folder Include="Utils\" />
-  </ItemGroup>
-  <ItemGroup>
-    <InterfaceDefinition Include="LaunchScreen.xib" />
   </ItemGroup>
 </Project>
