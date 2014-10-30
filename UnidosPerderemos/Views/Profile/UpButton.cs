@@ -45,20 +45,9 @@ namespace UnidosPerderemos.Views.Profile
 		/// <param name="args">Arguments.</param>
 		void OnButtonClicked(object sender, EventArgs args)
 		{
-
 			IsStar = !IsStar;
 
-			CurrentPage.DisplayAlert("UP!", "Como foi seu dia?", "Cancelar");
-		}
-
-		/// <summary>
-		/// Gets the current page.
-		/// </summary>
-		/// <value>The current page.</value>
-		Page CurrentPage {
-			get {
-				return App.MainFlow.CurrentPage;
-			}
+			App.Instance.MainPage.DisplayAlert("UP!", "Como foi seu dia?", "Cancelar");
 		}
 
 		/// <summary>

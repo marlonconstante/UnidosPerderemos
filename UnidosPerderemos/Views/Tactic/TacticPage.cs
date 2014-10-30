@@ -5,7 +5,6 @@ using UnidosPerderemos.Views.Main;
 using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Core.Pages;
 using UnidosPerderemos.Core.Controls;
-using UnidosPerderemos.Views.Login;
 using UnidosPerderemos.Models;
 using UnidosPerderemos.Services;
 
@@ -64,28 +63,11 @@ namespace UnidosPerderemos.Views.Tactic
 
 			if (await DependencyService.Get<IUserProfileService>().Save(UserProfile))
 			{
-				await Navigation.PushModalAsync(MainFlow);
-
-				await ActivationFlow.PopToRootAsync();
-				if (!IsHomePage)
-				{
-					await ActivationFlow.PopAsync();
-					await ActivationFlow.PushAsync(new HomePage());
-				}
+				App.Instance.ReloadMainPage();
 			}
 			else
 			{
 				DisplayAlert("Ops...", "Ocorreu uma falha na conexão com o servidor.", "Entendi");
-			}
-		}
-
-		/// <summary>
-		/// Gets a value indicating whether this instance is home page.
-		/// </summary>
-		/// <value><c>true</c> if this instance is home page; otherwise, <c>false</c>.</value>
-		bool IsHomePage {
-			get {
-				return ActivationFlow.CurrentPage is HomePage;
 			}
 		}
 
@@ -164,27 +146,7 @@ namespace UnidosPerderemos.Views.Tactic
 		/// <value>The user profile.</value>
 		UserProfile UserProfile {
 			get {
-				return App.CurrentUserProfile;
-			}
-		}
-
-		/// <summary>
-		/// Gets the activation flow.
-		/// </summary>
-		/// <value>The activation flow.</value>
-		FlowPage ActivationFlow {
-			get {
-				return App.ActivationFlow;
-			}
-		}
-
-		/// <summary>
-		/// Gets the main flow.
-		/// </summary>
-		/// <value>The main flow.</value>
-		MainFlowPage MainFlow {
-			get {
-				return App.MainFlow;
+				return App.Instance.CurrentUserProfile;
 			}
 		}
 

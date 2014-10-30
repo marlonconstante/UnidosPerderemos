@@ -151,7 +151,7 @@ namespace UnidosPerderemos.Views.Goal
 		/// <value>The user profile.</value>
 		UserProfile UserProfile {
 			get {
-				return App.CurrentUserProfile;
+				return App.Instance.CurrentUserProfile;
 			}
 		}
 
