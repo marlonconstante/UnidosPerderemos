@@ -9,25 +9,24 @@ using UnidosPerderemos.Views.About;
 
 namespace UnidosPerderemos
 {	
-	public class App
+	public class App : Application
 	{
 		/// <summary>
-		/// Gets the main page.
+		/// Initializes a new instance of the <see cref="UnidosPerderemos.App"/> class.
 		/// </summary>
-		/// <returns>The main page.</returns>
-		public static Page GetMainPage()
+		public App()
 		{	
 			MainFlow.PushAsync(new MainPage());
+			ActivationFlow.PushAsync(new HomePage());
 			LoadUserProfile();
 			if (IsLoggedUser)
 			{
-				ActivationFlow.PushAsync(new AboutPage());
+				MainPage = MainFlow;
 			}
 			else
 			{
-				ActivationFlow.PushAsync(new HomePage());
+				MainPage = ActivationFlow;
 			}
-			return ActivationFlow;
 		}
 
 		/// <summary>
