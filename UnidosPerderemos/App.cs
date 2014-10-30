@@ -6,6 +6,7 @@ using UnidosPerderemos.Views.Login;
 using UnidosPerderemos.Services;
 using UnidosPerderemos.Models;
 using UnidosPerderemos.Views.About;
+using System.Threading.Tasks;
 
 namespace UnidosPerderemos
 {
@@ -16,14 +17,14 @@ namespace UnidosPerderemos
 		/// </summary>
 		public App()
 		{	
-			LoadUserProfile();
 			ReloadMainPage();
 		}
 
 		/// <summary>
 		/// Loads the user profile.
 		/// </summary>
-		async void LoadUserProfile()
+		/// <returns>The user profile.</returns>
+		public async Task LoadUserProfile()
 		{
 			CurrentUserProfile = await DependencyService.Get<IUserProfileService>().Load();
 		}

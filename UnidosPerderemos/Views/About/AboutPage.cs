@@ -51,6 +51,8 @@ namespace UnidosPerderemos.Views.About
 		/// <param name="args">Arguments.</param>
 		async void OnContinueClicked(object sender, EventArgs args)
 		{
+			await App.Instance.LoadUserProfile();
+
 			UserProfile.DateOfBirth = InputDateOfBirth.Date;
 			UserProfile.Gender = (Gender) InputGender.SelectedItem;
 			UserProfile.Weight = double.Parse(InputWeight.Text);
