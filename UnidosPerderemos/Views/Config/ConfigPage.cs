@@ -4,6 +4,7 @@ using UnidosPerderemos.Core.Pages;
 using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Core.Controls;
 using UnidosPerderemos.Models;
+using UnidosPerderemos.Views.Main;
 
 namespace UnidosPerderemos.Views.Config
 {
@@ -16,7 +17,15 @@ namespace UnidosPerderemos.Views.Config
 
 			var inputGender = new OptionButton();
 			inputGender.Items = GenderInfo.GetGenderItems();
-			inputGender.SelectedItem = App.CurrentUser.Gender;
+			inputGender.SelectedItem = App.Instance.CurrentUser.Gender;
+
+			var btnLogout = new GhostButton
+			{
+				Text = "Logout",
+				TextColor = Color.Red,
+				BorderColor = Color.Red
+			};
+			btnLogout.Clicked += (sender, e) => ((MainFlowPage)Navigation).Logout();
 
 			Content = new TableView
 			{
@@ -25,10 +34,21 @@ namespace UnidosPerderemos.Views.Config
 				{
 					new TableSection("Perfil")
 					{
+//						new ViewCell
+//						{
+//							View = new RoundImage
+//							{
+//								Source = ImageSource.FromFile("BackgroundGoal.png"),
+//								Aspect = Aspect.AspectFill,
+//								WidthRequest = 100d,
+//								HeightRequest = 100d
+//							},
+//							Height = 100d
+//						},
 						new EntryCell
 						{
 							Label = "Nome:",
-							Text = App.CurrentUserProfile.UserName,
+							Text = App.Instance.CurrentUserProfile.UserName,
 							Keyboard = Keyboard.Default
 						},
 						new ViewCell
@@ -42,30 +62,52 @@ namespace UnidosPerderemos.Views.Config
 						new EntryCell
 						{
 							Label = "Peso:",
-							Text = App.CurrentUserProfile.Weight.ToString(),
+							Text = App.Instance.CurrentUserProfile.Weight.ToString(),
 							Keyboard = Keyboard.Numeric
 						},
 						new EntryCell
 						{
 							Label = "Altura:",
-							Text = App.CurrentUserProfile.Height.ToString(),
+							Text = App.Instance.CurrentUserProfile.Height.ToString(),
 							Keyboard = Keyboard.Numeric
 						}
 					},
-					new TableSection("Tática")
+					new TableSection("Metas")
 					{
 						new EntryCell
 						{
 							Label = "Meta de Peso:",
-							Text = App.CurrentUserProfile.GoalWeight.ToString(),
+							Text = App.Instance.CurrentUserProfile.GoalWeight.ToString(),
 							Keyboard = Keyboard.Numeric
 						},
 						new EntryCell
 						{
 							Label = "Meta de Tempo:",
-							Text = App.CurrentUserProfile.GoalTime.ToString(),
+							Text = App.Instance.CurrentUserProfile.GoalTime.ToString(),
 							Keyboard = Keyboard.Numeric
 						}
+					},
+					new TableSection("Táticas")
+					{
+						new SwitchCell
+						{
+							Text = "Fazer Exercícios:",
+							On = App.Instance.CurrentUserProfile.IsTacticExercise
+						},
+						new SwitchCell
+						{
+							Text = "Comer Melhor:",
+							On = App.Instance.CurrentUserProfile.IsTacticFeed
+						}
+					},
+
+					new TableSection("Táticas")
+					{
+						new ViewCell
+						{
+							View = btnLogout
+						}
+
 					}
 				}
 			};
