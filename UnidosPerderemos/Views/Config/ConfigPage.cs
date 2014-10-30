@@ -39,30 +39,32 @@ namespace UnidosPerderemos.Views.Config
 						{
 							View = inputGender
 						},
-//						new EntryCell
-//						{
-//							Label = "Peso:",
-//							Text = App.CurrentUserProfile.Weight,
-//							Keyboard = Keyboard.Numeric
-//						},
-//						new EntryCell
-//						{
-//							Label = "Altura:",
-//							Text = App.CurrentUserProfile.Height,
-//							Keyboard = Keyboard.Numeric
-//						}
+						new EntryCell
+						{
+							Label = "Peso:",
+							Text = App.CurrentUserProfile.Weight.ToString(),
+							Keyboard = Keyboard.Numeric
+						},
+						new EntryCell
+						{
+							Label = "Altura:",
+							Text = App.CurrentUserProfile.Height.ToString(),
+							Keyboard = Keyboard.Numeric
+						}
 					},
 					new TableSection("Tática")
 					{
 						new EntryCell
 						{
-							Label = "Another EntryCell:",
-							Placeholder = "phone keyboard",
-							Keyboard = Keyboard.Telephone
+							Label = "Meta de Peso:",
+							Text = App.CurrentUserProfile.GoalWeight.ToString(),
+							Keyboard = Keyboard.Numeric
 						},
-						new SwitchCell
+						new EntryCell
 						{
-							Text = "SwitchCell:"
+							Label = "Meta de Tempo:",
+							Text = App.CurrentUserProfile.GoalTime.ToString(),
+							Keyboard = Keyboard.Numeric
 						}
 					}
 				}
