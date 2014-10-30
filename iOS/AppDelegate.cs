@@ -8,11 +8,12 @@ using MonoTouch.UIKit;
 using Xamarin.Forms;
 using Parse;
 using MonoTouch.FacebookConnect;
+using Xamarin.Forms.Platform.iOS;
 
 namespace UnidosPerderemos.iOS
 {
 	[Register("AppDelegate")]
-	public partial class AppDelegate : UIApplicationDelegate
+	public partial class AppDelegate : FormsApplicationDelegate
 	{
 		/// <summary>
 		/// The facebook app identifier.
@@ -35,11 +36,6 @@ namespace UnidosPerderemos.iOS
 		const string ParseDotnetKey = "3rHleZk64cDu9qssw8PGo738aocb9rYUStNFft7a";
 
 		/// <summary>
-		/// The window.
-		/// </summary>
-		UIWindow window;
-
-		/// <summary>
 		/// Finisheds the launching.
 		/// </summary>
 		/// <returns><c>true</c>, if launching was finisheded, <c>false</c> otherwise.</returns>
@@ -55,11 +51,9 @@ namespace UnidosPerderemos.iOS
 			ParseClient.Initialize(ParseAppId, ParseDotnetKey);
 			ParseFacebookUtils.Initialize(FacebookAppId);
 
-			window = new UIWindow(UIScreen.MainScreen.Bounds);
-			window.RootViewController = App.GetMainPage().CreateViewController();
-			window.MakeKeyAndVisible();
-			
-			return true;
+			LoadApplication(new App());
+
+			return base.FinishedLaunching(app, options);
 		}
 
 		/// <summary>
