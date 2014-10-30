@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using UnidosPerderemos.Core.Pages;
 using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Core.Controls;
+using UnidosPerderemos.Models;
 
 namespace UnidosPerderemos.Views.Config
 {
@@ -14,6 +15,8 @@ namespace UnidosPerderemos.Views.Config
 			dateField.TextColor = Color.Black;
 
 			var inputGender = new OptionButton();
+			inputGender.Items = GenderInfo.GetGenderItems();
+			inputGender.SelectedItem = App.CurrentUser.Gender;
 
 			Content = new TableView
 			{
@@ -32,12 +35,10 @@ namespace UnidosPerderemos.Views.Config
 						{
 							View = dateField
 						},
-//						new EntryCell
-//						{
-//							Label = "Sexo:",
-//							Text = App.CurrentUserProfile.Gender,
-//							Keyboard = Keyboard.Default
-//						},
+						new ViewCell
+						{
+							View = inputGender
+						},
 //						new EntryCell
 //						{
 //							Label = "Peso:",

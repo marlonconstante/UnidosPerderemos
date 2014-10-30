@@ -40,7 +40,7 @@ namespace UnidosPerderemos.Views.About
 
 			ButtonContinue.Clicked += OnContinueClicked;
 
-			InputGender.Items = GenderItems;
+			InputGender.Items = GenderInfo.GetGenderItems();
 			InputGender.SelectedItem = App.CurrentUser.Gender;
 		}
 
@@ -267,19 +267,6 @@ namespace UnidosPerderemos.Views.About
 		UserProfile UserProfile {
 			get {
 				return App.CurrentUserProfile;
-			}
-		}
-
-		/// <summary>
-		/// Gets the gender items.
-		/// </summary>
-		/// <value>The gender items.</value>
-		IDictionary<string, object> GenderItems {
-			get {
-				var genderItems = new Dictionary<string, object>();
-				genderItems.Add("Masculino", Gender.Male);
-				genderItems.Add("Feminino", Gender.Female);
-				return genderItems;
 			}
 		}
 
