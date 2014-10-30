@@ -6,9 +6,10 @@ using UnidosPerderemos.Views.Login;
 using UnidosPerderemos.Services;
 using UnidosPerderemos.Models;
 using UnidosPerderemos.Views.About;
+using System.Threading.Tasks;
 
 namespace UnidosPerderemos
-{	
+{
 	public class App : Application
 	{
 		/// <summary>
@@ -16,47 +17,31 @@ namespace UnidosPerderemos
 		/// </summary>
 		public App()
 		{	
-			MainFlow.PushAsync(new MainPage());
-			ActivationFlow.PushAsync(new HomePage());
-			LoadUserProfile();
-			if (IsLoggedUser)
-			{
-				MainPage = MainFlow;
-			}
-			else
-			{
-				MainPage = ActivationFlow;
-			}
+			ReloadMainPage();
 		}
 
 		/// <summary>
 		/// Loads the user profile.
 		/// </summary>
-		static async void LoadUserProfile() {
+		/// <returns>The user profile.</returns>
+		public async Task LoadUserProfile()
+		{
 			CurrentUserProfile = await DependencyService.Get<IUserProfileService>().Load();
 		}
 
 		/// <summary>
-		/// Gets the activation flow.
+		/// Reloads the main page.
 		/// </summary>
-		/// <value>The activation flow.</value>
-		public static FlowPage ActivationFlow {
-			get;
-		} = new FlowPage();
+		public void ReloadMainPage()
+		{
+			MainPage = IsLoggedUser ? MainFlow : ActivationFlow;
+		}
 
 		/// <summary>
-		/// Gets the main flow.
+		/// Gets a value indicating whether this instance is logged user.
 		/// </summary>
-		/// <value>The main flow.</value>
-		public static MainFlowPage MainFlow {
-			get;
-		} = new MainFlowPage();
-
-		/// <summary>
-		/// Gets a value indicating is logged user.
-		/// </summary>
-		/// <value><c>true</c> if is logged user; otherwise, <c>false</c>.</value>
-		public static bool IsLoggedUser {
+		/// <value><c>true</c> if this instance is logged user; otherwise, <c>false</c>.</value>
+		public bool IsLoggedUser {
 			get {
 				return CurrentUser != null;
 			}
@@ -66,7 +51,7 @@ namespace UnidosPerderemos
 		/// Gets the current user.
 		/// </summary>
 		/// <value>The current user.</value>
-		public static User CurrentUser {
+		public User CurrentUser {
 			get {
 				return DependencyService.Get<IUserService>().CurrentUser;
 			}
@@ -76,9 +61,39 @@ namespace UnidosPerderemos
 		/// Gets or sets the current user profile.
 		/// </summary>
 		/// <value>The current user profile.</value>
-		public static UserProfile CurrentUserProfile {
+		public UserProfile CurrentUserProfile {
 			get;
 			set;
+		}
+
+		/// <summary>
+		/// Gets the main flow.
+		/// </summary>
+		/// <value>The main flow.</value>
+		MainFlowPage MainFlow {
+			get {
+				return new MainFlowPage(new MainPage());
+			}
+		}
+
+		/// <summary>
+		/// Gets the activation flow.
+		/// </summary>
+		/// <value>The activation flow.</value>
+		FlowPage ActivationFlow {
+			get {
+				return new FlowPage(new HomePage());
+			}
+		}
+
+		/// <summary>
+		/// Gets the instance.
+		/// </summary>
+		/// <value>The instance.</value>
+		public static App Instance {
+			get {
+				return App.Current as App;
+			}
 		}
 	}
 }

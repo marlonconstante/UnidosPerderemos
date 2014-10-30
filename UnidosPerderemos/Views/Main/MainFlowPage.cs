@@ -2,13 +2,16 @@
 using Xamarin.Forms;
 using UnidosPerderemos.Core.Pages;
 using UnidosPerderemos.Services;
-using UnidosPerderemos.Views.Config;
 
 namespace UnidosPerderemos.Views.Main
 {
 	public class MainFlowPage : FlowPage
 	{
-		public MainFlowPage()
+		/// <summary>
+		/// Initializes a new instance of the <see cref="UnidosPerderemos.Views.Main.MainFlowPage"/> class.
+		/// </summary>
+		/// <param name="startPage">Start page.</param>
+		public MainFlowPage(Page startPage) : base(startPage)
 		{
 			SetUp();
 		}
@@ -28,8 +31,9 @@ namespace UnidosPerderemos.Views.Main
 		/// </summary>
 		/// <param name="sender">Sender.</param>
 		/// <param name="args">Arguments.</param>
-		void OnConfigActivated(object sender, EventArgs args) {
-			Navigation.PushAsync(new ConfigPage());
+		void OnConfigActivated(object sender, EventArgs args)
+		{
+			Logout();
 		}
 
 		/// <summary>
@@ -38,7 +42,7 @@ namespace UnidosPerderemos.Views.Main
 		void Logout()
 		{
 			DependencyService.Get<IUserService>().Logout();
-			Navigation.PopModalAsync();
+			App.Instance.ReloadMainPage();
 		}
 
 		/// <summary>

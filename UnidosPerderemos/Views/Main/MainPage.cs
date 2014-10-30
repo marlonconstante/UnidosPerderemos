@@ -24,6 +24,16 @@ namespace UnidosPerderemos.Views.Main
 		}
 
 		/// <summary>
+		/// Raises the appearing event.
+		/// </summary>
+		protected override void OnAppearing()
+		{
+			base.OnAppearing();
+
+			App.Instance.LoadUserProfile();
+		}
+
+		/// <summary>
 		/// Raises the current page changed event.
 		/// </summary>
 		protected override void OnCurrentPageChanged()

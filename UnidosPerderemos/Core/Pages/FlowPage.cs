@@ -10,9 +10,14 @@ namespace UnidosPerderemos.Core.Pages
 		/// </summary>
 		public static readonly BindableProperty FontProperty = BindableProperty.Create<FlowPage, Font>(p => p.Font, Font.Default);
 
-		public FlowPage()
+		/// <summary>
+		/// Initializes a new instance of the <see cref="UnidosPerderemos.Core.Pages.FlowPage"/> class.
+		/// </summary>
+		/// <param name="startPage">Start page.</param>
+		public FlowPage(Page startPage)
 		{
 			SetUp();
+			PushAsync(startPage);
 		}
 
 		/// <summary>
