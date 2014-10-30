@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using UnidosPerderemos.Core.Pages;
 using UnidosPerderemos.Services;
+using UnidosPerderemos.Views.Config;
 
 namespace UnidosPerderemos.Views.Main
 {
@@ -28,7 +29,7 @@ namespace UnidosPerderemos.Views.Main
 		/// <param name="sender">Sender.</param>
 		/// <param name="args">Arguments.</param>
 		void OnConfigActivated(object sender, EventArgs args) {
-			Logout();
+			Navigation.PushAsync(new ConfigPage());
 		}
 
 		/// <summary>
