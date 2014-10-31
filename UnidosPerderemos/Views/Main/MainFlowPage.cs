@@ -38,19 +38,11 @@ namespace UnidosPerderemos.Views.Main
 		}
 
 		/// <summary>
-		/// Logout this instance.
-		/// </summary>
-		public void Logout()
-		{
-			DependencyService.Get<IUserService>().Logout();
-			App.Instance.ReloadMainPage();
-		}
-
-		/// <summary>
 		/// Gets the config item.
 		/// </summary>
 		/// <value>The config item.</value>
-		ToolbarItem ConfigItem {
+		ToolbarItem ConfigItem
+		{
 			get;
 		} = new ToolbarItem {
 			Icon = ImageSource.FromFile("Gear.png") as FileImageSource

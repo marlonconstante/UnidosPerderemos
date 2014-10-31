@@ -17,6 +17,11 @@ namespace UnidosPerderemos.Core.Controls
 		/// </summary>
 		public static readonly BindableProperty ItemsProperty = BindableProperty.Create<OptionButton, IDictionary<string, object>>(p => p.Items, null);
 
+		/// <summary>
+		/// The tint color property.
+		/// </summary>
+		public static BindableProperty TintColorProperty = BindableProperty.Create<OptionButton, Color>(p => p.TintColor, Color.FromRgb(252, 255, 0));
+
 		public OptionButton()
 		{
 		}
@@ -45,6 +50,12 @@ namespace UnidosPerderemos.Core.Controls
 			set {
 				SetValue(ItemsProperty, value);
 			}
+		}
+
+		public Color TintColor
+		{
+			get;
+			set;
 		}
 	}
 }

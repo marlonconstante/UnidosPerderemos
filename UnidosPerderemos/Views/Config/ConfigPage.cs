@@ -5,27 +5,58 @@ using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Core.Controls;
 using UnidosPerderemos.Models;
 using UnidosPerderemos.Views.Main;
+using UnidosPerderemos.Services;
 
 namespace UnidosPerderemos.Views.Config
 {
 	public class ConfigPage : ContentPage, IControlPage
 	{
+		TextField m_name;
+		DateField m_dateField;
+		OptionButton m_inputGender;
+		TextField m_weightInput;
+		TextField m_heigthInput;
+		TextField m_goalWeight;
+		TextField m_goalTime;
+		Switch m_entryTacticExercise;
+		Switch m_entryTacticFeed;
+
 		public ConfigPage()
 		{
-			var dateField = new DateField();
-			dateField.TextColor = Color.Black;
+			m_dateField = new DateField();
+			m_dateField.TextColor = Color.Black;
+			m_dateField.Font = Font.OfSize("Roboto-Regular", 16);
 
-			var inputGender = new OptionButton();
-			inputGender.Items = GenderInfo.GetGenderItems();
-			inputGender.SelectedItem = App.Instance.CurrentUser.Gender;
+			m_inputGender = new OptionButton();
+			m_inputGender.Items = GenderInfo.GetGenderItems();
+			m_inputGender.SelectedItem = App.Instance.CurrentUser.Gender;
+			m_inputGender.TintColor = Color.Black;
 
-			var btnLogout = new GhostButton
+			m_name = new CellTextField(App.Instance.CurrentUserProfile.UserName);
+			m_weightInput = new CellTextField(App.Instance.CurrentUserProfile.Weight.ToString());
+			m_heigthInput = new CellTextField(App.Instance.CurrentUserProfile.Height.ToString());
+			m_goalWeight = new CellTextField(App.Instance.CurrentUserProfile.GoalWeight.ToString());
+			m_goalTime = new CellTextField(App.Instance.CurrentUserProfile.GoalTime.ToString());
+
+			m_entryTacticExercise = new Switch
 			{
-				Text = "Logout",
-				TextColor = Color.Red,
-				BorderColor = Color.Red
+				IsToggled = App.Instance.CurrentUserProfile.IsTacticExercise
 			};
-			btnLogout.Clicked += (sender, e) => ((MainFlowPage)Navigation).Logout();
+
+			m_entryTacticFeed = new Switch
+			{
+				IsToggled = App.Instance.CurrentUserProfile.IsTacticFeed
+			};
+
+			var btnLogout = new Button
+			{
+				Text = "Sair",
+				TextColor = Color.Red,
+				BorderColor = Color.Red,
+				BackgroundColor = Color.Transparent
+			};
+					
+			btnLogout.Clicked += (sender, e) => Logout();
 
 			Content = new TableView
 			{
@@ -34,83 +65,42 @@ namespace UnidosPerderemos.Views.Config
 				{
 					new TableSection("Perfil")
 					{
-//						new ViewCell
-//						{
-//							View = new RoundImage
-//							{
-//								Source = ImageSource.FromFile("BackgroundGoal.png"),
-//								Aspect = Aspect.AspectFill,
-//								WidthRequest = 100d,
-//								HeightRequest = 100d
-//							},
-//							Height = 100d
-//						},
-						new EntryCell
-						{
-							Label = "Nome:",
-							Text = App.Instance.CurrentUserProfile.UserName,
-							Keyboard = Keyboard.Default
-						},
-						new ViewCell
-						{
-							View = dateField
-						},
-						new ViewCell
-						{
-							View = inputGender
-						},
-						new EntryCell
-						{
-							Label = "Peso:",
-							Text = App.Instance.CurrentUserProfile.Weight.ToString(),
-							Keyboard = Keyboard.Numeric
-						},
-						new EntryCell
-						{
-							Label = "Altura:",
-							Text = App.Instance.CurrentUserProfile.Height.ToString(),
-							Keyboard = Keyboard.Numeric
-						}
+						new LHEntryCell("Nome:", m_name),
+						new LHEntryCell("Nascimento:", m_dateField),
+						new LHEntryCell("Sexo:", m_inputGender),
+						new LHEntryCell("Peso:", m_weightInput),
+						new LHEntryCell("Altura:", m_heigthInput),
 					},
 					new TableSection("Metas")
-					{
-						new EntryCell
-						{
-							Label = "Meta de Peso:",
-							Text = App.Instance.CurrentUserProfile.GoalWeight.ToString(),
-							Keyboard = Keyboard.Numeric
-						},
-						new EntryCell
-						{
-							Label = "Meta de Tempo:",
-							Text = App.Instance.CurrentUserProfile.GoalTime.ToString(),
-							Keyboard = Keyboard.Numeric
-						}
+					{	new LHEntryCell("Meta de Peso:", m_goalWeight),
+						new LHEntryCell("Meta de Tempo:", m_goalTime),
 					},
 					new TableSection("Táticas")
 					{
-						new SwitchCell
-						{
-							Text = "Fazer Exercícios:",
-							On = App.Instance.CurrentUserProfile.IsTacticExercise
-						},
-						new SwitchCell
-						{
-							Text = "Comer Melhor:",
-							On = App.Instance.CurrentUserProfile.IsTacticFeed
-						}
+						new LHEntryCell("Fazer Exercícios:", m_entryTacticExercise),
+
+						new LHEntryCell("Comer Melhor:", m_entryTacticFeed)
+
 					},
 
-					new TableSection("Táticas")
+					new TableSection("")
 					{
 						new ViewCell
 						{
 							View = btnLogout
 						}
-
 					}
 				}
 			};
+		}
+
+		/// <summary>
+		/// Logout this instance.
+		/// </summary>
+		void Logout()
+		{
+			DependencyService.Get<IUserService>().Logout();
+			App.Instance.ReloadMainPage();
 		}
 
 		#region IControlPage implementation

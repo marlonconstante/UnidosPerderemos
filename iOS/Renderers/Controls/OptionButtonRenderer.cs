@@ -24,7 +24,7 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 			base.OnElementChanged(args);
 
 			SetNativeControl(new UISegmentedControl {
-				TintColor = UIColor.FromRGB(252, 255, 0)
+				TintColor = Source.TintColor.ToUIColor()
 			});
 
 			foreach (var item in Source.Items.Keys)
