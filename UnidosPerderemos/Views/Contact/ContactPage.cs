@@ -24,18 +24,7 @@ namespace UnidosPerderemos.Views.Contact
 			Title = "Contatos";
 			Icon = ImageSource.FromFile("Contact.png") as FileImageSource;
 
-			ConfigListView();
 			LoadContacts();
-		}
-
-		/// <summary>
-		/// Configs the list view.
-		/// </summary>
-		void ConfigListView()
-		{
-			ListView = new ListView {
-				ItemTemplate = new DataTemplate(typeof(ContactCell))
-			};
 		}
 
 		/// <summary>
@@ -52,8 +41,9 @@ namespace UnidosPerderemos.Views.Contact
 		/// <value>The list view.</value>
 		ListView ListView {
 			get;
-			set;
-		}
+		} = new ListView {
+			ItemTemplate = new DataTemplate(typeof(ContactCell))
+		};
 
 		/// <summary>
 		/// Preferreds the status bar style.
