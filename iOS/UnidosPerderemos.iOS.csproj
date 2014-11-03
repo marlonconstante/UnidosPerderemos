@@ -186,6 +186,8 @@
     <Compile Include="Utils\ParseExtension.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\UserProfileService.cs" />
+    <Compile Include="Services\FacebookService.cs" />
+    <Compile Include="Renderers\Controls\FriendCellRenderer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.1.3.0.6262-pre0\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.1.3.0.6262-pre0\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets')" />
