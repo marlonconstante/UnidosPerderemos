@@ -25,7 +25,7 @@ namespace UnidosPerderemos.iOS.Renderers.Pages
 
 			if (ControlPage != null)
 			{
-				Target.NavigationBarHidden = !ControlPage.IsShowNavigationBar();
+				NavigationController.NavigationBarHidden = !ControlPage.IsShowNavigationBar();
 				Application.StatusBarHidden = !ControlPage.IsShowStatusBar();
 
 				var lightStyle = StatusBarStyle.Light == ControlPage.PreferredStatusBarStyle();
@@ -67,9 +67,9 @@ namespace UnidosPerderemos.iOS.Renderers.Pages
 		/// Gets the target.
 		/// </summary>
 		/// <value>The target.</value>
-		UINavigationController Target {
+		UIView Target {
 			get {
-				return NavigationController;
+				return View;
 			}
 		}
 	}
