@@ -52,10 +52,18 @@ namespace UnidosPerderemos.Core.Controls
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets the color of the tint.
+		/// </summary>
+		/// <value>The color of the tint.</value>
 		public Color TintColor
 		{
-			get;
-			set;
+			get {
+				return (Color) GetValue(TintColorProperty);
+			}
+			set {
+				SetValue(TintColorProperty, value);
+			}
 		}
 	}
 }
