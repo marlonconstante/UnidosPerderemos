@@ -23,6 +23,14 @@ namespace UnidosPerderemos.Views.Contact
 		{
 			Title = "Contatos";
 			Icon = ImageSource.FromFile("Contact.png") as FileImageSource;
+		}
+
+		/// <summary>
+		/// Raises the appearing event.
+		/// </summary>
+		protected override void OnAppearing()
+		{
+			base.OnAppearing();
 
 			LoadContacts();
 		}
