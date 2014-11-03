@@ -13,7 +13,22 @@ namespace UnidosPerderemos.Views.Friend
 		{
 			SetUp();
 
-			Content = ListView;
+			Content = new Grid {
+				ColumnDefinitions = {
+					new ColumnDefinition {
+						Width = new GridLength(1d, GridUnitType.Star)
+					}
+				},
+				RowDefinitions = {
+					new RowDefinition {
+						Height = new GridLength(1d, GridUnitType.Star)
+					}
+				},
+				Children = {
+					BackgroundGradient,
+					ListView
+				}
+			};
 		}
 
 		/// <summary>
@@ -41,6 +56,19 @@ namespace UnidosPerderemos.Views.Friend
 		async void LoadFriends()
 		{
 			ListView.ItemsSource = await DependencyService.Get<IFacebookService>().FindAllFriends();
+		}
+
+		/// <summary>
+		/// Gets the background gradient.
+		/// </summary>
+		/// <value>The background gradient.</value>
+		Image BackgroundGradient {
+			get {
+				return new Image {
+					Source = ImageSource.FromFile("BackgroundGradient.png"),
+					Aspect = Aspect.Fill
+				};
+			}
 		}
 
 		/// <summary>
