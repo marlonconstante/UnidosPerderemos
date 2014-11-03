@@ -19,7 +19,6 @@ namespace UnidosPerderemos.Views.History
 		{
 			Title = "Histórico";
 			Icon = ImageSource.FromFile("History.png") as FileImageSource;
-			BackgroundImage = "BackgroundGoal.png";
 		}
 
 		/// <summary>

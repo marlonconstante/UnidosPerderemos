@@ -36,8 +36,6 @@ namespace UnidosPerderemos.Views.About
 		/// </summary>
 		void SetUp()
 		{
-			BackgroundImage = "BackgroundGoal.png";
-
 			ButtonContinue.Clicked += OnContinueClicked;
 
 			InputGender.Items = GenderInfo.GetGenderItems();

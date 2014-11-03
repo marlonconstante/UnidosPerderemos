@@ -37,8 +37,6 @@ namespace UnidosPerderemos.Views.Login
 		/// </summary>
 		void SetUp()
 		{
-			BackgroundImage = "BackgroundGoal.png";
-
 			FacebookButton.Clicked += OnFacebookClicked;
 			ButtonContinue.Clicked += OnContinueClicked;
 		}

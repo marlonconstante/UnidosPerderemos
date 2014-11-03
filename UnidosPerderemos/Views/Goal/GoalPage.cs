@@ -37,8 +37,6 @@ namespace UnidosPerderemos.Views.Goal
 		/// </summary>
 		void SetUp()
 		{
-			BackgroundImage = "BackgroundGoal.png";
-
 			ButtonContinue.Clicked += OnContinueClicked;
 		}
 

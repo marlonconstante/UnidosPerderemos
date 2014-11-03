@@ -118,7 +118,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\BackgroundGoal%402x.png" />
     <BundleResource Include="Resources\Roboto-Black.ttf" />
     <BundleResource Include="Resources\Roboto-BlackItalic.ttf" />
     <BundleResource Include="Resources\Roboto-Bold.ttf" />
@@ -140,7 +139,6 @@
     <BundleResource Include="Resources\Profile%402x.png" />
     <BundleResource Include="Resources\Gear%402x.png" />
     <BundleResource Include="Resources\BackgroundProfileBox%402x.png" />
-    <BundleResource Include="Resources\BackgroundProfile%402x.png" />
     <BundleResource Include="Resources\EmptyLinearProgress%402x.png" />
     <BundleResource Include="Resources\UpButton%402x.png" />
     <BundleResource Include="Resources\EmptyStar%402x.png" />

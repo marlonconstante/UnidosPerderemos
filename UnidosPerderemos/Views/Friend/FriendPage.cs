@@ -23,7 +23,6 @@ namespace UnidosPerderemos.Views.Friend
 		{
 			Title = "Amigos";
 			Icon = ImageSource.FromFile("Contact.png") as FileImageSource;
-			BackgroundImage = "BackgroundGoal.png";
 		}
 
 		/// <summary>
