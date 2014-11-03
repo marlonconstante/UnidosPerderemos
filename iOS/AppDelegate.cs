@@ -48,6 +48,11 @@ namespace UnidosPerderemos.iOS
 			FBSettings.DefaultAppID = FacebookAppId;
 			FBSettings.DefaultDisplayName = DisplayName;
 
+			if (FBSession.ActiveSession.State == FBSessionState.CreatedTokenLoaded)
+			{
+				FBSession.OpenActiveSession(false);
+			}
+
 			ParseClient.Initialize(ParseAppId, ParseDotnetKey);
 			ParseFacebookUtils.Initialize(FacebookAppId);
 
