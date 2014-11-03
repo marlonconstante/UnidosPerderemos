@@ -82,8 +82,7 @@ namespace UnidosPerderemos.Views.Config
 						new LHEntryCell("Comer Melhor:", m_entryTacticFeed)
 
 					},
-
-					new TableSection("")
+					new TableSection(string.Empty)
 					{
 						new ViewCell
 						{
@@ -111,7 +110,7 @@ namespace UnidosPerderemos.Views.Config
 		/// <returns>The status bar style.</returns>
 		public StatusBarStyle PreferredStatusBarStyle()
 		{
-			return StatusBarStyle.Light;
+			return StatusBarStyle.Dark;
 		}
 
 		/// <summary>
@@ -135,4 +134,3 @@ namespace UnidosPerderemos.Views.Config
 		#endregion
 	}
 }
-
