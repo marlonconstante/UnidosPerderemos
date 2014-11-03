@@ -20,7 +20,7 @@ namespace UnidosPerderemos.Core.Controls
 		/// <summary>
 		/// The tint color property.
 		/// </summary>
-		public static BindableProperty TintColorProperty = BindableProperty.Create<OptionButton, Color>(p => p.TintColor, Color.FromRgb(252, 255, 0));
+		public static readonly BindableProperty TintColorProperty = BindableProperty.Create<OptionButton, Color>(p => p.TintColor, Color.FromRgb(252, 255, 0));
 
 		public OptionButton()
 		{
