@@ -127,7 +127,7 @@ namespace UnidosPerderemos.Views.Profile
 		RoundImage Photo {
 			get;
 		} = new RoundImage {
-			Source = ImageSource.FromFile("BackgroundGoal.png"),
+			Source = ImageSource.FromFile("BackgroundProfileBox.png"),
 			Aspect = Aspect.AspectFill,
 			WidthRequest = 100d,
 			HeightRequest = 100d
