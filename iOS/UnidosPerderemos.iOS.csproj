@@ -157,10 +157,10 @@
     <BundleResource Include="Resources\Default%402x.png" />
     <BundleResource Include="Resources\Default-568h%402x.png" />
     <BundleResource Include="Resources\BackgroundGradient%403x.png" />
-    <BundleResource Include="Resources\Background-1%402x.jpg" />
-    <BundleResource Include="Resources\Background-2%402x.jpg" />
-    <BundleResource Include="Resources\Background-3%402x.jpg" />
-    <BundleResource Include="Resources\Background-4%402x.jpg" />
+    <BundleResource Include="Resources\Background-1%403x.jpg" />
+    <BundleResource Include="Resources\Background-2%403x.jpg" />
+    <BundleResource Include="Resources\Background-3%403x.jpg" />
+    <BundleResource Include="Resources\Background-4%403x.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
