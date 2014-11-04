@@ -34,7 +34,7 @@ namespace UnidosPerderemos.Views.Main
 		/// <param name="args">Arguments.</param>
 		void OnConfigActivated(object sender, EventArgs args)
 		{
-			Navigation.PushAsync(new ConfigPage());
+			Navigation.PushModalAsync(new ConfigPageNavigation());
 		}
 
 		/// <summary>

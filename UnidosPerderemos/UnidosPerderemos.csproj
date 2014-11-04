@@ -77,6 +77,7 @@
     <Compile Include="Views\Config\ConfigPage.cs" />
     <Compile Include="Core\Controls\LHEntryCell.cs" />
     <Compile Include="Core\Controls\CellTextField.cs" />
+    <Compile Include="Views\Config\ConfigPageNavigation.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.1.3.0.6262-pre0\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.1.3.0.6262-pre0\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets')" />
