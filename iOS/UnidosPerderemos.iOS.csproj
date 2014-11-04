@@ -156,7 +156,6 @@
     <BundleResource Include="Resources\UPLogo%403x.png" />
     <BundleResource Include="Resources\Default%402x.png" />
     <BundleResource Include="Resources\Default-568h%402x.png" />
-    <BundleResource Include="Resources\Background%403x.jpg" />
     <BundleResource Include="Resources\BackgroundGradient%403x.png" />
   </ItemGroup>
   <ItemGroup>
