@@ -1,8 +1,8 @@
 ﻿using System;
 using Xamarin.Forms;
-using UnidosPerderemos.Views.Contact;
 using UnidosPerderemos.Views.History;
 using UnidosPerderemos.Views.Profile;
+using UnidosPerderemos.Views.Friend;
 
 namespace UnidosPerderemos.Views.Main
 {
@@ -20,7 +20,7 @@ namespace UnidosPerderemos.Views.Main
 		{
 			Children.Add(new HistoryPage());
 			Children.Add(new ProfilePage());
-			Children.Add(new ContactPage());
+			Children.Add(new FriendPage());
 		}
 
 		/// <summary>

@@ -7,17 +7,31 @@ using System.Collections.Generic;
 using System.Linq;
 using UnidosPerderemos.iOS.Renderers.Pages;
 
+
 [assembly: ExportRenderer(typeof(ConfigPage), typeof(ConfigPageRenderer))]
 namespace UnidosPerderemos.iOS.Renderers.Pages
 {
 	public class ConfigPageRenderer : PageRenderer
 	{
+		/// <summary>
+		/// Gets the application.
+		/// </summary>
+		/// <value>The application.</value>
+		UIApplication Application {
+			get {
+				return UIApplication.SharedApplication;
+			}
+		}
+
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
 
 			if (NavigationController == null)
 				return;
+
+			Application.StatusBarStyle = UIStatusBarStyle.Default;
+
 
 			var itemsInfo = (Element as ContentPage).ToolbarItems;
 
@@ -52,6 +66,7 @@ namespace UnidosPerderemos.iOS.Renderers.Pages
 
 			return items.ToList().FirstOrDefault(itemData => name.Equals(itemData.Name));
 		}
+
 	}
 }
 

@@ -35,7 +35,6 @@ namespace UnidosPerderemos.Views.Profile
 		{
 			Title = "Perfil";
 			Icon = ImageSource.FromFile("Profile.png") as FileImageSource;
-			BackgroundImage = "BackgroundProfile.png";
 		}
 
 		/// <summary>

@@ -42,8 +42,6 @@ namespace UnidosPerderemos.Views.Login
 		/// </summary>
 		void SetUp()
 		{
-			BackgroundImage = "BackgroundGoal.png";
-
 			ButtonSignUp.Clicked += OnSignUpClicked;
 			ButtonLogin.Clicked += OnLoginClicked;
 		}

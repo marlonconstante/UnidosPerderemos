@@ -5,16 +5,13 @@ using Xamarin.Forms;
 using UnidosPerderemos;
 using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Core.Pages;
+using System.Drawing;
 
 [assembly: ExportRenderer(typeof(ContentPage), typeof(UnidosPerderemos.iOS.Renderers.Pages.ContentPageRenderer))]
 namespace UnidosPerderemos.iOS.Renderers.Pages
 {
 	public class ContentPageRenderer : PageRenderer
 	{
-		public ContentPageRenderer()
-		{
-		}
-
 		/// <summary>
 		/// Views the will appear.
 		/// </summary>
@@ -25,11 +22,27 @@ namespace UnidosPerderemos.iOS.Renderers.Pages
 
 			if (ControlPage != null)
 			{
-				Target.NavigationBarHidden = !ControlPage.IsShowNavigationBar();
+				NavigationController.NavigationBarHidden = !ControlPage.IsShowNavigationBar();
 				Application.StatusBarHidden = !ControlPage.IsShowStatusBar();
 
 				var lightStyle = StatusBarStyle.Light == ControlPage.PreferredStatusBarStyle();
 				Application.StatusBarStyle = lightStyle ? UIStatusBarStyle.LightContent : UIStatusBarStyle.Default;
+
+				Target.InsertSubview(new UIImageView() {
+					Image = UIImage.FromFile("Background.jpg"),
+					ContentMode = UIViewContentMode.Left,
+					Frame = new RectangleF(-220f, -80f, ScreenBounds.Width, ScreenBounds.Height)
+				}, 0);
+			}
+		}
+
+		/// <summary>
+		/// Gets the screen bounds.
+		/// </summary>
+		/// <value>The screen bounds.</value>
+		RectangleF ScreenBounds {
+			get {
+				return UIScreen.MainScreen.Bounds;
 			}
 		}
 
@@ -67,9 +80,9 @@ namespace UnidosPerderemos.iOS.Renderers.Pages
 		/// Gets the target.
 		/// </summary>
 		/// <value>The target.</value>
-		UINavigationController Target {
+		UIView Target {
 			get {
-				return NavigationController;
+				return View;
 			}
 		}
 	}
