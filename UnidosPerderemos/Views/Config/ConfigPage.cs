@@ -41,14 +41,16 @@ namespace UnidosPerderemos.Views.Config
 		void ConfigureTitleBar()
 		{
 			Title = "Configurações";
-			ToolbarItems.Add(new ToolbarItem
-			{
-				Name = "Cancelar",
-				Command = new Command(() => Navigation.PopModalAsync()),
-			});
+
 			ToolbarItems.Add(new ToolbarItem
 			{
 				Name = "Salvar",
+				Command = new Command(() => Navigation.PopModalAsync()),
+			});
+
+			ToolbarItems.Add(new ToolbarItem
+			{
+				Name = "Cancelar",
 				Command = new Command(() => Navigation.PopModalAsync()),
 			});
 		}

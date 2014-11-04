@@ -1,13 +1,13 @@
 ﻿using System;
 using Xamarin.Forms;
+using UnidosPerderemos.Core.Pages;
 
 namespace UnidosPerderemos.Views.Config
 {
-	public class ConfigPageNavigation : NavigationPage
+	public class ConfigPageNavigation : FlowPage
 	{
-		public ConfigPageNavigation()
+		public ConfigPageNavigation() : base(new ConfigPage())
 		{
-			PushAsync(new ConfigPage());
 		}
 	}
 }
