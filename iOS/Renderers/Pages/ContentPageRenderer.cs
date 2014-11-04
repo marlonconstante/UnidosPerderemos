@@ -26,6 +26,25 @@ namespace UnidosPerderemos.iOS.Renderers.Pages
 
 				var lightStyle = StatusBarStyle.Light == ControlPage.PreferredStatusBarStyle();
 				Application.StatusBarStyle = lightStyle ? UIStatusBarStyle.LightContent : UIStatusBarStyle.Default;
+
+				AddBackgroundImage(ControlPage.BackgroundImageName());
+			}
+		}
+
+		/// <summary>
+		/// Adds the background image.
+		/// </summary>
+		/// <param name="imageName">Image name.</param>
+		void AddBackgroundImage(string imageName)
+		{
+			if (!string.IsNullOrEmpty(imageName))
+			{
+				Target.InsertSubview(new UIImageView() {
+					Image = UIImage.FromFile(imageName),
+					AutoresizingMask = UIViewAutoresizing.FlexibleWidth,
+					ContentMode = UIViewContentMode.ScaleAspectFill,
+					Frame = UIScreen.MainScreen.Bounds
+				}, 0);
 			}
 		}
 

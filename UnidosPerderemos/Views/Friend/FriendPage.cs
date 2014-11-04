@@ -109,5 +109,14 @@ namespace UnidosPerderemos.Views.Friend
 		{
 			return true;
 		}
+
+		/// <summary>
+		/// Backgrounds the name of the image.
+		/// </summary>
+		/// <returns>The image name.</returns>
+		public string BackgroundImageName()
+		{
+			return "Background-4.jpg";
+		}
 	}
 }

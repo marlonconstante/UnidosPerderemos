@@ -175,5 +175,14 @@ namespace UnidosPerderemos.Views.Login
 		{
 			return true;
 		}
+
+		/// <summary>
+		/// Backgrounds the name of the image.
+		/// </summary>
+		/// <returns>The image name.</returns>
+		public string BackgroundImageName()
+		{
+			return "Background-1.jpg";
+		}
 	}
 }

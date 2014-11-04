@@ -22,5 +22,11 @@ namespace UnidosPerderemos.Core.Pages
 		/// </summary>
 		/// <returns><c>true</c> if this instance is show status bar; otherwise, <c>false</c>.</returns>
 		bool IsShowStatusBar();
+
+		/// <summary>
+		/// Backgrounds the name of the image.
+		/// </summary>
+		/// <returns>The image name.</returns>
+		string BackgroundImageName();
 	}
 }
