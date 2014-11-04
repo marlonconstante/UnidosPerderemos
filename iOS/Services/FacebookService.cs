@@ -20,17 +20,24 @@ namespace UnidosPerderemos.iOS.Services
 		{
 			var friends = new List<PersonFacebook>();
 
-			var response = await FBRequest.ForMyFriends.StartAsync();
-			var result = response.Result as FBGraphObject;
-			var data = result["data"] as NSArray;
-
-			for (var index = 0; index < data.Count; index++)
+			try
 			{
-				var person = data.GetItem<FBGraphPerson>(index);
-				friends.Add(new PersonFacebook {
-					Id = person.GetId(),
-					Name = person.GetName()
-				});
+				var response = await FBRequest.ForMyFriends.StartAsync();
+				var result = response.Result as FBGraphObject;
+				var data = result["data"] as NSArray;
+
+				for (var index = 0; index < data.Count; index++)
+				{
+					var person = data.GetItem<FBGraphPerson>(index);
+					friends.Add(new PersonFacebook {
+						Id = person.GetId(),
+						Name = person.GetName()
+					});
+				}
+			}
+			catch (Exception ex)
+			{
+				// Ignora possíveis erros...
 			}
 
 			return friends;
