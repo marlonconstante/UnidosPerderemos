@@ -2,6 +2,8 @@
 using UnidosPerderemos.Core.Controls;
 using UnidosPerderemos.Models;
 using UnidosPerderemos.Services;
+using System.Threading.Tasks;
+using System;
 
 namespace UnidosPerderemos.Views.Config
 {
@@ -45,7 +47,7 @@ namespace UnidosPerderemos.Views.Config
 			ToolbarItems.Add(new ToolbarItem
 			{
 				Name = "Salvar",
-				Command = new Command(() => Navigation.PopModalAsync()),
+				Command = new Command(() => Save()),
 			});
 
 			ToolbarItems.Add(new ToolbarItem
@@ -140,6 +142,30 @@ namespace UnidosPerderemos.Views.Config
 				Intent = TableIntent.Form,
 				Root = CreateTabbleViewRoot()
 			};
+		}
+
+		async Task Save()
+		{
+			var userProfile = App.Instance.CurrentUserProfile;
+
+			userProfile.DateOfBirth = m_dateField.Date;
+			userProfile.Gender = (Gender) m_inputGender.SelectedItem;
+			userProfile.UserName = m_name.Text;
+			userProfile.Weight = Convert.ToInt32(m_weightInput.Text);
+			userProfile.Height = Convert.ToInt32(m_heigthInput.Text);
+			userProfile.GoalWeight = Convert.ToInt32(m_goalWeight.Text);
+			userProfile.GoalTime = Convert.ToInt32(m_goalTime.Text);
+			userProfile.IsTacticExercise = m_entryTacticExercise.IsToggled;
+			userProfile.IsTacticFeed = m_entryTacticFeed.IsToggled;
+
+			if (await DependencyService.Get<IUserProfileService>().Save(userProfile))
+			{
+				DisplayAlert("Salvo", "", "Entendi");
+			}
+			else
+			{
+				DisplayAlert("Ops...", "Ocorreu uma falha na conexão com o servidor.", "Entendi");
+			}
 		}
 	}
 }
