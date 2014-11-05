@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace UnidosPerderemos.Models
 {
+	/// <summary>
+	/// Gender.
+	/// </summary>
 	public enum Gender
 	{
 		Male,
@@ -12,13 +15,13 @@ namespace UnidosPerderemos.Models
 	/// <summary>
 	/// Gender info.
 	/// </summary>
-	static public class GenderInfo
+	public static class GenderInfo
 	{
 		/// <summary>
 		/// Gets the gender items.
 		/// </summary>
 		/// <returns>The gender items.</returns>
-		static public IDictionary<string, object> GetGenderItems()
+		public static IDictionary<string, object> GetGenderItems()
 		{
 			var genderItems = new Dictionary<string, object>();
 			genderItems.Add("Masculino", Gender.Male);
@@ -26,6 +29,4 @@ namespace UnidosPerderemos.Models
 			return genderItems;
 		}
 	}
-
-
 }
