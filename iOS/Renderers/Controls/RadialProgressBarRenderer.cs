@@ -39,7 +39,7 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 		/// <param name="e">E.</param>
 		protected override void OnElementChanged(ElementChangedEventArgs<Image> e)
 		{
-			LoadImageView(Math.Ceiling(Source.Progress / 10f));
+			LoadImageView(Math.Ceiling(Source.Progress / 10f) * 10);
 		}
 
 		/// <summary>
@@ -48,7 +48,7 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 		/// <param name="progress">Progress.</param>
 		void LoadImageView(double progress)
 		{
-			SetNativeControl(new UIImageView(new UIImage(string.Concat(Source.ProgressType, progress, "percent.png"))));
+			SetNativeControl(new UIImageView(new UIImage(string.Concat(Source.ProgressType, progress, ".png"))));
 		}
 	}
 }
