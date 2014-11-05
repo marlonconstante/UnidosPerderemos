@@ -48,7 +48,8 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 		/// <param name="progress">Progress.</param>
 		void LoadImageView(double progress)
 		{
-			SetNativeControl(new UIImageView(new UIImage(string.Concat(Source.ProgressType, progress, "percent.png"))));
+//			SetNativeControl(new UIImageView(new UIImage(string.Concat(Source.ProgressType, progress, "percent.png"))));
+			SetNativeControl(new UIImageView(new UIImage("70percent.png")));
 		}
 	}
 }
