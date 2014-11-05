@@ -161,6 +161,26 @@
     <BundleResource Include="Resources\Background-2%403x.jpg" />
     <BundleResource Include="Resources\Background-3%403x.jpg" />
     <BundleResource Include="Resources\Background-4%403x.jpg" />
+    <BundleResource Include="Resources\Dedication10.png" />
+    <BundleResource Include="Resources\Dedication20.png" />
+    <BundleResource Include="Resources\Dedication30.png" />
+    <BundleResource Include="Resources\Dedication40.png" />
+    <BundleResource Include="Resources\Dedication50.png" />
+    <BundleResource Include="Resources\Dedication60.png" />
+    <BundleResource Include="Resources\Dedication70.png" />
+    <BundleResource Include="Resources\Dedication80.png" />
+    <BundleResource Include="Resources\Dedication90.png" />
+    <BundleResource Include="Resources\Dedication100.png" />
+    <BundleResource Include="Resources\Goal10.png" />
+    <BundleResource Include="Resources\Goal20.png" />
+    <BundleResource Include="Resources\Goal30.png" />
+    <BundleResource Include="Resources\Goal40.png" />
+    <BundleResource Include="Resources\Goal50.png" />
+    <BundleResource Include="Resources\Goal60.png" />
+    <BundleResource Include="Resources\Goal70.png" />
+    <BundleResource Include="Resources\Goal80.png" />
+    <BundleResource Include="Resources\Goal90.png" />
+    <BundleResource Include="Resources\Goal100.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />

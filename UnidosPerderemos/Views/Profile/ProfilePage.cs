@@ -113,7 +113,7 @@ namespace UnidosPerderemos.Views.Profile
 		{
 			get
 			{
-				return new ProfileViewGraphics(70)
+				return new ProfileViewGraphics(70, "Dedication")
 				{
 					Title = "Dedicação"
 				};
@@ -128,7 +128,7 @@ namespace UnidosPerderemos.Views.Profile
 		{
 			get
 			{
-				return new ProfileViewGraphics(100)
+				return new ProfileViewGraphics(100, "Goal")
 				{
 					Title = "Meta"
 				};

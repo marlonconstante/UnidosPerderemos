@@ -10,9 +10,11 @@ namespace UnidosPerderemos.Views.Profile
 		/// <summary>
 		/// Initializes a new instance of the <see cref="UnidosPerderemos.Views.Profile.ProfileViewGraphics"/> class.
 		/// </summary>
-		public ProfileViewGraphics(int percent)
+		/// <param name="percent">Percent.</param>
+		/// <param name="progressType">Progress type.</param>
+		public ProfileViewGraphics(int percent, string progressType)
 		{
-			SetUp(percent);
+			SetUp(percent, progressType);
 
 			Content = new StackLayout
 			{
@@ -42,7 +44,9 @@ namespace UnidosPerderemos.Views.Profile
 		/// <summary>
 		/// Sets up.
 		/// </summary>
-		void SetUp(int percent)
+		/// <param name="percent">Percent.</param>
+		/// <param name="progressType">Progress type.</param>
+		void SetUp(int percent, string progressType)
 		{
 			Title = "Percentual";
 			Percentage = percent;
@@ -52,6 +56,7 @@ namespace UnidosPerderemos.Views.Profile
 				WidthRequest = 80d,
 				HeightRequest = 80d,
 				Progress = percent,
+				ProgressType = progressType,
 				HorizontalOptions = LayoutOptions.CenterAndExpand
 			};
 
@@ -78,7 +83,7 @@ namespace UnidosPerderemos.Views.Profile
 		{
 			get;
 		} = new CompressedLabel {
-			Font = Font.OfSize("Roboto-Light", 32),
+			Font = Font.OfSize("Roboto-Light", 28),
 			TextColor = Color.FromHex("fcfbfb"),
 			XAlign = TextAlignment.Center,
 			YAlign = TextAlignment.Center,
@@ -94,13 +99,13 @@ namespace UnidosPerderemos.Views.Profile
 		{
 			get;
 		} = new CompressedLabel {
-			Font = Font.OfSize("Roboto-Light", 18),
+			Font = Font.OfSize("Roboto-Light", 14),
 			TextColor = Color.FromHex("fcfbfb"),
 			Text = "%",
 			XAlign = TextAlignment.Center,
 			YAlign = TextAlignment.Center,
 			TranslationY = 5d,
-			TranslationX = -15d,
+			TranslationX = -25d,
 			HeightRequest = 80d
 		};
 
