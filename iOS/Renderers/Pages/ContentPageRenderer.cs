@@ -5,7 +5,6 @@ using Xamarin.Forms;
 using UnidosPerderemos;
 using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Core.Pages;
-using System.Drawing;
 
 [assembly: ExportRenderer(typeof(ContentPage), typeof(UnidosPerderemos.iOS.Renderers.Pages.ContentPageRenderer))]
 namespace UnidosPerderemos.iOS.Renderers.Pages
@@ -28,21 +27,24 @@ namespace UnidosPerderemos.iOS.Renderers.Pages
 				var lightStyle = StatusBarStyle.Light == ControlPage.PreferredStatusBarStyle();
 				Application.StatusBarStyle = lightStyle ? UIStatusBarStyle.LightContent : UIStatusBarStyle.Default;
 
-				Target.InsertSubview(new UIImageView() {
-					Image = UIImage.FromFile("Background.jpg"),
-					ContentMode = UIViewContentMode.Left,
-					Frame = new RectangleF(-220f, -80f, ScreenBounds.Width, ScreenBounds.Height)
-				}, 0);
+				AddBackgroundImage(ControlPage.BackgroundImageName());
 			}
 		}
 
 		/// <summary>
-		/// Gets the screen bounds.
+		/// Adds the background image.
 		/// </summary>
-		/// <value>The screen bounds.</value>
-		RectangleF ScreenBounds {
-			get {
-				return UIScreen.MainScreen.Bounds;
+		/// <param name="imageName">Image name.</param>
+		void AddBackgroundImage(string imageName)
+		{
+			if (!string.IsNullOrEmpty(imageName))
+			{
+				Target.InsertSubview(new UIImageView() {
+					Image = UIImage.FromFile(imageName),
+					AutoresizingMask = UIViewAutoresizing.FlexibleWidth,
+					ContentMode = UIViewContentMode.ScaleAspectFill,
+					Frame = UIScreen.MainScreen.Bounds
+				}, 0);
 			}
 		}
 
