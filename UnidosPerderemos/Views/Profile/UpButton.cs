@@ -1,6 +1,8 @@
 ﻿using System;
 using UnidosPerderemos.Core.Controls;
 using Xamarin.Forms;
+using UnidosPerderemos.Views.Main;
+using UnidosPerderemos.Views.Daily;
 
 namespace UnidosPerderemos.Views.Profile
 {
@@ -45,9 +47,7 @@ namespace UnidosPerderemos.Views.Profile
 		/// <param name="args">Arguments.</param>
 		void OnButtonClicked(object sender, EventArgs args)
 		{
-			IsStar = !IsStar;
-
-			App.Instance.MainPage.DisplayAlert("UP!", "Como foi seu dia?", "Cancelar");
+			Navigation.PushModalAsync(new MainFlowPage(new DailyPage()));
 		}
 
 		/// <summary>
