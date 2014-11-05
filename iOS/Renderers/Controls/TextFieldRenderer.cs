@@ -3,8 +3,6 @@ using Xamarin.Forms.Platform.iOS;
 using Xamarin.Forms;
 using UnidosPerderemos;
 using MonoTouch.UIKit;
-using MonoTouch.CoreAnimation;
-using System.Drawing;
 using UnidosPerderemos.Core.Controls;
 using MonoTouch.Foundation;
 
