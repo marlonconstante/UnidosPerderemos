@@ -36,6 +36,7 @@ namespace UnidosPerderemos.Views.Profile
 		/// </summary>
 		void SetUp()
 		{
+			LinearProgress = new LinearProgressBar();
 			AddTappedPhoto();
 		}
 
@@ -199,18 +200,10 @@ namespace UnidosPerderemos.Views.Profile
 		/// Gets the linear progress.
 		/// </summary>
 		/// <value>The linear progress.</value>
-		StackLayout LinearProgress {
-			get {
-				return new StackLayout {
-					Padding = new Thickness(0f, 9f, 0f, 9f),
-					Children = {
-						new Image {
-							Source = ImageSource.FromFile("EmptyLinearProgress.png"),
-							Aspect = Aspect.AspectFill
-						}
-					}
-				};
-			}
+		LinearProgressBar LinearProgress
+		{
+			set;
+			get;
 		}
 
 		/// <summary>
