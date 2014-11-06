@@ -2,6 +2,8 @@
 using Xamarin.Forms;
 using UnidosPerderemos.Models;
 using UnidosPerderemos.Core.Controls;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace UnidosPerderemos.Views.Daily
 {
@@ -45,12 +47,23 @@ namespace UnidosPerderemos.Views.Daily
 		/// <param name="args">Arguments.</param>
 		void OnSelectPerformance(object sender, EventArgs args)
 		{
-			SelectPerformance(Performance);
-
-			foreach (var view in ParentGrid.Children)
+			foreach (var view in ParentChildren)
 			{
 				var button = view as PerformanceButton;
-				button.IsSelected = button.Performance == Performance;
+				button.IsSelected = false;
+			}
+			IsSelected = true;
+
+			SelectPerformance(Performance);
+		}
+			
+		/// <summary>
+		/// Gets the parent children.
+		/// </summary>
+		/// <value>The parent children.</value>
+		List<View> ParentChildren {
+			get {
+				return ParentGrid.Children.Where((view) => view != this).ToList();
 			}
 		}
 
