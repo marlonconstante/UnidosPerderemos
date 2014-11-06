@@ -37,6 +37,7 @@ namespace UnidosPerderemos.Views.Profile
 		void SetUp()
 		{
 			LinearProgress = new LinearProgressBar();
+			LinearProgress.Progress = 42;
 			AddTappedPhoto();
 		}
 

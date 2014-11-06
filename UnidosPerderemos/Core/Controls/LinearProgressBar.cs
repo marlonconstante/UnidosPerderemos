@@ -3,19 +3,66 @@ using Xamarin.Forms;
 
 namespace UnidosPerderemos.Core.Controls
 {
-	public class LinearProgressBar : StackLayout
+	public class LinearProgressBar : Grid
 	{
+		public int Progress
+		{
+			get { return (int)GetValue(ProgressProperty); }
+			set
+			{ 
+				SetValue(ProgressProperty, value); 
+				UpdateProgressBar();
+			}
+		}
+
+		/// <summary>
+		/// The progress property.
+		/// </summary>
+		public static readonly BindableProperty ProgressProperty = BindableProperty.Create<LinearProgressBar, int>(p => p.Progress, 0, BindingMode.TwoWay);
+
 		public LinearProgressBar()
 		{
-			Padding = new Thickness(0f, 9f, 0f, 9f);
-			Children.Add(
-				new Image
+			UpdateProgressBar();
+		}
+
+		/// <summary>
+		/// Updates the progress bar.
+		/// </summary>
+		void UpdateProgressBar()
+		{
+			Padding = new Thickness(0f, 9f, 9f, 10f);
+			ColumnDefinitions = new ColumnDefinitionCollection
+			{
+				new ColumnDefinition
 				{
-					Source = ImageSource.FromFile("Progress30.png"),
-					Aspect = Aspect.AspectFill
+					Width = new GridLength(1d, GridUnitType.Star)
 				}
-			);
+			};
+			Children.Add(new Image
+			{
+				Source = ImageSource.FromFile("EmptyLinearProgress.png"),
+				Aspect = Aspect.AspectFill
+			});
+			Children.Add(new Image
+			{
+				Source = LoadImage(),
+				Aspect = Aspect.AspectFill
+			});
+		}
+
+		/// <summary>
+		/// Loads the image.
+		/// </summary>
+		/// <returns>The image.</returns>
+		ImageSource LoadImage()
+		{
+			if (Progress > 0)
+			{
+				var percent = Math.Ceiling(Progress / 10f) * 10;
+				return ImageSource.FromFile(string.Concat("Progress", percent, ".png"));
+			}
+
+			return null;
 		}
 	}
 }
-
