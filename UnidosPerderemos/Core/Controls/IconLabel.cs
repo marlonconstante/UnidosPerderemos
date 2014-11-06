@@ -10,10 +10,15 @@ namespace UnidosPerderemos.Core.Controls
 			Content = new Grid {
 				ColumnDefinitions = {
 					new ColumnDefinition {
-						Width = 24d
+						Width = GridLength.Auto
 					},
 					new ColumnDefinition {
 						Width = new GridLength(1d, GridUnitType.Star)
+					}
+				},
+				RowDefinitions = {
+					new RowDefinition {
+						Height = new GridLength(1d, GridUnitType.Star)
 					}
 				},
 				Children = {
@@ -30,8 +35,8 @@ namespace UnidosPerderemos.Core.Controls
 		Image Icon {
 			get;
 		} = new Image {
-			VerticalOptions = LayoutOptions.Start,
-			TranslationY = 2.5d
+			VerticalOptions = LayoutOptions.Center,
+			WidthRequest = 24d
 		};
 
 		/// <summary>
@@ -40,7 +45,22 @@ namespace UnidosPerderemos.Core.Controls
 		/// <value>The label text.</value>
 		CompressedLabel LabelText {
 			get;
-		} = new CompressedLabel();
+		} = new CompressedLabel {
+			YAlign = TextAlignment.Center
+		};
+
+		/// <summary>
+		/// Gets or sets the width of the icon.
+		/// </summary>
+		/// <value>The width of the icon.</value>
+		public double IconWidth {
+			get {
+				return Icon.WidthRequest;
+			}
+			set {
+				Icon.WidthRequest = value;
+			}
+		}
 
 		/// <summary>
 		/// Gets or sets the image.
