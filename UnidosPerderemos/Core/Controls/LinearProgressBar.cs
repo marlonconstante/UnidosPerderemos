@@ -5,6 +5,10 @@ namespace UnidosPerderemos.Core.Controls
 {
 	public class LinearProgressBar : Grid
 	{
+		/// <summary>
+		/// Gets or sets the progress.
+		/// </summary>
+		/// <value>The progress.</value>
 		public int Progress
 		{
 			get { return (int)GetValue(ProgressProperty); }
@@ -20,6 +24,9 @@ namespace UnidosPerderemos.Core.Controls
 		/// </summary>
 		public static readonly BindableProperty ProgressProperty = BindableProperty.Create<LinearProgressBar, int>(p => p.Progress, 0, BindingMode.TwoWay);
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="UnidosPerderemos.Core.Controls.LinearProgressBar"/> class.
+		/// </summary>
 		public LinearProgressBar()
 		{
 			UpdateProgressBar();

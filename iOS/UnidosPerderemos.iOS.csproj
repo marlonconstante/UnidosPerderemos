@@ -210,7 +210,6 @@
     <Compile Include="Renderers\Controls\TextFieldRenderer.cs" />
     <Compile Include="Renderers\Pages\ContentPageRenderer.cs" />
     <Compile Include="Renderers\Pages\FlowPageRenderer.cs" />
-    <Compile Include="Renderers\Controls\RadialProgressBarRenderer.cs" />
     <Compile Include="Renderers\Pages\TabbedPageRenderer.cs" />
     <Compile Include="Renderers\Controls\RoundImageRenderer.cs" />
     <Compile Include="Renderers\Controls\ImageButtonRenderer.cs" />
