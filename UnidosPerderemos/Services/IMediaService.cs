@@ -11,6 +11,7 @@ namespace UnidosPerderemos.Services
 		/// Gets the photo.
 		/// </summary>
 		/// <returns>The photo.</returns>
-		Task<Stream> GetPhoto();
+		/// <param name="maxSize">Max size.</param>
+		Task<Stream> GetPhoto(Size maxSize);
 	}
 }

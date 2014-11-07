@@ -58,7 +58,7 @@ namespace UnidosPerderemos.Views.Profile
 		/// <param name="args">Arguments.</param>
 		async void OnTappedPhoto(object sender, EventArgs args)
 		{
-			var stream = await DependencyService.Get<IMediaService>().GetPhoto();
+			var stream = await DependencyService.Get<IMediaService>().GetPhoto(new Size(200d, 200d));
 			if (stream != Stream.Null)
 			{
 				Photo.Source = ImageSource.FromStream(() => {
