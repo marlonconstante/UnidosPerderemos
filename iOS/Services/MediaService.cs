@@ -4,6 +4,7 @@ using Xamarin.Forms;
 using Xamarin.Media;
 using System.Threading.Tasks;
 using System.IO;
+using UnidosPerderemos.iOS.Utils;
 
 [assembly: Xamarin.Forms.Dependency(typeof(UnidosPerderemos.iOS.Services.MediaService))]
 namespace UnidosPerderemos.iOS.Services
@@ -14,12 +15,14 @@ namespace UnidosPerderemos.iOS.Services
 		/// Gets the photo.
 		/// </summary>
 		/// <returns>The photo.</returns>
-		public async Task<Stream> GetPhoto()
+		/// <param name="maxSize">Max size.</param>
+		public async Task<Stream> GetPhoto(Size maxSize)
 		{
 			var stream = Stream.Null;
 
 			await RunIfAlbumAvailable((f) => {
-				stream = f.GetStream();
+				var size = new System.Drawing.SizeF((float) maxSize.Width, (float) maxSize.Height);
+				stream = f.GetStream().ResizeImage(size);
 			});
 
 			return stream;
