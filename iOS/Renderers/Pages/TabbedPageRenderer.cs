@@ -53,7 +53,7 @@ namespace UnidosPerderemos.iOS.Renderers.Pages
 					Buttons.Add(button);
 				}
 
-				SelectButton(0);
+				SelectButton(Source.Children.IndexOf(Source.CurrentPage));
 
 				Initialized = true;
 			}
