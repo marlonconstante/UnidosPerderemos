@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using UnidosPerderemos.Core.Controls;
 using UnidosPerderemos.Services;
 using System.IO;
+using UnidosPerderemos.Models;
 
 namespace UnidosPerderemos.Views.Profile
 {
@@ -58,12 +59,22 @@ namespace UnidosPerderemos.Views.Profile
 		/// <param name="args">Arguments.</param>
 		async void OnTappedPhoto(object sender, EventArgs args)
 		{
-			var stream = await DependencyService.Get<IMediaService>().GetPhoto(new Size(200d, 200d));
+			var stream = await DependencyService.Get<IMediaService>().GetPhoto(new Size(400d, 400d));
 			if (stream != Stream.Null)
 			{
-				Photo.Source = ImageSource.FromStream(() => {
-					return stream;
-				});
+				Photo.LoadingSource = true;
+
+				UserProfile.Photo.Stream = stream;
+				if (await DependencyService.Get<IUserProfileService>().Save(UserProfile))
+				{
+					Photo.Source = ImageSource.FromStream(() => {
+						return stream;
+					});
+				}
+				else
+				{
+					Photo.LoadingSource = false;
+				}
 			}
 		}
 
@@ -129,8 +140,8 @@ namespace UnidosPerderemos.Views.Profile
 		RoundImage Photo {
 			get;
 		} = new RoundImage {
-			Source = ImageSource.FromFile("BackgroundProfileBox.png"),
 			Aspect = Aspect.AspectFill,
+			BackgroundColor = Color.FromHex("af6ac6"),
 			WidthRequest = 100d,
 			HeightRequest = 100d
 		};
@@ -219,5 +230,32 @@ namespace UnidosPerderemos.Views.Profile
 			Text = "Atualmente no dia 60 de 100",
 			TranslationX = 30d
 		};
+
+		/// <summary>
+		/// Gets the user profile.
+		/// </summary>
+		/// <value>The user profile.</value>
+		UserProfile UserProfile {
+			get {
+				return App.Instance.CurrentUserProfile;
+			}
+		}
+
+		/// <summary>
+		/// Loads the photo.
+		/// </summary>
+		public async void LoadPhoto() {
+			var profilePhoto = UserProfile.Photo;
+			if (profilePhoto != null)
+			{
+				Photo.LoadingSource = true;
+
+				await DependencyService.Get<IFileService>().Download(profilePhoto);
+
+				Photo.Source = ImageSource.FromStream(() => {
+					return profilePhoto.Stream;
+				});
+			}
+		}
 	}
 }

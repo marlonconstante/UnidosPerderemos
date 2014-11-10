@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using UnidosPerderemos.Core.Pages;
 using UnidosPerderemos.Services;
 using UnidosPerderemos.Views.Config;
+using UnidosPerderemos.Models;
 
 namespace UnidosPerderemos.Views.Main
 {
@@ -34,7 +35,14 @@ namespace UnidosPerderemos.Views.Main
 		/// <param name="args">Arguments.</param>
 		void OnConfigActivated(object sender, EventArgs args)
 		{
-			Navigation.PushModalAsync(new ConfigPageNavigation());
+			if (UserProfile == null)
+			{
+				DisplayAlert("Ops...", "As configurações ainda não foram carregadas.", "Entendi");
+			}
+			else
+			{
+				Navigation.PushModalAsync(new FlowPage(new ConfigPage()));
+			}
 		}
 
 		/// <summary>
@@ -47,5 +55,15 @@ namespace UnidosPerderemos.Views.Main
 		} = new ToolbarItem {
 			Icon = ImageSource.FromFile("Gear.png") as FileImageSource
 		};
+
+		/// <summary>
+		/// Gets the user profile.
+		/// </summary>
+		/// <value>The user profile.</value>
+		UserProfile UserProfile {
+			get {
+				return App.Instance.CurrentUserProfile;
+			}
+		}
 	}
 }

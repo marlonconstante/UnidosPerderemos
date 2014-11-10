@@ -97,5 +97,14 @@ namespace UnidosPerderemos.Models
 			get;
 			set;
 		}
+
+		/// <summary>
+		/// Gets or sets the photo.
+		/// </summary>
+		/// <value>The photo.</value>
+		public RemoteFile Photo {
+			get;
+			set;
+		}
 	}
 }

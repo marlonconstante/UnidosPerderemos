@@ -39,7 +39,7 @@ namespace UnidosPerderemos.Models
 		/// Gets or sets the photo.
 		/// </summary>
 		/// <value>The photo.</value>
-		byte[] Photo {
+		public RemoteFile Photo {
 			get;
 			set;
 		}

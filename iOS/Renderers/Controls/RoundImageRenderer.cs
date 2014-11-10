@@ -5,6 +5,7 @@ using Xamarin.Forms;
 using MonoTouch.UIKit;
 using MonoTouch.CoreAnimation;
 using System.Drawing;
+using System.ComponentModel;
 
 [assembly: ExportRenderer(typeof(RoundImage), typeof(UnidosPerderemos.iOS.Renderers.Controls.RoundImageRenderer))]
 namespace UnidosPerderemos.iOS.Renderers.Controls
@@ -37,7 +38,36 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 				Target.Layer.BorderWidth = 3.5f;
 				Target.Layer.BorderColor = UIColor.White.CGColor;
 
+				ActivityIndicatorView.Frame = new RectangleF(0f, 0f, Size.Width, Size.Height);
+				Target.Add(ActivityIndicatorView);
+
 				Initialized = true;
+			}
+		}
+
+		/// <summary>
+		/// Raises the element property changed event.
+		/// </summary>
+		/// <param name="sender">Sender.</param>
+		/// <param name="args">Arguments.</param>
+		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs args)
+		{
+			base.OnElementPropertyChanged(sender, args);
+
+			if (RoundImage.LoadingSourceProperty.PropertyName == args.PropertyName)
+			{
+				if (Source.LoadingSource)
+				{
+					ActivityIndicatorView.StartAnimating();
+				}
+				else
+				{
+					ActivityIndicatorView.StopAnimating();
+				}
+			}
+			else if (RoundImage.SourceProperty.PropertyName == args.PropertyName)
+			{
+				Source.LoadingSource = Source.Source == null;
 			}
 		}
 
@@ -60,6 +90,16 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 				return Target.Frame.Size;
 			}
 		}
+
+		/// <summary>
+		/// Gets the activity indicator view.
+		/// </summary>
+		/// <value>The activity indicator view.</value>
+		UIActivityIndicatorView ActivityIndicatorView {
+			get;
+		} = new UIActivityIndicatorView {
+			ActivityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
+		};
 
 		/// <summary>
 		/// Gets the source.

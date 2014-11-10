@@ -4,15 +4,35 @@ using Xamarin.Forms;
 using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Core.Pages;
 using UnidosPerderemos.Services;
+using UnidosPerderemos.Models;
 
 namespace UnidosPerderemos.Views.Friend
 {
-	public class FriendPage : ContentPage, IControlPage
+	public class FriendPage : ContentPage, IControlPage, ISecurePage
 	{
 		public FriendPage()
 		{
 			SetUp();
+		}
 
+		/// <summary>
+		/// Sets up.
+		/// </summary>
+		void SetUp()
+		{
+			Title = "Amigos";
+			Icon = ImageSource.FromFile("Contact.png") as FileImageSource;
+
+			Content = new ActivityIndicator {
+				Color = Color.White,
+				IsRunning = true
+			};
+		}
+
+		/// <summary>
+		/// Sets the content page.
+		/// </summary>
+		void SetContentPage() {
 			Content = new Grid {
 				ColumnDefinitions = {
 					new ColumnDefinition {
@@ -32,20 +52,11 @@ namespace UnidosPerderemos.Views.Friend
 		}
 
 		/// <summary>
-		/// Sets up.
+		/// Raises the user profile loaded event.
 		/// </summary>
-		void SetUp()
-		{
-			Title = "Amigos";
-			Icon = ImageSource.FromFile("Contact.png") as FileImageSource;
-		}
-
-		/// <summary>
-		/// Raises the appearing event.
-		/// </summary>
-		protected override void OnAppearing()
-		{
-			base.OnAppearing();
+		/// <param name="userProfile">User profile.</param>
+		public void OnUserProfileLoaded(UserProfile userProfile) {
+			SetContentPage();
 
 			LoadFriends();
 		}
