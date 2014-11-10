@@ -21,6 +21,23 @@ namespace UnidosPerderemos.Views.History
 			Icon = ImageSource.FromFile("History.png") as FileImageSource;
 		}
 
+		protected override void OnAppearing()
+		{
+			base.OnAppearing();
+
+			ListView.ItemsSource = await DependencyService.Get<IHistoryService>().FindAllContacts();
+		}
+
+		/// <summary>
+		/// Gets or sets the list view.
+		/// </summary>
+		/// <value>The list view.</value>
+		ListView ListView {
+			get;
+		} = new ListView {
+			ItemTemplate = new DataTemplate(typeof(HistoryCell))
+		};
+
 		/// <summary>
 		/// Preferreds the status bar style.
 		/// </summary>
