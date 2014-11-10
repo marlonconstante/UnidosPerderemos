@@ -1,6 +1,7 @@
 ﻿using System;
 using Parse;
 using UnidosPerderemos.Utils;
+using UnidosPerderemos.Models;
 
 namespace UnidosPerderemos.iOS.Utils
 {
@@ -51,16 +52,30 @@ namespace UnidosPerderemos.iOS.Utils
 				{
 					target.ObjectId = (string) value;
 				}
-				else
+				else if (IsAddValue(value))
 				{
 					if (value is Enum)
 					{
 						value = value.ToString();
 					}
+					else if (value is RemoteFile)
+					{
+						value = ((RemoteFile) value).ToParseFile();
+					}
 					target.Add(property.Name.ToFirstLowercase(), value);
 				}
 			}
 			return target;
+		}
+
+		/// <summary>
+		/// Determines if is add value the specified value.
+		/// </summary>
+		/// <returns><c>true</c> if is add value the specified value; otherwise, <c>false</c>.</returns>
+		/// <param name="value">Value.</param>
+		static bool IsAddValue(object value)
+		{
+			return !(value is RemoteFile) || ((RemoteFile) value).IsLoaded;
 		}
 
 		/// <summary>
@@ -77,6 +92,10 @@ namespace UnidosPerderemos.iOS.Utils
 				if (property.PropertyType.IsEnum)
 				{
 					value = Enum.Parse(property.PropertyType, value.ToString());
+				}
+				else if (value is ParseFile)
+				{
+					value = ((ParseFile) value).ToRemoteFile();
 				}
 				property.SetValue(target, value);
 			}

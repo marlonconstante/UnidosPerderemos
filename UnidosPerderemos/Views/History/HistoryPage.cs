@@ -2,10 +2,11 @@
 using Xamarin.Forms;
 using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Core.Pages;
+using UnidosPerderemos.Models;
 
 namespace UnidosPerderemos.Views.History
 {
-	public class HistoryPage : ContentPage, IControlPage
+	public class HistoryPage : ContentPage, IControlPage, ISecurePage
 	{
 		public HistoryPage()
 		{
@@ -19,13 +20,33 @@ namespace UnidosPerderemos.Views.History
 		{
 			Title = "Histórico";
 			Icon = ImageSource.FromFile("History.png") as FileImageSource;
+
+			Content = new ActivityIndicator {
+				Color = Color.White,
+				IsRunning = true
+			};
+		}
+
+		/// <summary>
+		/// Sets the content page.
+		/// </summary>
+		void SetContentPage() {
+			Content = new ScrollView();
+		}
+
+		/// <summary>
+		/// Raises the user profile loaded event.
+		/// </summary>
+		/// <param name="userProfile">User profile.</param>
+		public void OnUserProfileLoaded(UserProfile userProfile) {
+			SetContentPage();
 		}
 
 		protected override void OnAppearing()
 		{
 			base.OnAppearing();
 
-			ListView.ItemsSource = await DependencyService.Get<IHistoryService>().FindAllContacts();
+//			ListView.ItemsSource = await DependencyService.Get<IHistoryService>().FindAllContacts();
 		}
 
 		/// <summary>

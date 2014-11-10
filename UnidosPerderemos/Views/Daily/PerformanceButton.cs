@@ -56,14 +56,14 @@ namespace UnidosPerderemos.Views.Daily
 
 			SelectPerformance(Performance);
 		}
-			
+
 		/// <summary>
 		/// Gets the parent children.
 		/// </summary>
 		/// <value>The parent children.</value>
-		List<View> ParentChildren {
+		IEnumerable<View> ParentChildren {
 			get {
-				return ParentGrid.Children.Where((view) => view != this).ToList();
+				return ParentGrid.Children.Where((view) => view != this);
 			}
 		}
 

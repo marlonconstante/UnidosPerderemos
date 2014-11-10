@@ -22,7 +22,7 @@ namespace UnidosPerderemos.Views.Config
 
 		public ConfigPage()
 		{
-			ConfigureTitleBar();
+			ConfigureToolbar();
 			SetupInputs();
 			CreateLogoutButton();
 			CreateContentPage();
@@ -38,9 +38,9 @@ namespace UnidosPerderemos.Views.Config
 		}
 
 		/// <summary>
-		/// Configures the title bar.
+		/// Configures the toolbar.
 		/// </summary>
-		void ConfigureTitleBar()
+		void ConfigureToolbar()
 		{
 			Title = "Configurações";
 
@@ -66,21 +66,21 @@ namespace UnidosPerderemos.Views.Config
 			m_dateField.TextColor = Color.Black;
 			m_dateField.Font = Font.OfSize("Roboto-Regular", 16);
 			m_inputGender = new OptionButton();
-			m_inputGender.Items = GenderInfo.GetGenderItems();
-			m_inputGender.SelectedItem = App.Instance.CurrentUser.Gender;
 			m_inputGender.TintColor = Color.Black;
-			m_name = new CellTextField(App.Instance.CurrentUserProfile.UserName);
-			m_weightInput = new CellTextField(App.Instance.CurrentUserProfile.Weight.ToString());
-			m_heigthInput = new CellTextField(App.Instance.CurrentUserProfile.Height.ToString());
-			m_goalWeight = new CellTextField(App.Instance.CurrentUserProfile.GoalWeight.ToString());
-			m_goalTime = new CellTextField(App.Instance.CurrentUserProfile.GoalTime.ToString());
+			m_inputGender.Items = GenderInfo.GetGenderItems();
+			m_inputGender.SelectedItem = UserProfile.Gender;
+			m_name = new CellTextField(UserProfile.UserName);
+			m_weightInput = new CellTextField(UserProfile.Weight.ToString());
+			m_heigthInput = new CellTextField(UserProfile.Height.ToString());
+			m_goalWeight = new CellTextField(UserProfile.GoalWeight.ToString());
+			m_goalTime = new CellTextField(UserProfile.GoalTime.ToString());
 			m_entryTacticExercise = new Switch
 			{
-				IsToggled = App.Instance.CurrentUserProfile.IsTacticExercise
+				IsToggled = UserProfile.IsTacticExercise
 			};
 			m_entryTacticFeed = new Switch
 			{
-				IsToggled = App.Instance.CurrentUserProfile.IsTacticFeed
+				IsToggled = UserProfile.IsTacticFeed
 			};
 		}
 
@@ -135,6 +135,9 @@ namespace UnidosPerderemos.Views.Config
 			};
 		}
 
+		/// <summary>
+		/// Creates the content page.
+		/// </summary>
 		void CreateContentPage()
 		{
 			Content = new TableView
@@ -144,29 +147,39 @@ namespace UnidosPerderemos.Views.Config
 			};
 		}
 
+		/// <summary>
+		/// Save this instance.
+		/// </summary>
 		async Task Save()
 		{
-			var userProfile = App.Instance.CurrentUserProfile;
+			UserProfile.DateOfBirth = m_dateField.Date;
+			UserProfile.Gender = (Gender) m_inputGender.SelectedItem;
+			UserProfile.UserName = m_name.Text;
+			UserProfile.Weight = Convert.ToInt32(m_weightInput.Text);
+			UserProfile.Height = Convert.ToInt32(m_heigthInput.Text);
+			UserProfile.GoalWeight = Convert.ToInt32(m_goalWeight.Text);
+			UserProfile.GoalTime = Convert.ToInt32(m_goalTime.Text);
+			UserProfile.IsTacticExercise = m_entryTacticExercise.IsToggled;
+			UserProfile.IsTacticFeed = m_entryTacticFeed.IsToggled;
 
-			userProfile.DateOfBirth = m_dateField.Date;
-			userProfile.Gender = (Gender) m_inputGender.SelectedItem;
-			userProfile.UserName = m_name.Text;
-			userProfile.Weight = Convert.ToInt32(m_weightInput.Text);
-			userProfile.Height = Convert.ToInt32(m_heigthInput.Text);
-			userProfile.GoalWeight = Convert.ToInt32(m_goalWeight.Text);
-			userProfile.GoalTime = Convert.ToInt32(m_goalTime.Text);
-			userProfile.IsTacticExercise = m_entryTacticExercise.IsToggled;
-			userProfile.IsTacticFeed = m_entryTacticFeed.IsToggled;
-
-			if (await DependencyService.Get<IUserProfileService>().Save(userProfile))
+			if (await DependencyService.Get<IUserProfileService>().Save(UserProfile))
 			{
-				DisplayAlert("Salvo", "", "Entendi");
+				DisplayAlert("Pronto!", "Configurações atualizadas com sucesso.", "Entendi");
 			}
 			else
 			{
 				DisplayAlert("Ops...", "Ocorreu uma falha na conexão com o servidor.", "Entendi");
 			}
 		}
+
+		/// <summary>
+		/// Gets the user profile.
+		/// </summary>
+		/// <value>The user profile.</value>
+		UserProfile UserProfile {
+			get {
+				return App.Instance.CurrentUserProfile;
+			}
+		}
 	}
 }
-

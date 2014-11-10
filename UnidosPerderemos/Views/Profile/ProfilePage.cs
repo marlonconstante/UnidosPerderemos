@@ -3,15 +3,35 @@ using Xamarin.Forms;
 using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Core.Pages;
 using System.Diagnostics;
+using UnidosPerderemos.Models;
 
 namespace UnidosPerderemos.Views.Profile
 {
-	public class ProfilePage : ContentPage, IControlPage
+	public class ProfilePage : ContentPage, IControlPage, ISecurePage
 	{
 		public ProfilePage()
 		{
 			SetUp();
+		}
 
+		/// <summary>
+		/// Sets up.
+		/// </summary>
+		void SetUp()
+		{
+			Title = "Perfil";
+			Icon = ImageSource.FromFile("Profile.png") as FileImageSource;
+
+			Content = new ActivityIndicator {
+				Color = Color.White,
+				IsRunning = true
+			};
+		}
+
+		/// <summary>
+		/// Sets the content page.
+		/// </summary>
+		void SetContentPage() {
 			Content = new ScrollView
 			{
 				Content = new StackLayout
@@ -29,25 +49,21 @@ namespace UnidosPerderemos.Views.Profile
 		}
 
 		/// <summary>
-		/// Sets up.
+		/// Raises the user profile loaded event.
 		/// </summary>
-		void SetUp()
-		{
-			Title = "Perfil";
-			Icon = ImageSource.FromFile("Profile.png") as FileImageSource;
+		/// <param name="userProfile">User profile.</param>
+		public void OnUserProfileLoaded(UserProfile userProfile) {
+			SetContentPage();
+			ProfileViewBox.LoadPhoto();
 		}
 
 		/// <summary>
 		/// Gets the profile view box.
 		/// </summary>
 		/// <value>The profile view box.</value>
-		ProfileViewBox ProfileViewBox
-		{
-			get
-			{
-				return new ProfileViewBox();
-			}
-		}
+		ProfileViewBox ProfileViewBox {
+			get;
+		} = new ProfileViewBox();
 
 		/// <summary>
 		/// Gets up button.
