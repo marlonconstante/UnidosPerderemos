@@ -4,51 +4,47 @@ using UnidosPerderemos.Services;
 
 namespace UnidosPerderemos.Views.History
 {
-	public class HistoryCell: ImageCell
+	public class HistoryCell: ViewCell
 	{
-		public static readonly BindableProperty IdContactProperty = BindableProperty.Create<HistoryCell, string>(p => p.IdContact, string.Empty);
+		public Label Description
+		{
+			get;
+			set;
+		} = new Label()
+		{
+			YAlign = TextAlignment.Center,
+			XAlign = TextAlignment.End
+		};
 
+		public Image ContactPhoto
+		{
+			get;
+			set;
+		}
 
 		public HistoryCell()
 		{
-			this.SetBinding(IdContactProperty, "Id");
-			this.SetBinding(TextProperty, "Name");
-			this.SetBinding(DetailProperty, "PhonesText");
-		}
+			Description.SetBinding(Label.TextProperty, "Description");
+//			ContactPhoto.SetBinding(Image.SourceProperty, "ContactPhoto");
 
-		/// <summary>
-		/// Raises the appearing event.
-		/// </summary>
-		protected override void OnAppearing()
-		{
-			base.OnAppearing();
+			var grid = new Grid
+			{
+				Padding = new Thickness(5, 5, 5, 5),
+				ColumnDefinitions =
+				{
+					new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
+				},
+				Children =
+				{
+//					{ ContactPhoto, 0, 0 },
+					{ Description, 1, 0 }
+				}
+			};
 
-			LoadThumbnail();
+			View = grid;
+			View.BackgroundColor = Color.Transparent;
 		}
-
-		/// <summary>
-		/// Loads the thumbnail.
-		/// </summary>
-		async void LoadThumbnail()
-		{
-			var stream = await DependencyService.Get<IAddressBookService>().GetThumbnail(IdContact);
-			ImageSource = ImageSource.FromStream(() => {
-				return stream;
-			});
-		}
-
-		/// <summary>
-		/// Gets or sets the identifier contact.
-		/// </summary>
-		/// <value>The identifier contact.</value>
-		public string IdContact {
-			get {
-				return (string) GetValue(IdContactProperty);
-			}
-			set {
-				SetValue(IdContactProperty, value);
-			}
-		}
+			
 	}
 }
 

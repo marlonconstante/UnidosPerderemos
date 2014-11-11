@@ -224,7 +224,6 @@
     <Compile Include="Renderers\Controls\FriendCellRenderer.cs" />
     <Compile Include="Renderers\Controls\TextAreaRenderer.cs" />
     <Compile Include="Utils\ImageExtension.cs" />
-    <Compile Include="Services\HistoryService.cs" />
     <Compile Include="Utils\FileExtension.cs" />
     <Compile Include="Services\FileService.cs" />
   </ItemGroup>

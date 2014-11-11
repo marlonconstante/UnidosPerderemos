@@ -27,11 +27,27 @@ namespace UnidosPerderemos.Views.History
 			};
 		}
 
+
+
 		/// <summary>
 		/// Sets the content page.
 		/// </summary>
 		void SetContentPage() {
-			Content = new ScrollView();
+			Content = new Grid {
+				ColumnDefinitions = {
+					new ColumnDefinition {
+						Width = new GridLength(1d, GridUnitType.Star)
+					}
+				},
+				RowDefinitions = {
+					new RowDefinition {
+						Height = new GridLength(1d, GridUnitType.Star)
+					}
+				},
+				Children = {
+					ListView
+				}
+			};
 		}
 
 		/// <summary>
@@ -40,13 +56,21 @@ namespace UnidosPerderemos.Views.History
 		/// <param name="userProfile">User profile.</param>
 		public void OnUserProfileLoaded(UserProfile userProfile) {
 			SetContentPage();
+
+			LoadList();
 		}
 
-		protected override void OnAppearing()
-		{
-			base.OnAppearing();
-
-//			ListView.ItemsSource = await DependencyService.Get<IHistoryService>().FindAllContacts();
+		/// <summary>
+		/// Sets the content page.
+		/// </summary>
+		void LoadList() {
+			ListView.ItemsSource = new []
+			{
+				new { Description = "Lololoc gagagagaga gagagaga "},
+				new { Description = "Lololoc gagagagaga gagagaga "},
+				new { Description = "Lololoc gagagagaga gagagaga "},
+			};
+			ListView.BackgroundColor = Color.Transparent;
 		}
 
 		/// <summary>
