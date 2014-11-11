@@ -21,7 +21,8 @@ namespace UnidosPerderemos.Views.History
 			Title = "Histórico";
 			Icon = ImageSource.FromFile("History.png") as FileImageSource;
 
-			Content = new ActivityIndicator {
+			Content = new ActivityIndicator
+			{
 				Color = Color.White,
 				IsRunning = true
 			};
@@ -32,19 +33,26 @@ namespace UnidosPerderemos.Views.History
 		/// <summary>
 		/// Sets the content page.
 		/// </summary>
-		void SetContentPage() {
-			Content = new Grid {
-				ColumnDefinitions = {
-					new ColumnDefinition {
+		void SetContentPage()
+		{
+			Content = new Grid
+			{
+				ColumnDefinitions =
+				{
+					new ColumnDefinition
+					{
 						Width = new GridLength(1d, GridUnitType.Star)
 					}
 				},
-				RowDefinitions = {
-					new RowDefinition {
+				RowDefinitions =
+				{
+					new RowDefinition
+					{
 						Height = new GridLength(1d, GridUnitType.Star)
 					}
 				},
-				Children = {
+				Children =
+				{
 					ListView
 				}
 			};
@@ -54,7 +62,8 @@ namespace UnidosPerderemos.Views.History
 		/// Raises the user profile loaded event.
 		/// </summary>
 		/// <param name="userProfile">User profile.</param>
-		public void OnUserProfileLoaded(UserProfile userProfile) {
+		public void OnUserProfileLoaded(UserProfile userProfile)
+		{
 			SetContentPage();
 
 			LoadList();
@@ -63,12 +72,14 @@ namespace UnidosPerderemos.Views.History
 		/// <summary>
 		/// Sets the content page.
 		/// </summary>
-		void LoadList() {
+		void LoadList()
+		{
+			var img = ImageSource.FromFile("Background-1.png");
 			ListView.ItemsSource = new []
 			{
-				new { Description = "Lololoc gagagagaga gagagaga "},
-				new { Description = "Lololoc gagagagaga gagagaga "},
-				new { Description = "Lololoc gagagagaga gagagaga "},
+				new { Description = "Lololoc gagagagaga gagagaga ", Photo = img},
+				new { Description = "Lololoc gagagagaga gagagaga ", Photo = img},
+				new { Description = "Lololoc gagagagaga gagagaga ", Photo = img},
 			};
 			ListView.BackgroundColor = Color.Transparent;
 		}
@@ -77,10 +88,11 @@ namespace UnidosPerderemos.Views.History
 		/// Gets or sets the list view.
 		/// </summary>
 		/// <value>The list view.</value>
-		ListView ListView {
+		ListView ListView
+		{
 			get;
 		} = new ListView {
-			ItemTemplate = new DataTemplate(typeof(HistoryCell))
+			ItemTemplate = new DataTemplate(typeof(DailyProgressCell))
 		};
 
 		/// <summary>
