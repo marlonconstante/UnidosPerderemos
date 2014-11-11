@@ -11,19 +11,19 @@ namespace UnidosPerderemos.Services
 		/// Loads the daily.
 		/// </summary>
 		/// <returns>The daily.</returns>
-		Task<DailyProgress> LoadDaily();
+		Task<UserProgress> LoadDaily();
 
 		/// <summary>
 		/// Finds all.
 		/// </summary>
 		/// <returns>The all.</returns>
 		/// <param name="user">User.</param>
-		Task<IEnumerable<IProgress>> FindAll(User user);
+		Task<IEnumerable<UserProgress>> FindAll(User user);
 
 		/// <summary>
 		/// Save the specified progress.
 		/// </summary>
 		/// <param name="progress">Progress.</param>
-		Task<bool> Save(IProgress progress);
+		Task<bool> Save(UserProgress progress);
 	}
 }

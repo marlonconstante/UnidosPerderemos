@@ -39,8 +39,8 @@ namespace UnidosPerderemos.Views.History
 
 		public ProgressCell()
 		{
-			if (BindingContext.GetType() == typeof(DailyProgress))
-			{
+//			if ((BindingContext as Progress).Type == ProgressType.Daily)
+//			{
 				DescriptionLabel.SetBinding(Label.TextProperty, "Comments");
 				Photo.SetBinding(Image.SourceProperty, "Photo");
 
@@ -57,22 +57,22 @@ namespace UnidosPerderemos.Views.History
 						Photo
 					}
 				};
-			}
-			else
-			{
-				m_grid = new Grid
-				{
-					Padding = new Thickness(5, 5, 5, 5),
-					ColumnDefinitions =
-					{
-						new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
-					},
-					Children =
-					{
-						new Label { Text = "Semanal" }
-					}
-				};
-			}
+//			}
+//			else
+//			{
+//				m_grid = new Grid
+//				{
+//					Padding = new Thickness(5, 5, 5, 5),
+//					ColumnDefinitions =
+//					{
+//						new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
+//					},
+//					Children =
+//					{
+//						new Label { Text = "Semanal" }
+//					}
+//				};
+//			}
 
 			View = m_grid;
 			View.BackgroundColor = Color.Transparent;

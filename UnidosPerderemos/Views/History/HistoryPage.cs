@@ -30,9 +30,7 @@ namespace UnidosPerderemos.Views.History
 				IsRunning = true
 			};
 		}
-
-
-
+			
 		/// <summary>
 		/// Sets the content page.
 		/// </summary>
@@ -78,11 +76,11 @@ namespace UnidosPerderemos.Views.History
 		void LoadList()
 		{
 			var img = ImageSource.FromFile("Background-1.png");
-			ListView.ItemsSource = new List<IProgress>()
+			ListView.ItemsSource = new List<UserProgress>()
 			{
-				new DailyProgress { Comments = "Coments", Date = DateTime.Now, ObjectId = 1, PerformanceExercise = Performance.Average, PerformanceFeed = Performance.Average},
-				new WeeklyProgress { Date = DateTime.Now, ObjectId = 4, Weight = 100 },
-				new DailyProgress { Comments = "Coments", Date = DateTime.Now, ObjectId = 2, PerformanceExercise = Performance.Average, PerformanceFeed = Performance.Average},
+				new UserProgress { Comments = "Coments", Date = DateTime.Now, ObjectId = 1, PerformanceExercise = Performance.Average, PerformanceFeed = Performance.Average, Type = ProgressType.Daily },
+//				new Progress { Date = DateTime.Now, ObjectId = 4, Weight = 100, Type = ProgressType.Weekly },
+				new UserProgress { Comments = "Coments", Date = DateTime.Now, ObjectId = 2, PerformanceExercise = Performance.Average, PerformanceFeed = Performance.Average, Type = ProgressType.Daily },
 			};
 		}
 
@@ -103,7 +101,7 @@ namespace UnidosPerderemos.Views.History
 		{
 			get;
 		} = new ListView {
-			ItemTemplate = new DataTemplate(typeof(IProgress))
+			ItemTemplate = new DataTemplate(typeof(ProgressCell))
 		};
 
 		/// <summary>

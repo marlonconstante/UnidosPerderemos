@@ -16,18 +16,18 @@ namespace UnidosPerderemos.iOS.Services
 		/// Loads the daily.
 		/// </summary>
 		/// <returns>The daily.</returns>
-		public async Task<DailyProgress> LoadDaily()
+		public async Task<UserProgress> LoadDaily()
 		{
 			try
 			{
 				var query = ParseObject.GetQuery("DailyProgress").WhereEqualTo("user", ParseUser.CurrentUser);
 				var parseObject = await query.FirstOrDefaultAsync() ?? new ParseObject("DailyProgress");
 
-				return parseObject.ToDomain<DailyProgress>();
+				return parseObject.ToDomain<UserProgress>();
 			}
 			catch (Exception ex)
 			{
-				return new DailyProgress();
+				return new UserProgress();
 			}
 		}
 
@@ -36,18 +36,9 @@ namespace UnidosPerderemos.iOS.Services
 		/// </summary>
 		/// <returns>The all.</returns>
 		/// <param name="user">User.</param>
-		public async Task<IEnumerable<IProgress>> FindAll(User user)
+		public async Task<IEnumerable<UserProgress>> FindAll(User user)
 		{
-			var result = new List<IProgress>();
-
-			var tasks = new Task<IEnumerable<IProgress>>[] { Find<DailyProgress>(user), Find<WeeklyProgress>(user) };
-			Task.WaitAll(tasks);
-
-			foreach (var task in tasks)
-			{
-				result.AddRange(task.Result);
-			}
-
+			var result = await Find<UserProgress>(user);
 			return result.OrderByDescending((p) => p.Date);
 		}
 
@@ -56,9 +47,9 @@ namespace UnidosPerderemos.iOS.Services
 		/// </summary>
 		/// <param name="user">User.</param>
 		/// <typeparam name="T">The 1st type parameter.</typeparam>
-		async Task<IEnumerable<IProgress>> Find<T>(User user) where T : IProgress
+		async Task<IEnumerable<UserProgress>> Find<T>(User user) where T : UserProgress
 		{
-			var result = new List<IProgress>();
+			var result = new List<UserProgress>();
 
 			try
 			{
@@ -81,7 +72,7 @@ namespace UnidosPerderemos.iOS.Services
 		/// Save the specified progress.
 		/// </summary>
 		/// <param name="progress">Progress.</param>
-		public async Task<bool> Save(IProgress progress)
+		public async Task<bool> Save(UserProgress progress)
 		{
 			try
 			{

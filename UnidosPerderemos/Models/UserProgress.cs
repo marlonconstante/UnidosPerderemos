@@ -2,17 +2,36 @@
 
 namespace UnidosPerderemos.Models
 {
-	public class DailyProgress : IProgress
+	/// <summary>
+	/// Progress type.
+	/// </summary>
+	public enum ProgressType 
 	{
-		public DailyProgress()
-		{
-		}
+		Daily = 0, 
+		Weekly = 1
+	}
 
+	/// <summary>
+	/// Progress.
+	/// </summary>
+	public class UserProgress
+	{
 		/// <summary>
 		/// Gets or sets the object identifier.
 		/// </summary>
 		/// <value>The object identifier.</value>
-		public Object ObjectId {
+		public Object ObjectId
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// Gets or sets the date.
+		/// </summary>
+		/// <value>The date.</value>
+		public DateTime Date
+		{
 			get;
 			set;
 		}
@@ -54,10 +73,21 @@ namespace UnidosPerderemos.Models
 		}
 
 		/// <summary>
-		/// Gets or sets the date.
+		/// Gets or sets the weight.
 		/// </summary>
-		/// <value>The date.</value>
-		public DateTime Date {
+		/// <value>The weight.</value>
+		public double Weight
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// Gets or sets the type.
+		/// </summary>
+		/// <value>The type.</value>
+		public ProgressType Type
+		{
 			get;
 			set;
 		}
