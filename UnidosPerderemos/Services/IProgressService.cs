@@ -18,7 +18,7 @@ namespace UnidosPerderemos.Services
 		/// </summary>
 		/// <returns>The all.</returns>
 		/// <param name="user">User.</param>
-		Task<IList<IProgress>> FindAll(User user);
+		Task<IEnumerable<IProgress>> FindAll(User user);
 
 		/// <summary>
 		/// Save the specified progress.
