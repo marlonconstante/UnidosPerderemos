@@ -30,7 +30,7 @@ namespace UnidosPerderemos.Views.History
 				IsRunning = true
 			};
 		}
-			
+
 		/// <summary>
 		/// Sets the content page.
 		/// </summary>
@@ -71,25 +71,26 @@ namespace UnidosPerderemos.Views.History
 		}
 
 		/// <summary>
-		/// Sets the content page.
+		/// Loads the list.
 		/// </summary>
 		void LoadList()
 		{
+			//TODO: Trocar pela versão que busca do server.
 			var img = ImageSource.FromFile("Background-1.png");
 			ListView.ItemsSource = new List<UserProgress>()
 			{
 				new UserProgress { Comments = "Coments", Date = DateTime.Now, ObjectId = 1, PerformanceExercise = Performance.Average, PerformanceFeed = Performance.Average, Type = ProgressType.Daily },
-//				new Progress { Date = DateTime.Now, ObjectId = 4, Weight = 100, Type = ProgressType.Weekly },
+				new UserProgress { Date = DateTime.Now, ObjectId = 4, Weight = 100, Type = ProgressType.Weekly },
 				new UserProgress { Comments = "Coments", Date = DateTime.Now, ObjectId = 2, PerformanceExercise = Performance.Average, PerformanceFeed = Performance.Average, Type = ProgressType.Daily },
 			};
 		}
 
+
 		/// <summary>
-		/// Sets the content page.
+		/// Loads the list.
 		/// </summary>
 		//		async void LoadList()
 		//		{
-		//			var img = ImageSource.FromFile("Background-1.png");
 		//			ListView.ItemsSource = await DependencyService.Get<IProgressService>().FindAll(App.Instance.CurrentUser);
 		//		}
 

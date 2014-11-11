@@ -1,11 +1,12 @@
 ﻿using System;
+using Xamarin.Forms;
 
 namespace UnidosPerderemos.Models
 {
 	/// <summary>
 	/// Progress type.
 	/// </summary>
-	public enum ProgressType 
+	public enum ProgressType
 	{
 		Daily = 0, 
 		Weekly = 1
