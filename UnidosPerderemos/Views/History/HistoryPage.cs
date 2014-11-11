@@ -3,6 +3,8 @@ using Xamarin.Forms;
 using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Core.Pages;
 using UnidosPerderemos.Models;
+using UnidosPerderemos.Services;
+using System.Collections.Generic;
 
 namespace UnidosPerderemos.Views.History
 {
@@ -19,6 +21,7 @@ namespace UnidosPerderemos.Views.History
 		void SetUp()
 		{
 			Title = "Histórico";
+			ListView.BackgroundColor = Color.Transparent;
 			Icon = ImageSource.FromFile("History.png") as FileImageSource;
 
 			Content = new ActivityIndicator
@@ -75,14 +78,22 @@ namespace UnidosPerderemos.Views.History
 		void LoadList()
 		{
 			var img = ImageSource.FromFile("Background-1.png");
-			ListView.ItemsSource = new []
+			ListView.ItemsSource = new List<IProgress>()
 			{
-				new { Description = "Lololoc gagagagaga gagagaga ", Photo = img},
-				new { Description = "Lololoc gagagagaga gagagaga ", Photo = img},
-				new { Description = "Lololoc gagagagaga gagagaga ", Photo = img},
+				new DailyProgress { Comments = "Coments", Date = DateTime.Now, ObjectId = 1, PerformanceExercise = Performance.Average, PerformanceFeed = Performance.Average},
+				new WeeklyProgress { Date = DateTime.Now, ObjectId = 4, Weight = 100 },
+				new DailyProgress { Comments = "Coments", Date = DateTime.Now, ObjectId = 2, PerformanceExercise = Performance.Average, PerformanceFeed = Performance.Average},
 			};
-			ListView.BackgroundColor = Color.Transparent;
 		}
+
+		/// <summary>
+		/// Sets the content page.
+		/// </summary>
+		//		async void LoadList()
+		//		{
+		//			var img = ImageSource.FromFile("Background-1.png");
+		//			ListView.ItemsSource = await DependencyService.Get<IProgressService>().FindAll(App.Instance.CurrentUser);
+		//		}
 
 		/// <summary>
 		/// Gets or sets the list view.
@@ -92,7 +103,7 @@ namespace UnidosPerderemos.Views.History
 		{
 			get;
 		} = new ListView {
-			ItemTemplate = new DataTemplate(typeof(DailyProgressCell))
+			ItemTemplate = new DataTemplate(typeof(IProgress))
 		};
 
 		/// <summary>
