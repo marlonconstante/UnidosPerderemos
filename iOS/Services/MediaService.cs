@@ -5,6 +5,7 @@ using Xamarin.Media;
 using System.Threading.Tasks;
 using System.IO;
 using UnidosPerderemos.iOS.Utils;
+using MonoTouch.UIKit;
 
 [assembly: Xamarin.Forms.Dependency(typeof(UnidosPerderemos.iOS.Services.MediaService))]
 namespace UnidosPerderemos.iOS.Services
@@ -20,7 +21,13 @@ namespace UnidosPerderemos.iOS.Services
 		{
 			var stream = Stream.Null;
 
-			await RunIfAlbumAvailable((f) => {
+			OpenMediaOptions();
+			while (SelectedMediaSource == MediaSource.Unknown)
+			{
+				await Task.Delay(300);
+			}
+
+			await RunIfMediaAvailable((f) => {
 				var size = new System.Drawing.SizeF((float) maxSize.Width, (float) maxSize.Height);
 				stream = f.GetStream().ResizeImage(size);
 			});
@@ -29,18 +36,59 @@ namespace UnidosPerderemos.iOS.Services
 		}
 
 		/// <summary>
-		/// Runs if album available.
+		/// Opens the media options.
 		/// </summary>
-		/// <returns>The if album available.</returns>
-		/// <param name="action">Action.</param>
-		async Task RunIfAlbumAvailable(Action<MediaFile> action)
+		void OpenMediaOptions()
 		{
-			await MediaPicker.PickPhotoAsync().ContinueWith(t => {
+			SelectedMediaSource = MediaSource.Unknown;
+
+			var mediaOptions = new UIActionSheet(null, null, "Cancelar", null, "Tirar foto", "Escolher foto");
+			mediaOptions.Dismissed += (object sender, UIButtonEventArgs args) => {
+				SelectedMediaSource = (MediaSource) args.ButtonIndex;
+			};
+			mediaOptions.ShowInView(UIApplication.SharedApplication.KeyWindow);
+		}
+
+		/// <summary>
+		/// Runs if media available.
+		/// </summary>
+		/// <returns>The if media available.</returns>
+		/// <param name="action">Action.</param>
+		async Task RunIfMediaAvailable(Action<MediaFile> action)
+		{
+			if (MediaSource.Camera == SelectedMediaSource)
+			{
+				await RunMediaAction(MediaPicker.TakePhotoAsync(new StoreCameraMediaOptions()), action);
+			}
+			else if (MediaSource.Album == SelectedMediaSource)
+			{
+				await RunMediaAction(MediaPicker.PickPhotoAsync(), action);
+			}
+		}
+
+		/// <summary>
+		/// Runs the media action.
+		/// </summary>
+		/// <returns>The media action.</returns>
+		/// <param name="task">Task.</param>
+		/// <param name="action">Action.</param>
+		async Task RunMediaAction(Task<MediaFile> task, Action<MediaFile> action)
+		{
+			await task.ContinueWith(t => {
 				if (!t.IsCanceled)
 				{
 					action(t.Result);
 				}
 			}, TaskScheduler.FromCurrentSynchronizationContext());
+		}
+
+		/// <summary>
+		/// Gets or sets the selected media source.
+		/// </summary>
+		/// <value>The selected media source.</value>
+		MediaSource SelectedMediaSource {
+			get;
+			set;
 		}
 
 		/// <summary>
@@ -50,5 +98,15 @@ namespace UnidosPerderemos.iOS.Services
 		MediaPicker MediaPicker {
 			get;
 		} = new MediaPicker();
+	}
+
+	/// <summary>
+	/// Media source.
+	/// </summary>
+	public enum MediaSource {
+		Unknown = -1,
+		Camera = 0,
+		Album = 1,
+		None = 2
 	}
 }

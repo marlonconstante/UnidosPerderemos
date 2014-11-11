@@ -1,6 +1,8 @@
 ﻿using System;
 using Xamarin.Forms;
 using UnidosPerderemos.Core.Controls;
+using UnidosPerderemos.Services;
+using System.IO;
 
 namespace UnidosPerderemos.Views.Daily
 {
@@ -8,6 +10,8 @@ namespace UnidosPerderemos.Views.Daily
 	{
 		public ActivityTodayViewBox()
 		{
+			SetUp();
+
 			Content = new StackLayout {
 				Spacing = 0d,
 				Padding = new Thickness(0d),
@@ -18,6 +22,27 @@ namespace UnidosPerderemos.Views.Daily
 					Separator
 				}
 			};
+		}
+
+		/// <summary>
+		/// Sets up.
+		/// </summary>
+		void SetUp()
+		{
+			CameraButton.Clicked += OnCameraClicked;
+		}
+
+		/// <summary>
+		/// Raises the camera clicked event.
+		/// </summary>
+		/// <param name="sender">Sender.</param>
+		/// <param name="args">Arguments.</param>
+		async void OnCameraClicked(object sender, EventArgs args)
+		{
+			var stream = await DependencyService.Get<IMediaService>().GetPhoto(new Size(400d, 400d));
+			if (stream != Stream.Null)
+			{
+			}
 		}
 
 		/// <summary>
@@ -90,12 +115,10 @@ namespace UnidosPerderemos.Views.Daily
 		/// </summary>
 		/// <value>The camera button.</value>
 		ImageButton CameraButton {
-			get {
-				return new ImageButton {
-					TranslationX = 5d,
-					Image = ImageSource.FromFile("Camera.png") as FileImageSource
-				};
-			}
-		}
+			get;
+		} =  new ImageButton {
+			TranslationX = 5d,
+			Image = ImageSource.FromFile("Camera.png") as FileImageSource
+		};
 	}
 }
