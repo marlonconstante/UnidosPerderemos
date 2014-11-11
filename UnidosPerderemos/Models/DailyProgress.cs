@@ -2,7 +2,7 @@
 
 namespace UnidosPerderemos.Models
 {
-	public class DailyProgress
+	public class DailyProgress : IProgress
 	{
 		public DailyProgress()
 		{
@@ -49,6 +49,15 @@ namespace UnidosPerderemos.Models
 		/// </summary>
 		/// <value>The comments.</value>
 		public string Comments {
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// Gets or sets the date.
+		/// </summary>
+		/// <value>The date.</value>
+		public DateTime Date {
 			get;
 			set;
 		}
