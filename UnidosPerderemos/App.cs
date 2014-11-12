@@ -26,7 +26,7 @@ namespace UnidosPerderemos
 		/// <returns>The user profile.</returns>
 		public async Task LoadUserProfile()
 		{
-			CurrentUserProfile = await DependencyService.Get<IUserProfileService>().Load();
+			CurrentUserProfile = await DependencyService.Get<IProfileService>().Load();
 		}
 
 		/// <summary>

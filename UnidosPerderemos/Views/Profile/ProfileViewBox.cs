@@ -65,7 +65,7 @@ namespace UnidosPerderemos.Views.Profile
 				Photo.LoadingSource = true;
 
 				UserProfile.Photo.Stream = stream;
-				if (await DependencyService.Get<IUserProfileService>().Save(UserProfile))
+				if (await DependencyService.Get<IProfileService>().Save(UserProfile))
 				{
 					Photo.Source = ImageSource.FromStream(() => {
 						return stream;

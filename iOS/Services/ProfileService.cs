@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using UnidosPerderemos.iOS.Utils;
 using Parse;
 
-[assembly: Xamarin.Forms.Dependency(typeof(UnidosPerderemos.iOS.Services.UserProfileService))]
+[assembly: Xamarin.Forms.Dependency(typeof(UnidosPerderemos.iOS.Services.ProfileService))]
 namespace UnidosPerderemos.iOS.Services
 {
-	public class UserProfileService : IUserProfileService
+	public class ProfileService : IProfileService
 	{
 		/// <summary>
 		/// Load this instance.

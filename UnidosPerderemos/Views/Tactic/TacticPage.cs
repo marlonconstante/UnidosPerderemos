@@ -59,7 +59,7 @@ namespace UnidosPerderemos.Views.Tactic
 			UserProfile.IsTacticExercise = SwitchExercise.IsToggled;
 			UserProfile.IsTacticFeed = SwitchFeed.IsToggled;
 
-			if (await DependencyService.Get<IUserProfileService>().Save(UserProfile))
+			if (await DependencyService.Get<IProfileService>().Save(UserProfile))
 			{
 				App.Instance.ReloadMainPage();
 			}

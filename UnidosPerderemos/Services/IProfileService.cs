@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace UnidosPerderemos.Services
 {
-	public interface IUserProfileService
+	public interface IProfileService
 	{
 		/// <summary>
 		/// Load this instance.

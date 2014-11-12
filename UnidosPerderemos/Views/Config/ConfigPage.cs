@@ -162,7 +162,7 @@ namespace UnidosPerderemos.Views.Config
 			UserProfile.IsTacticExercise = m_entryTacticExercise.IsToggled;
 			UserProfile.IsTacticFeed = m_entryTacticFeed.IsToggled;
 
-			if (await DependencyService.Get<IUserProfileService>().Save(UserProfile))
+			if (await DependencyService.Get<IProfileService>().Save(UserProfile))
 			{
 				DisplayAlert("Pronto!", "Configurações atualizadas com sucesso.", "Entendi");
 			}
