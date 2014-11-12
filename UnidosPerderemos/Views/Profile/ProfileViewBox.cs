@@ -212,8 +212,7 @@ namespace UnidosPerderemos.Views.Profile
 		/// Gets the linear progress.
 		/// </summary>
 		/// <value>The linear progress.</value>
-		LinearProgressBar LinearProgress
-		{
+		LinearProgressBar LinearProgress {
 			set;
 			get;
 		}
@@ -244,18 +243,15 @@ namespace UnidosPerderemos.Views.Profile
 		/// <summary>
 		/// Loads the photo.
 		/// </summary>
-		public async void LoadPhoto() {
-			var profilePhoto = UserProfile.Photo;
-			if (profilePhoto != null)
-			{
-				Photo.LoadingSource = true;
+		public async void LoadPhoto()
+		{
+			Photo.LoadingSource = true;
 
-				await DependencyService.Get<IFileService>().Download(profilePhoto);
+			await DependencyService.Get<IFileService>().Download(UserProfile.Photo);
 
-				Photo.Source = ImageSource.FromStream(() => {
-					return profilePhoto.Stream;
-				});
-			}
+			Photo.Source = ImageSource.FromStream(() => {
+				return UserProfile.Photo.Stream;
+			});
 		}
 	}
 }
