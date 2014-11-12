@@ -20,15 +20,22 @@ namespace UnidosPerderemos.iOS.Services
 		{
 			try
 			{
-				var query = ParseObject.GetQuery("DailyProgress").WhereEqualTo("user", ParseUser.CurrentUser);
-				var parseObject = await query.FirstOrDefaultAsync() ?? new ParseObject("DailyProgress");
+				var query = ParseObject.GetQuery("UserProgress")
+					.WhereEqualTo("type", ProgressType.Daily.ToString())
+					.WhereEqualTo("user", ParseUser.CurrentUser)
+					.WhereEqualTo("date", DateTime.Now.Date);
 
-				return parseObject.ToDomain<UserProgress>();
+				var parseObject = await query.FirstOrDefaultAsync();
+				if (parseObject != null)
+				{
+					return parseObject.ToDomain<UserProgress>();
+				}
 			}
 			catch (Exception ex)
 			{
-				return new UserProgress();
+				// Ignora...
 			}
+			return DailyUserProgress;
 		}
 
 		/// <summary>
@@ -38,26 +45,17 @@ namespace UnidosPerderemos.iOS.Services
 		/// <param name="user">User.</param>
 		public async Task<IEnumerable<UserProgress>> FindAll(User user)
 		{
-			var result = await Find<UserProgress>(user);
-			return result.OrderByDescending((p) => p.Date);
-		}
-
-		/// <summary>
-		/// Find the specified user.
-		/// </summary>
-		/// <param name="user">User.</param>
-		/// <typeparam name="T">The 1st type parameter.</typeparam>
-		async Task<IEnumerable<UserProgress>> Find<T>(User user) where T : UserProgress
-		{
 			var result = new List<UserProgress>();
 
 			try
 			{
-				var query = ParseObject.GetQuery(typeof(T).Name).WhereEqualTo("user", user.ToParseObject<ParseUser>());
-				var parseObjects = await query.FindAsync();
-				foreach (var parseObject in parseObjects)
+				var query = ParseObject.GetQuery("UserProgress")
+					.WhereEqualTo("user", user.ToParseObject<ParseUser>())
+					.OrderByDescending((p) => p.Get<DateTime>("date"));
+
+				foreach (var parseObject in await query.FindAsync())
 				{
-					result.Add(parseObject.ToDomain<T>());
+					result.Add(parseObject.ToDomain<UserProgress>());
 				}
 			}
 			catch (Exception ex)
@@ -72,25 +70,35 @@ namespace UnidosPerderemos.iOS.Services
 		/// Save the specified progress.
 		/// </summary>
 		/// <param name="progress">Progress.</param>
-		public async Task<bool> Save(UserProgress progress)
+		/// <param name="userProgress">User progress.</param>
+		public async Task<bool> Save(UserProgress userProgress)
 		{
 			try
 			{
-				if (progress.Date == null)
-				{
-					progress.Date = new DateTime();
-				}
+				userProgress.Date = DateTime.Now.Date;
 
-				var parseObject = progress.ToParseObject<ParseObject>();
+				var parseObject = userProgress.ToParseObject<ParseObject>();
 				await parseObject.SaveAsync();
 
-				progress.ObjectId = parseObject.ObjectId;
+				userProgress.ObjectId = parseObject.ObjectId;
 
 				return true;
 			}
 			catch (Exception ex)
 			{
 				return false;
+			}
+		}
+
+		/// <summary>
+		/// Gets the daily user progress.
+		/// </summary>
+		/// <value>The daily user progress.</value>
+		UserProgress DailyUserProgress {
+			get {
+				return new UserProgress {
+					Type = ProgressType.Daily
+				};
 			}
 		}
 	}
