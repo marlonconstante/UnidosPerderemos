@@ -105,6 +105,8 @@ namespace UnidosPerderemos.Models
 		public RemoteFile Photo {
 			get;
 			set;
-		}
+		} = new RemoteFile {
+			Name = "photo.jpeg"
+		};
 	}
 }

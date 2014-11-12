@@ -8,31 +8,24 @@ namespace UnidosPerderemos.Models
 	/// </summary>
 	public enum ProgressType
 	{
-		Daily = 0, 
+		Daily = 0,
 		Weekly = 1
 	}
 
 	/// <summary>
-	/// Progress.
+	/// User progress.
 	/// </summary>
 	public class UserProgress
 	{
+		public UserProgress()
+		{
+		}
+
 		/// <summary>
 		/// Gets or sets the object identifier.
 		/// </summary>
 		/// <value>The object identifier.</value>
-		public Object ObjectId
-		{
-			get;
-			set;
-		}
-
-		/// <summary>
-		/// Gets or sets the date.
-		/// </summary>
-		/// <value>The date.</value>
-		public DateTime Date
-		{
+		public Object ObjectId {
 			get;
 			set;
 		}
@@ -62,7 +55,9 @@ namespace UnidosPerderemos.Models
 		public RemoteFile Photo {
 			get;
 			set;
-		}
+		} = new RemoteFile {
+			Name = "photo.jpeg"
+		};
 
 		/// <summary>
 		/// Gets or sets the comments.
@@ -77,8 +72,7 @@ namespace UnidosPerderemos.Models
 		/// Gets or sets the weight.
 		/// </summary>
 		/// <value>The weight.</value>
-		public double Weight
-		{
+		public double Weight {
 			get;
 			set;
 		}
@@ -87,8 +81,16 @@ namespace UnidosPerderemos.Models
 		/// Gets or sets the type.
 		/// </summary>
 		/// <value>The type.</value>
-		public ProgressType Type
-		{
+		public ProgressType Type {
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// Gets or sets the date.
+		/// </summary>
+		/// <value>The date.</value>
+		public DateTime Date {
 			get;
 			set;
 		}
