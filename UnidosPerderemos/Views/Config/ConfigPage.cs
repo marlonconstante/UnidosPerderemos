@@ -65,15 +65,19 @@ namespace UnidosPerderemos.Views.Config
 			m_dateField = new DateField();
 			m_dateField.TextColor = Color.Black;
 			m_dateField.Font = Font.OfSize("Roboto-Regular", 16);
+			m_dateField.TextAlignment = TextAlignment.End;
+
 			m_inputGender = new OptionButton();
 			m_inputGender.TintColor = Color.Black;
 			m_inputGender.Items = GenderInfo.GetGenderItems();
 			m_inputGender.SelectedItem = UserProfile.Gender;
-			m_name = new CellTextField(UserProfile.UserName);
-			m_weightInput = new CellTextField(UserProfile.Weight.ToString());
-			m_heigthInput = new CellTextField(UserProfile.Height.ToString());
-			m_goalWeight = new CellTextField(UserProfile.GoalWeight.ToString());
-			m_goalTime = new CellTextField(UserProfile.GoalTime.ToString());
+
+			m_name = new CellTextField(UserProfile.UserName, Keyboard.Text);
+			m_weightInput = new CellTextField(UserProfile.Weight.ToString(), Keyboard.Numeric);
+			m_heigthInput = new CellTextField(UserProfile.Height.ToString(), Keyboard.Numeric);
+			m_goalWeight = new CellTextField(UserProfile.GoalWeight.ToString(), Keyboard.Numeric);
+			m_goalTime = new CellTextField(UserProfile.GoalTime.ToString(), Keyboard.Numeric);
+
 			m_entryTacticExercise = new Switch
 			{
 				IsToggled = UserProfile.IsTacticExercise
@@ -93,7 +97,6 @@ namespace UnidosPerderemos.Views.Config
 			{
 				Text = "Sair",
 				TextColor = Color.Red,
-				BorderColor = Color.Red,
 				BackgroundColor = Color.Transparent
 			};
 			m_btnLogout.Clicked += (sender, e) => Logout();

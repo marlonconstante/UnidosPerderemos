@@ -3,43 +3,43 @@ using Xamarin.Forms;
 
 namespace UnidosPerderemos.Core.Controls
 {
-	public class LHEntryCell: ViewCell
+	public class LHEntryCell : ViewCell
 	{
-		public Font Font
-		{
-			get { return m_font; }
-			set { m_font = value; }
-		}
-
-		Font m_font = Font.OfSize("Roboto-Regular", 16);
-
-		public LHEntryCell(string label, View entry)
+		public LHEntryCell(string text, View entry)
 		{
 			entry.HorizontalOptions = LayoutOptions.End;
 			entry.VerticalOptions = LayoutOptions.Center;
 
-			View = new Grid
-			{
-				ColumnDefinitions =
-				{
-					new ColumnDefinition
-					{
-						Width = new GridLength(0.55d, GridUnitType.Star)
+			View = new Grid {
+				Padding = new Thickness(15f, 0f, 10f, 0f),
+				ColumnSpacing = 5f,
+				ColumnDefinitions = {
+					new ColumnDefinition {
+						Width = GridLength.Auto
 					},
-					new ColumnDefinition
-					{
-						Width = new GridLength(1d, GridUnitType.Star),
+					new ColumnDefinition {
+						Width = new GridLength(1d, GridUnitType.Star)
 					}
 				},
-				Children =
-				{
-
-					{ new Label { Text = label, Font = m_font }, 0, 0 },
-					{ entry, 1, 0 }
+				RowDefinitions = {
+					new RowDefinition {
+						Height = new GridLength(1d, GridUnitType.Star)
+					}
 				},
-				Padding = new Thickness(15f, 5f, 5f, 0f)
+				Children = {
+					{ new Label { Text = text, Font = Font, YAlign = TextAlignment.Center }, 0, 0 },
+					{ entry, 1, 0 }
+				}
 			};
 		}
+
+		/// <summary>
+		/// Gets or sets the font.
+		/// </summary>
+		/// <value>The font.</value>
+		public Font Font {
+			get;
+			set;
+		} = Font.OfSize("Roboto-Regular", 16);
 	}
 }
-
