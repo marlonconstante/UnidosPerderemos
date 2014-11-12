@@ -13,6 +13,11 @@ namespace UnidosPerderemos.Views.Profile
 		/// </summary>
 		public static readonly BindableProperty IsStarProperty = BindableProperty.Create<UpButton, bool>(p => p.IsStar, false);
 
+		/// <summary>
+		/// The is done property.
+		/// </summary>
+		public static readonly BindableProperty IsDoneProperty = BindableProperty.Create<UpButton, bool>(p => p.IsDone, false);
+
 		public UpButton()
 		{
 			SetUp();
@@ -36,6 +41,7 @@ namespace UnidosPerderemos.Views.Profile
 		void SetUp()
 		{
 			IsStar = false;
+			IsDone = false;
 
 			Button.Clicked += OnButtonClicked;
 		}
@@ -57,7 +63,6 @@ namespace UnidosPerderemos.Views.Profile
 		ImageButton Button {
 			get;
 		} = new ImageButton {
-			Image = ImageSource.FromFile("UpButton.png") as FileImageSource,
 			HorizontalOptions = LayoutOptions.Center,
 			VerticalOptions = LayoutOptions.Center,
 			WidthRequest = 246d,
@@ -114,6 +119,21 @@ namespace UnidosPerderemos.Views.Profile
 
 				StarBox.Children.Clear();
 				StarBox.Children.Add(value ? FullStar : EmptyStar);
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets a value indicating whether this instance is done.
+		/// </summary>
+		/// <value><c>true</c> if this instance is done; otherwise, <c>false</c>.</value>
+		public bool IsDone {
+			get {
+				return (bool) GetValue(IsDoneProperty);
+			}
+			set {
+				SetValue(IsDoneProperty, value);
+
+				Button.Image = ImageSource.FromFile(value ? "UpButtonDone.png" : "UpButton.png") as FileImageSource;
 			}
 		}
 	}

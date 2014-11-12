@@ -194,6 +194,7 @@
     <BundleResource Include="Resources\Average%402x.png" />
     <BundleResource Include="Resources\Fine%402x.png" />
     <BundleResource Include="Resources\Poor%402x.png" />
+    <BundleResource Include="Resources\UpButtonDone%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
