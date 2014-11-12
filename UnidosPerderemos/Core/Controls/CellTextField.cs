@@ -19,6 +19,7 @@ namespace UnidosPerderemos.Core.Controls
 			TextAlignment = TextAlignment.End;
 			Font = Font.OfSize("Roboto-Regular", 16);
 
+			HeightRequest = 40d;
 			WidthRequest = 250d;
 		}
 	}
