@@ -7,6 +7,7 @@ namespace UnidosPerderemos.Models
 	/// </summary>
 	public enum Performance
 	{
+		Unknown,
 		Poor,
 		Average,
 		Fine
