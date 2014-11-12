@@ -120,13 +120,13 @@ namespace UnidosPerderemos.Views.Config
 				},
 				new TableSection("Metas")
 				{
-					new EntryViewCell("Meta de Peso:", m_goalWeight),
-					new EntryViewCell("Meta de Tempo:", m_goalTime),
+					new EntryViewCell("Meta de peso:", m_goalWeight),
+					new EntryViewCell("Meta de tempo:", m_goalTime),
 				},
 				new TableSection("Táticas")
 				{
-					new EntryViewCell("Fazer Exercícios:", m_entryTacticExercise),
-					new EntryViewCell("Comer Melhor:", m_entryTacticFeed)
+					new EntryViewCell("Fazer exercícios:", m_entryTacticExercise),
+					new EntryViewCell("Comer melhor:", m_entryTacticFeed)
 				},
 				new TableSection("")
 				{
