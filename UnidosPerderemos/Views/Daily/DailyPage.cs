@@ -3,6 +3,8 @@ using Xamarin.Forms;
 using UnidosPerderemos.Core.Controls;
 using UnidosPerderemos.Core.Pages;
 using UnidosPerderemos.Core.Styles;
+using UnidosPerderemos.Services;
+using UnidosPerderemos.Models;
 
 namespace UnidosPerderemos.Views.Daily
 {
@@ -11,19 +13,7 @@ namespace UnidosPerderemos.Views.Daily
 		public DailyPage()
 		{
 			SetUp();
-
-			Content = new ScrollView {
-				Content = new StackLayout {
-					Spacing = 5d,
-					Padding = new Thickness(0d, 15d, 0d, 0d),
-					Children = {
-						PerformanceExercise,
-						PerformanceFeed,
-						ActivityToday,
-						GridButton
-					}
-				}
-			};
+			LoadDaily();
 		}
 
 		/// <summary>
@@ -36,6 +26,53 @@ namespace UnidosPerderemos.Views.Daily
 
 			ButtonCancel.Clicked += OnCancelClicked;
 			ButtonUp.Clicked += OnUpClicked;
+
+			ContentView = new StackLayout {
+				Spacing = 5d,
+				Padding = new Thickness(0d, 15d, 0d, 0d),
+				Children = {
+					ActivityIndicator,
+					GridButton
+				}
+			};
+
+			Content = new ScrollView {
+				Content = ContentView
+			};
+		}
+
+		/// <summary>
+		/// Updates the content view.
+		/// </summary>
+		void UpdateContentView()
+		{
+			ContentView.Children[0] = new StackLayout {
+				Spacing = 5d,
+				Padding = new Thickness(0d),
+				Children = {
+					PerformanceExercise,
+					PerformanceFeed,
+					ActivityToday
+				}
+			};
+
+			ButtonUp.IsEnabled = true;
+			ButtonUp.Opacity = 1;
+		}
+
+		/// <summary>
+		/// Loads the daily.
+		/// </summary>
+		async void LoadDaily()
+		{
+			UserProgress = await DependencyService.Get<IProgressService>().LoadDaily();
+
+			PerformanceExercise.Performance = UserProgress.PerformanceExercise;
+			PerformanceFeed.Performance = UserProgress.PerformanceFeed;
+			ActivityToday.Text = UserProgress.Comments;
+			ActivityToday.Photo = UserProgress.Photo;
+
+			UpdateContentView();
 		}
 
 		/// <summary>
@@ -55,46 +92,68 @@ namespace UnidosPerderemos.Views.Daily
 		/// <param name="args">Arguments.</param>
 		async void OnUpClicked(object sender, EventArgs args)
 		{
-			await Navigation.PopModalAsync();
+			UserProgress.PerformanceExercise = PerformanceExercise.Performance;
+			UserProgress.PerformanceFeed = PerformanceFeed.Performance;
+			UserProgress.Comments = ActivityToday.Text;
+
+			if (await DependencyService.Get<IProgressService>().Save(UserProgress))
+			{
+				await Navigation.PopModalAsync();
+			}
 		}
+
+		/// <summary>
+		/// Gets or sets the content view.
+		/// </summary>
+		/// <value>The content view.</value>
+		StackLayout ContentView {
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// Gets the activity indicator.
+		/// </summary>
+		/// <value>The activity indicator.</value>
+		ActivityIndicator ActivityIndicator {
+			get;
+		} = new ActivityIndicator {
+			VerticalOptions = LayoutOptions.CenterAndExpand,
+			Color = Color.White,
+			IsRunning = true
+		};
 
 		/// <summary>
 		/// Gets the performance exercise.
 		/// </summary>
 		/// <value>The performance exercise.</value>
 		PerformanceViewBox PerformanceExercise {
-			get {
-				return new PerformanceViewBox {
-					IconImage = ImageSource.FromFile("BenchPresses.png"),
-					IconText = "Você fez exercícios?"
-				};
-			}
-		}
+			get;
+		} = new PerformanceViewBox {
+			IconImage = ImageSource.FromFile("BenchPresses.png"),
+			IconText = "Você fez exercícios?"
+		};
 
 		/// <summary>
 		/// Gets the performance feed.
 		/// </summary>
 		/// <value>The performance feed.</value>
 		PerformanceViewBox PerformanceFeed {
-			get {
-				return new PerformanceViewBox {
-					IconImage = ImageSource.FromFile("Apple.png"),
-					IconText = "Cuidou da alimentação?"
-				};
-			}
-		}
+			get;
+		} = new PerformanceViewBox {
+			IconImage = ImageSource.FromFile("Apple.png"),
+			IconText = "Cuidou da alimentação?"
+		};
 
 		/// <summary>
 		/// Gets the activity today.
 		/// </summary>
 		/// <value>The activity today.</value>
 		ActivityTodayViewBox ActivityToday {
-			get {
-				return new ActivityTodayViewBox {
-					Padding = new Thickness(0d, 30d, 0d, 13d)
-				};
-			}
-		}
+			get;
+		} = new ActivityTodayViewBox {
+			Padding = new Thickness(0d, 30d, 0d, 13d)
+		};
 
 		/// <summary>
 		/// Gets the grid button.
@@ -103,7 +162,8 @@ namespace UnidosPerderemos.Views.Daily
 		Grid GridButton {
 			get {
 				return new Grid {
-					Padding = new Thickness(5d),
+					VerticalOptions = LayoutOptions.End,
+					Padding = new Thickness(5d, 5d, 5d, 23d),
 					ColumnSpacing = 5d,
 					ColumnDefinitions = {
 						new ColumnDefinition {
@@ -144,9 +204,20 @@ namespace UnidosPerderemos.Views.Daily
 			Font = Font.OfSize("Roboto-BoldItalic", 18),
 			TextColor = Color.FromHex("ef6a2a"),
 			BackgroundColor = Color.FromHex("fcff00"),
+			Opacity = 0.5,
 			BorderRadius = 5,
-			HeightRequest = 50d
+			HeightRequest = 50d,
+			IsEnabled = false
 		};
+
+		/// <summary>
+		/// Gets or sets the user progress.
+		/// </summary>
+		/// <value>The user progress.</value>
+		public UserProgress UserProgress {
+			get;
+			set;
+		}
 
 		/// <summary>
 		/// Preferreds the status bar style.
