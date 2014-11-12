@@ -98,7 +98,12 @@ namespace UnidosPerderemos.Views.Daily
 
 			if (await DependencyService.Get<IProgressService>().Save(UserProgress))
 			{
+				await DisplayAlert("Pronto!", "Progresso atualizado com sucesso.", "Entendi");
 				await Navigation.PopModalAsync();
+			}
+			else
+			{
+				await DisplayAlert("Ops...", "Ocorreu uma falha na conexão com o servidor.", "Entendi");
 			}
 		}
 

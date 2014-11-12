@@ -167,11 +167,12 @@ namespace UnidosPerderemos.Views.Config
 
 			if (await DependencyService.Get<IProfileService>().Save(UserProfile))
 			{
-				DisplayAlert("Pronto!", "Configurações atualizadas com sucesso.", "Entendi");
+				await DisplayAlert("Pronto!", "Configurações atualizadas com sucesso.", "Entendi");
+				await Navigation.PopModalAsync();
 			}
 			else
 			{
-				DisplayAlert("Ops...", "Ocorreu uma falha na conexão com o servidor.", "Entendi");
+				await DisplayAlert("Ops...", "Ocorreu uma falha na conexão com o servidor.", "Entendi");
 			}
 		}
 
