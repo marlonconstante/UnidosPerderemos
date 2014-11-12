@@ -7,8 +7,15 @@ namespace UnidosPerderemos.Views.Daily
 {
 	public class PerformanceViewBox : ContentView
 	{
+		/// <summary>
+		/// The performance property.
+		/// </summary>
+		public static readonly BindableProperty PerformanceProperty = BindableProperty.Create<PerformanceViewBox, Performance>(p => p.Performance, Performance.Unknown);
+
 		public PerformanceViewBox()
 		{
+			SetUp();
+
 			Content = new StackLayout {
 				Spacing = 5d,
 				Children = {
@@ -16,6 +23,16 @@ namespace UnidosPerderemos.Views.Daily
 					GridPerformance
 				}
 			};
+		}
+
+		/// <summary>
+		/// Sets up.
+		/// </summary>
+		void SetUp()
+		{
+			GridPerformance.Children.Add(ButtonPoor, 0, 0);
+			GridPerformance.Children.Add(ButtonAverage, 1, 0);
+			GridPerformance.Children.Add(ButtonFine, 2, 0);
 		}
 
 		/// <summary>
@@ -35,28 +52,21 @@ namespace UnidosPerderemos.Views.Daily
 		/// </summary>
 		/// <value>The grid performance.</value>
 		Grid GridPerformance {
-			get {
-				return new Grid {
-					ColumnSpacing = 1d,
-					ColumnDefinitions = {
-						new ColumnDefinition {
-							Width = new GridLength(1d, GridUnitType.Star)
-						},
-						new ColumnDefinition {
-							Width = new GridLength(1d, GridUnitType.Star)
-						},
-						new ColumnDefinition {
-							Width = new GridLength(1d, GridUnitType.Star)
-						}
-					},
-					Children = {
-						{ ButtonPoor, 0, 0 },
-						{ ButtonAverage, 1, 0 },
-						{ ButtonFine, 2, 0 }
-					}
-				};
+			get;
+		} = new Grid {
+			ColumnSpacing = 1d,
+			ColumnDefinitions = {
+				new ColumnDefinition {
+					Width = new GridLength(1d, GridUnitType.Star)
+				},
+				new ColumnDefinition {
+					Width = new GridLength(1d, GridUnitType.Star)
+				},
+				new ColumnDefinition {
+					Width = new GridLength(1d, GridUnitType.Star)
+				}
 			}
-		}
+		};
 
 		/// <summary>
 		/// Gets the button poor.
@@ -93,16 +103,26 @@ namespace UnidosPerderemos.Views.Daily
 		/// </summary>
 		/// <param name="performance">Performance.</param>
 		void SelectPerformance(Performance performance) {
-			SelectedPerformance = performance;
+			Performance = performance;
 		}
 
 		/// <summary>
-		/// Gets or sets the selected performance.
+		/// Gets or sets the performance.
 		/// </summary>
-		/// <value>The selected performance.</value>
-		public Performance SelectedPerformance {
-			get;
-			protected set;
+		/// <value>The performance.</value>
+		public Performance Performance {
+			get {
+				return (Performance) GetValue(PerformanceProperty);
+			}
+			set {
+				SetValue(PerformanceProperty, value);
+
+				foreach (var view in GridPerformance.Children)
+				{
+					var button = view as PerformanceButton;
+					button.IsSelected = button.Performance == value;
+				}
+			}
 		}
 
 		/// <summary>

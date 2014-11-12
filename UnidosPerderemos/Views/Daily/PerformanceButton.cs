@@ -47,34 +47,7 @@ namespace UnidosPerderemos.Views.Daily
 		/// <param name="args">Arguments.</param>
 		void OnSelectPerformance(object sender, EventArgs args)
 		{
-			foreach (var view in ParentChildren)
-			{
-				var button = view as PerformanceButton;
-				button.IsSelected = false;
-			}
-			IsSelected = true;
-
 			SelectPerformance(Performance);
-		}
-
-		/// <summary>
-		/// Gets the parent children.
-		/// </summary>
-		/// <value>The parent children.</value>
-		IEnumerable<View> ParentChildren {
-			get {
-				return ParentGrid.Children.Where((view) => view != this);
-			}
-		}
-
-		/// <summary>
-		/// Gets the parent grid.
-		/// </summary>
-		/// <value>The parent grid.</value>
-		Grid ParentGrid {
-			get {
-				return ParentView as Grid;
-			}
 		}
 
 		/// <summary>
@@ -124,9 +97,9 @@ namespace UnidosPerderemos.Views.Daily
 		/// Gets or sets the select performance.
 		/// </summary>
 		/// <value>The select performance.</value>
-		public Action<Performance> SelectPerformance {
+		Action<Performance> SelectPerformance {
 			get;
-			protected set;
+			set;
 		}
 	}
 }
