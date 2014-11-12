@@ -3,9 +3,14 @@ using Xamarin.Forms;
 
 namespace UnidosPerderemos.Core.Controls
 {
-	public class LHEntryCell : ViewCell
+	public class EntryViewCell : ViewCell
 	{
-		public LHEntryCell(string text, View entry)
+		/// <summary>
+		/// Initializes a new instance of the <see cref="UnidosPerderemos.Core.Controls.EntryViewCell"/> class.
+		/// </summary>
+		/// <param name="text">Text.</param>
+		/// <param name="entry">Entry.</param>
+		public EntryViewCell(string text, View entry)
 		{
 			entry.HorizontalOptions = LayoutOptions.End;
 			entry.VerticalOptions = LayoutOptions.Center;

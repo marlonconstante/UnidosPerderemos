@@ -112,21 +112,21 @@ namespace UnidosPerderemos.Views.Config
 			{
 				new TableSection("Perfil")
 				{
-					new LHEntryCell("Nome:", m_name),
-					new LHEntryCell("Nascimento:", m_dateField),
-					new LHEntryCell("Sexo:", m_inputGender),
-					new LHEntryCell("Peso:", m_weightInput),
-					new LHEntryCell("Altura:", m_heigthInput),
+					new EntryViewCell("Nome:", m_name),
+					new EntryViewCell("Nascimento:", m_dateField),
+					new EntryViewCell("Sexo:", m_inputGender),
+					new EntryViewCell("Peso:", m_weightInput),
+					new EntryViewCell("Altura:", m_heigthInput),
 				},
 				new TableSection("Metas")
 				{
-					new LHEntryCell("Meta de Peso:", m_goalWeight),
-					new LHEntryCell("Meta de Tempo:", m_goalTime),
+					new EntryViewCell("Meta de Peso:", m_goalWeight),
+					new EntryViewCell("Meta de Tempo:", m_goalTime),
 				},
 				new TableSection("Táticas")
 				{
-					new LHEntryCell("Fazer Exercícios:", m_entryTacticExercise),
-					new LHEntryCell("Comer Melhor:", m_entryTacticFeed)
+					new EntryViewCell("Fazer Exercícios:", m_entryTacticExercise),
+					new EntryViewCell("Comer Melhor:", m_entryTacticFeed)
 				},
 				new TableSection("")
 				{
