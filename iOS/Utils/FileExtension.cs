@@ -15,12 +15,11 @@ namespace UnidosPerderemos.iOS.Utils
 		/// <param name="file">File.</param>
 		public static async Task Download(this RemoteFile file)
 		{
-			var url = file.Url;
-			if (!string.IsNullOrEmpty(url))
+			if (file.IsValidUrl)
 			{
 				using (WebClient webClient = new WebClient())
 				{
-					var data = await webClient.DownloadDataTaskAsync(new Uri(url));
+					var data = await webClient.DownloadDataTaskAsync(new Uri(file.Url));
 					file.Stream = new MemoryStream(data);
 				}
 			}

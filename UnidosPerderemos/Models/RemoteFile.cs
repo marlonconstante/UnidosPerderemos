@@ -48,6 +48,16 @@ namespace UnidosPerderemos.Models
 		}
 
 		/// <summary>
+		/// Gets a value indicating whether this instance is valid URL.
+		/// </summary>
+		/// <value><c>true</c> if this instance is valid URL; otherwise, <c>false</c>.</value>
+		public bool IsValidUrl {
+			get {
+				return !string.IsNullOrEmpty(Url);
+			}
+		}
+
+		/// <summary>
 		/// Gets a value indicating whether this instance is loaded.
 		/// </summary>
 		/// <value><c>true</c> if this instance is loaded; otherwise, <c>false</c>.</value>
