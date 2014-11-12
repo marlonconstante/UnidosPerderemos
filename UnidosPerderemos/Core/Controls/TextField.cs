@@ -15,6 +15,11 @@ namespace UnidosPerderemos.Core.Controls
 		/// </summary>
 		public static readonly BindableProperty FontProperty = BindableProperty.Create<TextField, Font>(p => p.Font, Font.Default);
 
+		/// <summary>
+		/// The text alignment property.
+		/// </summary>
+		public static readonly BindableProperty TextAlignmentProperty = BindableProperty.Create<TextField, TextAlignment>(p => p.TextAlignment, TextAlignment.Start);
+
 		public TextField()
 		{
 			SetUp();
@@ -93,6 +98,19 @@ namespace UnidosPerderemos.Core.Controls
 				SetValue(FontProperty, value);
 
 				HeightRequest = value.FontSize;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the text alignment.
+		/// </summary>
+		/// <value>The text alignment.</value>
+		public TextAlignment TextAlignment {
+			get {
+				return (TextAlignment) GetValue(TextAlignmentProperty);
+			}
+			set {
+				SetValue(TextAlignmentProperty, value);
 			}
 		}
 
