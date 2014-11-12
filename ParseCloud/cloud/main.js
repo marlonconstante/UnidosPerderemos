@@ -25,12 +25,7 @@ var SaveProfilePhoto = function(imageUrl, userProfile) {
 	});
 }
 
-Parse.Cloud.beforeSave("DailyProgress", function(request, response) {
-	request.object.set("user", request.user);
-	response.success();
-});
-
-Parse.Cloud.beforeSave("WeeklyProgress", function(request, response) {
+Parse.Cloud.beforeSave("UserProgress", function(request, response) {
 	request.object.set("user", request.user);
 	response.success();
 });
