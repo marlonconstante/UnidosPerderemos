@@ -15,6 +15,11 @@ namespace UnidosPerderemos.Core.Controls
 		/// </summary>
 		public static readonly BindableProperty TextColorProperty = BindableProperty.Create<DateField, Color>(p => p.TextColor, Color.Default);
 
+		/// <summary>
+		/// The text alignment property.
+		/// </summary>
+		public static readonly BindableProperty TextAlignmentProperty = BindableProperty.Create<DateField, TextAlignment>(p => p.TextAlignment, TextAlignment.Start);
+
 		public DateField()
 		{
 			SetUp();
@@ -55,6 +60,19 @@ namespace UnidosPerderemos.Core.Controls
 			}
 			set {
 				SetValue(TextColorProperty, value);
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the text alignment.
+		/// </summary>
+		/// <value>The text alignment.</value>
+		public TextAlignment TextAlignment {
+			get {
+				return (TextAlignment) GetValue(TextAlignmentProperty);
+			}
+			set {
+				SetValue(TextAlignmentProperty, value);
 			}
 		}
 	}
