@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using UnidosPerderemos.Core.Controls;
 using UnidosPerderemos.Services;
 using System.IO;
+using UnidosPerderemos.Models;
 
 namespace UnidosPerderemos.Views.Daily
 {
@@ -42,6 +43,7 @@ namespace UnidosPerderemos.Views.Daily
 			var stream = await DependencyService.Get<IMediaService>().GetPhoto(new Size(400d, 400d));
 			if (stream != Stream.Null)
 			{
+				Photo.Stream = stream;
 			}
 		}
 
@@ -87,12 +89,10 @@ namespace UnidosPerderemos.Views.Daily
 		/// </summary>
 		/// <value>The input text.</value>
 		TextArea InputText {
-			get {
-				return new TextArea {
-					Text = "Conte como foi o seu dia"
-				};
-			}
-		}
+			get;
+		} = new TextArea {
+			Text = "Conte como foi o seu dia"
+		};
 
 		/// <summary>
 		/// Gets the label text.
@@ -120,5 +120,27 @@ namespace UnidosPerderemos.Views.Daily
 			TranslationX = 5d,
 			Image = ImageSource.FromFile("Camera.png") as FileImageSource
 		};
+
+		/// <summary>
+		/// Gets or sets the photo.
+		/// </summary>
+		/// <value>The photo.</value>
+		public RemoteFile Photo {
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// Gets or sets the text.
+		/// </summary>
+		/// <value>The text.</value>
+		public string Text {
+			get {
+				return InputText.Text;
+			}
+			set {
+				InputText.Text = value;
+			}
+		}
 	}
 }
