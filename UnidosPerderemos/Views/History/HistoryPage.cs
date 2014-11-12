@@ -24,8 +24,7 @@ namespace UnidosPerderemos.Views.History
 			ListView.BackgroundColor = Color.Transparent;
 			Icon = ImageSource.FromFile("History.png") as FileImageSource;
 
-			Content = new ActivityIndicator
-			{
+			Content = new ActivityIndicator {
 				Color = Color.White,
 				IsRunning = true
 			};
@@ -36,24 +35,18 @@ namespace UnidosPerderemos.Views.History
 		/// </summary>
 		void SetContentPage()
 		{
-			Content = new Grid
-			{
-				ColumnDefinitions =
-				{
-					new ColumnDefinition
-					{
+			Content = new Grid {
+				ColumnDefinitions = {
+					new ColumnDefinition {
 						Width = new GridLength(1d, GridUnitType.Star)
 					}
 				},
-				RowDefinitions =
-				{
-					new RowDefinition
-					{
+				RowDefinitions = {
+					new RowDefinition {
 						Height = new GridLength(1d, GridUnitType.Star)
 					}
 				},
-				Children =
-				{
+				Children = {
 					ListView
 				}
 			};
@@ -67,39 +60,23 @@ namespace UnidosPerderemos.Views.History
 		{
 			SetContentPage();
 
-			LoadList();
+			LoadList(App.Instance.CurrentUser);
 		}
 
 		/// <summary>
 		/// Loads the list.
 		/// </summary>
-		void LoadList()
+		/// <param name="user">User.</param>
+		async void LoadList(User user)
 		{
-			//TODO: Trocar pela versão que busca do server.
-			var img = ImageSource.FromFile("Background-1.png");
-			ListView.ItemsSource = new List<UserProgress>()
-			{
-				new UserProgress { Comments = "Coments", Date = DateTime.Now, ObjectId = 1, PerformanceExercise = Performance.Average, PerformanceFeed = Performance.Average, Type = ProgressType.Daily },
-				new UserProgress { Date = DateTime.Now, ObjectId = 4, Weight = 100, Type = ProgressType.Weekly },
-				new UserProgress { Comments = "Coments", Date = DateTime.Now, ObjectId = 2, PerformanceExercise = Performance.Average, PerformanceFeed = Performance.Average, Type = ProgressType.Daily },
-			};
+			ListView.ItemsSource = await DependencyService.Get<IProgressService>().FindAll(user);
 		}
-
-
-		/// <summary>
-		/// Loads the list.
-		/// </summary>
-		//		async void LoadList()
-		//		{
-		//			ListView.ItemsSource = await DependencyService.Get<IProgressService>().FindAll(App.Instance.CurrentUser);
-		//		}
 
 		/// <summary>
 		/// Gets or sets the list view.
 		/// </summary>
 		/// <value>The list view.</value>
-		ListView ListView
-		{
+		ListView ListView {
 			get;
 		} = new ListView {
 			ItemTemplate = new DataTemplate(typeof(ProgressCell))
