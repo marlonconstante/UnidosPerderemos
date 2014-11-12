@@ -8,9 +8,9 @@ namespace UnidosPerderemos.Core.Controls
 		/// <summary>
 		/// Initializes a new instance of the <see cref="UnidosPerderemos.Core.Controls.EntryViewCell"/> class.
 		/// </summary>
-		/// <param name="text">Text.</param>
+		/// <param name="title">Title.</param>
 		/// <param name="entry">Entry.</param>
-		public EntryViewCell(string text, View entry)
+		public EntryViewCell(string title, View entry)
 		{
 			entry.HorizontalOptions = LayoutOptions.End;
 			entry.VerticalOptions = LayoutOptions.Center;
@@ -32,7 +32,7 @@ namespace UnidosPerderemos.Core.Controls
 					}
 				},
 				Children = {
-					{ new Label { Text = text, Font = Font, YAlign = TextAlignment.Center }, 0, 0 },
+					{ new Label { Text = title, Font = Font, YAlign = TextAlignment.Center }, 0, 0 },
 					{ entry, 1, 0 }
 				}
 			};
