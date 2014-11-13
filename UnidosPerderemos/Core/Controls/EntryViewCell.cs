@@ -16,8 +16,8 @@ namespace UnidosPerderemos.Core.Controls
 			entry.VerticalOptions = LayoutOptions.Center;
 
 			View = new Grid {
-				Padding = new Thickness(15f, 0f, 10f, 0f),
-				ColumnSpacing = 5f,
+				Padding = new Thickness(15d, 0d, 10d, 0d),
+				ColumnSpacing = 5d,
 				ColumnDefinitions = {
 					new ColumnDefinition {
 						Width = GridLength.Auto
