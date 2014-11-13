@@ -6,23 +6,9 @@ namespace UnidosPerderemos.Core.Controls
 	public class LinearProgressBar : Grid
 	{
 		/// <summary>
-		/// Gets or sets the progress.
-		/// </summary>
-		/// <value>The progress.</value>
-		public int Progress {
-			get {
-				return (int) GetValue(ProgressProperty);
-			}
-			set { 
-				SetValue(ProgressProperty, value); 
-				UpdateProgressBar();
-			}
-		}
-
-		/// <summary>
 		/// The progress property.
 		/// </summary>
-		public static readonly BindableProperty ProgressProperty = BindableProperty.Create<LinearProgressBar, int>(p => p.Progress, 0, BindingMode.TwoWay);
+		public static readonly BindableProperty ProgressProperty = BindableProperty.Create<LinearProgressBar, int>(p => p.Progress, 0);
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="UnidosPerderemos.Core.Controls.LinearProgressBar"/> class.
@@ -65,6 +51,20 @@ namespace UnidosPerderemos.Core.Controls
 				return ImageSource.FromFile(string.Concat("Progress", percent, ".png"));
 			}
 			return null;
+		}
+
+		/// <summary>
+		/// Gets or sets the progress.
+		/// </summary>
+		/// <value>The progress.</value>
+		public int Progress {
+			get {
+				return (int) GetValue(ProgressProperty);
+			}
+			set { 
+				SetValue(ProgressProperty, value);
+				UpdateProgressBar();
+			}
 		}
 	}
 }
