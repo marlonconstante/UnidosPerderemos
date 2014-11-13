@@ -3,6 +3,19 @@ using System;
 
 namespace UnidosPerderemos.Core.Controls
 {
+	/// <summary>
+	/// Radial progress type.
+	/// </summary>
+	public enum RadialProgressType
+	{
+		Unknown,
+		Dedication,
+		Goal
+	}
+
+	/// <summary>
+	/// Radial progress bar.
+	/// </summary>
 	public class RadialProgressBar : Grid
 	{
 		/// <summary>
@@ -11,16 +24,29 @@ namespace UnidosPerderemos.Core.Controls
 		public static readonly BindableProperty ProgressProperty = BindableProperty.Create<RadialProgressBar, int>(p => p.Progress, 0);
 
 		/// <summary>
-		/// The progress type property.
+		/// The type property.
 		/// </summary>
-		public static readonly BindableProperty ProgressTypeProperty = BindableProperty.Create<RadialProgressBar, string>(p => p.ProgressType, string.Empty);
+		public static readonly BindableProperty TypeProperty = BindableProperty.Create<RadialProgressBar, RadialProgressType>(p => p.Type, RadialProgressType.Unknown);
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="UnidosPerderemos.Core.Controls.RadialProgressBar"/> class.
 		/// </summary>
 		public RadialProgressBar()
 		{
-			UpdateProgressBar();
+			SetUp();
+		}
+
+		/// <summary>
+		/// Sets up.
+		/// </summary>
+		void SetUp()
+		{
+			ColumnDefinitions = new ColumnDefinitionCollection {
+				new ColumnDefinition {
+					Width = new GridLength(1d, GridUnitType.Star)
+				}
+			};
+			Children.Add(ProgressImage);
 		}
 
 		/// <summary>
@@ -28,16 +54,18 @@ namespace UnidosPerderemos.Core.Controls
 		/// </summary>
 		void UpdateProgressBar()
 		{
-			ColumnDefinitions = new ColumnDefinitionCollection {
-				new ColumnDefinition {
-					Width = new GridLength(1d, GridUnitType.Star)
-				}
-			};
-			Children.Add(new Image {
-				Source = LoadImage(),
-				Aspect = Aspect.AspectFill
-			});
+			ProgressImage.Source = LoadImage();
 		}
+
+		/// <summary>
+		/// Gets the progress image.
+		/// </summary>
+		/// <value>The progress image.</value>
+		Image ProgressImage {
+			get;
+		} = new Image {
+			Aspect = Aspect.AspectFill
+		};
 
 		/// <summary>
 		/// Loads the image.
@@ -45,10 +73,10 @@ namespace UnidosPerderemos.Core.Controls
 		/// <returns>The image.</returns>
 		ImageSource LoadImage()
 		{
-			if (Progress > 0)
+			if (Progress > 0 && Type != RadialProgressType.Unknown)
 			{
-				var percent = Math.Ceiling(Progress / 10f) * 10;
-				return ImageSource.FromFile(string.Concat(ProgressType, percent, ".png"));
+				var value = (Progress < 10) ? Math.Ceiling(Progress / 10d) : Math.Floor(Progress / 10d);
+				return ImageSource.FromFile(string.Concat(Type.ToString(), value * 10, ".png"));
 			}
 			return null;
 		}
@@ -61,22 +89,24 @@ namespace UnidosPerderemos.Core.Controls
 			get {
 				return (int) GetValue(ProgressProperty);
 			}
-			set { 
-				SetValue(ProgressProperty, value);
+			set {
+				SetValue(ProgressProperty, (value > 100) ? 100 : value);
+
 				UpdateProgressBar();
 			}
 		}
 
 		/// <summary>
-		/// Gets or sets the type of the progress.
+		/// Gets or sets the type.
 		/// </summary>
-		/// <value>The type of the progress.</value>
-		public string ProgressType {
+		/// <value>The type.</value>
+		public RadialProgressType Type {
 			get {
-				return (string) GetValue(ProgressTypeProperty);
+				return (RadialProgressType) GetValue(TypeProperty);
 			}
-			set { 
-				SetValue(ProgressTypeProperty, value);
+			set {
+				SetValue(TypeProperty, value);
+
 				UpdateProgressBar();
 			}
 		}

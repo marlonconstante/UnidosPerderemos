@@ -3,6 +3,9 @@ using Xamarin.Forms;
 
 namespace UnidosPerderemos.Core.Controls
 {
+	/// <summary>
+	/// Linear progress bar.
+	/// </summary>
 	public class LinearProgressBar : Grid
 	{
 		/// <summary>
@@ -15,13 +18,13 @@ namespace UnidosPerderemos.Core.Controls
 		/// </summary>
 		public LinearProgressBar()
 		{
-			UpdateProgressBar();
+			SetUp();
 		}
 
 		/// <summary>
-		/// Updates the progress bar.
+		/// Sets up.
 		/// </summary>
-		void UpdateProgressBar()
+		void SetUp()
 		{
 			Padding = new Thickness(0f, 9f, 9f, 10f);
 			ColumnDefinitions = new ColumnDefinitionCollection {
@@ -29,15 +32,38 @@ namespace UnidosPerderemos.Core.Controls
 					Width = new GridLength(1d, GridUnitType.Star)
 				}
 			};
-			Children.Add(new Image {
-				Source = ImageSource.FromFile("EmptyLinearProgress.png"),
-				Aspect = Aspect.AspectFill
-			});
-			Children.Add(new Image {
-				Source = LoadImage(),
-				Aspect = Aspect.AspectFill
-			});
+			Children.Add(EmptyProgressImage);
+			Children.Add(ProgressImage);
 		}
+
+		/// <summary>
+		/// Updates the progress bar.
+		/// </summary>
+		void UpdateProgressBar()
+		{
+			ProgressImage.Source = LoadImage();
+		}
+
+		/// <summary>
+		/// Gets the empty progress image.
+		/// </summary>
+		/// <value>The empty progress image.</value>
+		Image EmptyProgressImage {
+			get;
+		} = new Image {
+			Source = ImageSource.FromFile("EmptyLinearProgress.png"),
+			Aspect = Aspect.AspectFill
+		};
+
+		/// <summary>
+		/// Gets the progress image.
+		/// </summary>
+		/// <value>The progress image.</value>
+		Image ProgressImage {
+			get;
+		} = new Image {
+			Aspect = Aspect.AspectFill
+		};
 
 		/// <summary>
 		/// Loads the image.
@@ -47,8 +73,8 @@ namespace UnidosPerderemos.Core.Controls
 		{
 			if (Progress > 0)
 			{
-				var percent = Math.Ceiling(Progress / 10f) * 10;
-				return ImageSource.FromFile(string.Concat("Progress", percent, ".png"));
+				var value = (Progress < 10) ? Math.Ceiling(Progress / 10d) : Math.Floor(Progress / 10d);
+				return ImageSource.FromFile(string.Concat("Progress", value * 10, ".png"));
 			}
 			return null;
 		}
@@ -61,8 +87,9 @@ namespace UnidosPerderemos.Core.Controls
 			get {
 				return (int) GetValue(ProgressProperty);
 			}
-			set { 
-				SetValue(ProgressProperty, value);
+			set {
+				SetValue(ProgressProperty, (value > 100) ? 100 : value);
+
 				UpdateProgressBar();
 			}
 		}
