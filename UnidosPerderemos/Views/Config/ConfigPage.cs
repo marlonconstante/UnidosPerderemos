@@ -44,14 +44,12 @@ namespace UnidosPerderemos.Views.Config
 		{
 			Title = "Configurações";
 
-			ToolbarItems.Add(new ToolbarItem
-			{
+			ToolbarItems.Add(new ToolbarItem {
 				Name = "Salvar",
 				Command = new Command(() => Save()),
 			});
 
-			ToolbarItems.Add(new ToolbarItem
-			{
+			ToolbarItems.Add(new ToolbarItem {
 				Name = "Cancelar",
 				Command = new Command(() => Navigation.PopModalAsync()),
 			});
@@ -78,12 +76,10 @@ namespace UnidosPerderemos.Views.Config
 			m_goalWeight = new CellTextField(UserProfile.GoalWeight.ToString(), Keyboard.Numeric);
 			m_goalTime = new CellTextField(UserProfile.GoalTime.ToString(), Keyboard.Numeric);
 
-			m_entryTacticExercise = new Switch
-			{
+			m_entryTacticExercise = new Switch {
 				IsToggled = UserProfile.IsTacticExercise
 			};
-			m_entryTacticFeed = new Switch
-			{
+			m_entryTacticFeed = new Switch {
 				IsToggled = UserProfile.IsTacticFeed
 			};
 		}
@@ -93,8 +89,7 @@ namespace UnidosPerderemos.Views.Config
 		/// </summary>
 		void CreateLogoutButton()
 		{
-			m_btnLogout = new Button
-			{
+			m_btnLogout = new Button {
 				Text = "Sair",
 				TextColor = Color.Red,
 				BackgroundColor = Color.Transparent
@@ -108,30 +103,24 @@ namespace UnidosPerderemos.Views.Config
 		/// <returns>The tabble view root.</returns>
 		TableRoot CreateTabbleViewRoot()
 		{
-			return new TableRoot("Configurações")
-			{
-				new TableSection("Perfil")
-				{
+			return new TableRoot("Configurações") {
+				new TableSection("Perfil") {
 					new EntryViewCell("Nome:", m_name),
 					new EntryViewCell("Nascimento:", m_dateField),
 					new EntryViewCell("Sexo:", m_inputGender),
 					new EntryViewCell("Peso:", m_weightInput),
 					new EntryViewCell("Altura:", m_heigthInput),
 				},
-				new TableSection("Metas")
-				{
+				new TableSection("Metas") {
 					new EntryViewCell("Meta de peso:", m_goalWeight),
 					new EntryViewCell("Meta de tempo:", m_goalTime),
 				},
-				new TableSection("Táticas")
-				{
+				new TableSection("Táticas") {
 					new EntryViewCell("Fazer exercícios:", m_entryTacticExercise),
 					new EntryViewCell("Comer melhor:", m_entryTacticFeed)
 				},
-				new TableSection("")
-				{
-					new ViewCell
-					{
+				new TableSection("") {
+					new ViewCell {
 						View = m_btnLogout
 					}
 				}
@@ -143,8 +132,7 @@ namespace UnidosPerderemos.Views.Config
 		/// </summary>
 		void CreateContentPage()
 		{
-			Content = new TableView
-			{
+			Content = new TableView {
 				Intent = TableIntent.Form,
 				Root = CreateTabbleViewRoot()
 			};
