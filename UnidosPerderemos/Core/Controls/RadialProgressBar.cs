@@ -20,7 +20,9 @@ namespace UnidosPerderemos.Core.Controls
 		/// </summary>
 		/// <value>The progress.</value>
 		public float Progress {
-			get { return (float) GetValue(ProgressProperty); }
+			get {
+				return (float) GetValue(ProgressProperty);
+			}
 			set { 
 				SetValue(ProgressProperty, value); 
 				UpdateProgressBar();
@@ -32,7 +34,9 @@ namespace UnidosPerderemos.Core.Controls
 		/// </summary>
 		/// <value>The color of the progress.</value>
 		public string ProgressType {
-			get { return (string) GetValue(ProgressTypeProperty); }
+			get {
+				return (string) GetValue(ProgressTypeProperty);
+			}
 			set { 
 				SetValue(ProgressTypeProperty, value); 
 				UpdateProgressBar();

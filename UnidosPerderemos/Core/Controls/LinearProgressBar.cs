@@ -10,7 +10,9 @@ namespace UnidosPerderemos.Core.Controls
 		/// </summary>
 		/// <value>The progress.</value>
 		public int Progress {
-			get { return (int) GetValue(ProgressProperty); }
+			get {
+				return (int) GetValue(ProgressProperty);
+			}
 			set { 
 				SetValue(ProgressProperty, value); 
 				UpdateProgressBar();
