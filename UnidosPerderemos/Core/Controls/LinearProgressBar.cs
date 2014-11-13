@@ -9,11 +9,9 @@ namespace UnidosPerderemos.Core.Controls
 		/// Gets or sets the progress.
 		/// </summary>
 		/// <value>The progress.</value>
-		public int Progress
-		{
-			get { return (int)GetValue(ProgressProperty); }
-			set
-			{ 
+		public int Progress {
+			get { return (int) GetValue(ProgressProperty); }
+			set { 
 				SetValue(ProgressProperty, value); 
 				UpdateProgressBar();
 			}
@@ -38,20 +36,16 @@ namespace UnidosPerderemos.Core.Controls
 		void UpdateProgressBar()
 		{
 			Padding = new Thickness(0f, 9f, 9f, 10f);
-			ColumnDefinitions = new ColumnDefinitionCollection
-			{
-				new ColumnDefinition
-				{
+			ColumnDefinitions = new ColumnDefinitionCollection {
+				new ColumnDefinition {
 					Width = new GridLength(1d, GridUnitType.Star)
 				}
 			};
-			Children.Add(new Image
-			{
+			Children.Add(new Image {
 				Source = ImageSource.FromFile("EmptyLinearProgress.png"),
 				Aspect = Aspect.AspectFill
 			});
-			Children.Add(new Image
-			{
+			Children.Add(new Image {
 				Source = LoadImage(),
 				Aspect = Aspect.AspectFill
 			});
@@ -68,7 +62,6 @@ namespace UnidosPerderemos.Core.Controls
 				var percent = Math.Ceiling(Progress / 10f) * 10;
 				return ImageSource.FromFile(string.Concat("Progress", percent, ".png"));
 			}
-
 			return null;
 		}
 	}

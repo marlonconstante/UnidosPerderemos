@@ -19,11 +19,9 @@ namespace UnidosPerderemos.Core.Controls
 		/// Gets or sets the current progress
 		/// </summary>
 		/// <value>The progress.</value>
-		public float Progress
-		{
-			get { return (float)GetValue(ProgressProperty); }
-			set
-			{ 
+		public float Progress {
+			get { return (float) GetValue(ProgressProperty); }
+			set { 
 				SetValue(ProgressProperty, value); 
 				UpdateProgressBar();
 			}
@@ -33,11 +31,9 @@ namespace UnidosPerderemos.Core.Controls
 		/// Gets or sets the progress color
 		/// </summary>
 		/// <value>The color of the progress.</value>
-		public string ProgressType
-		{
-			get { return (string)GetValue(ProgressTypeProperty); }
-			set
-			{ 
+		public string ProgressType {
+			get { return (string) GetValue(ProgressTypeProperty); }
+			set { 
 				SetValue(ProgressTypeProperty, value); 
 				UpdateProgressBar();
 			}
@@ -56,16 +52,13 @@ namespace UnidosPerderemos.Core.Controls
 		/// </summary>
 		void UpdateProgressBar()
 		{
-			ColumnDefinitions = new ColumnDefinitionCollection
-			{
-				new ColumnDefinition
-				{
+			ColumnDefinitions = new ColumnDefinitionCollection {
+				new ColumnDefinition {
 					Width = new GridLength(1d, GridUnitType.Star)
 				}
 			};
 
-			Children.Add(new Image
-			{
+			Children.Add(new Image {
 				Source = LoadImage(),
 				Aspect = Aspect.AspectFill
 			});
