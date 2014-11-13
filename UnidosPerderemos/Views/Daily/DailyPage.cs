@@ -98,6 +98,8 @@ namespace UnidosPerderemos.Views.Daily
 
 			if (await DependencyService.Get<IProgressService>().Save(UserProgress))
 			{
+				UserProfile.DateLastDaily = UserProgress.Date;
+
 				await DisplayAlert("Pronto!", "Progresso atualizado com sucesso.", "Entendi");
 				await Navigation.PopModalAsync();
 			}
@@ -222,6 +224,16 @@ namespace UnidosPerderemos.Views.Daily
 		public UserProgress UserProgress {
 			get;
 			set;
+		}
+
+		/// <summary>
+		/// Gets the user profile.
+		/// </summary>
+		/// <value>The user profile.</value>
+		UserProfile UserProfile {
+			get {
+				return App.Instance.CurrentUserProfile;
+			}
 		}
 
 		/// <summary>

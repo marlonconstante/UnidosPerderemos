@@ -30,6 +30,18 @@ Parse.Cloud.beforeSave("UserProgress", function(request, response) {
 	response.success();
 });
 
+Parse.Cloud.afterSave("UserProgress", function(request) {
+	var userProgress = request.object;
+	var query = new Parse.Query(Parse.Object.extend("UserProfile"));
+	query.equalTo("user", userProgress.get("user"));
+	query.first({
+		success: function(userProfile) {
+			userProfile.set("dateLast" + userProgress.get("type"), userProgress.get("date"));
+			userProfile.save();
+		}
+	});
+});
+
 Parse.Cloud.beforeSave("UserProfile", function(request, response) {
 	request.object.set("user", request.user);
 	response.success();

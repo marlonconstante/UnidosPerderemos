@@ -108,5 +108,23 @@ namespace UnidosPerderemos.Models
 		} = new RemoteFile {
 			Name = "photo.jpeg"
 		};
+
+		/// <summary>
+		/// Gets or sets the date last daily.
+		/// </summary>
+		/// <value>The date last daily.</value>
+		public DateTime DateLastDaily {
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// Gets or sets the date last weekly.
+		/// </summary>
+		/// <value>The date last weekly.</value>
+		public DateTime DateLastWeekly {
+			get;
+			set;
+		}
 	}
 }
