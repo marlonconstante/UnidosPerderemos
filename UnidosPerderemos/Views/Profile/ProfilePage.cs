@@ -4,6 +4,7 @@ using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Core.Pages;
 using System.Diagnostics;
 using UnidosPerderemos.Models;
+using UnidosPerderemos.Core.Controls;
 
 namespace UnidosPerderemos.Views.Profile
 {
@@ -31,14 +32,12 @@ namespace UnidosPerderemos.Views.Profile
 		/// <summary>
 		/// Sets the content page.
 		/// </summary>
-		void SetContentPage() {
-			Content = new ScrollView
-			{
-				Content = new StackLayout
-				{
+		void SetContentPage()
+		{
+			Content = new ScrollView {
+				Content = new StackLayout {
 					Spacing = 5d,
-					Children =
-					{
+					Children = {
 						ProfileViewBox,
 						UpButton,
 						TransparentSeparator,
@@ -56,6 +55,13 @@ namespace UnidosPerderemos.Views.Profile
 			if (UserProfileLoaded)
 			{
 				UpButton.IsDone = UserProfile.DateLastDaily == DateTime.Now.Date;
+
+				//TODO: Dados fictícios por enquanto...
+				UpButton.IsStar = !UpButton.IsStar;
+
+				ProfileViewBox.Progress += 12;
+				DedicationGraphics.Progress += 8;
+				GoalGraphics.Progress += 4;
 			}
 		}
 
@@ -63,7 +69,8 @@ namespace UnidosPerderemos.Views.Profile
 		/// Raises the user profile loaded event.
 		/// </summary>
 		/// <param name="userProfile">User profile.</param>
-		public void OnUserProfileLoaded(UserProfile userProfile) {
+		public void OnUserProfileLoaded(UserProfile userProfile)
+		{
 			SetContentPage();
 			UpdateStatus();
 			ProfileViewBox.LoadPhoto();
@@ -91,8 +98,7 @@ namespace UnidosPerderemos.Views.Profile
 		/// Gets up button.
 		/// </summary>
 		/// <value>Up button.</value>
-		UpButton UpButton
-		{
+		UpButton UpButton {
 			get;
 			set;
 		} = new UpButton();
@@ -101,12 +107,9 @@ namespace UnidosPerderemos.Views.Profile
 		/// Gets the transparent separator.
 		/// </summary>
 		/// <value>The transparent separator.</value>
-		BoxView TransparentSeparator
-		{
-			get
-			{
-				return new BoxView
-				{
+		BoxView TransparentSeparator {
+			get {
+				return new BoxView {
 					BackgroundColor = Color.White.MultiplyAlpha(0.6d),
 					HeightRequest = 1d
 				};
@@ -117,25 +120,18 @@ namespace UnidosPerderemos.Views.Profile
 		/// Gets the grid graphics.
 		/// </summary>
 		/// <value>The grid graphics.</value>
-		Grid GridGraphics
-		{
-			get
-			{
-				return new Grid
-				{
-					ColumnDefinitions =
-					{
-						new ColumnDefinition
-						{
+		Grid GridGraphics {
+			get {
+				return new Grid {
+					ColumnDefinitions = {
+						new ColumnDefinition {
 							Width = new GridLength(1d, GridUnitType.Star)
 						},
-						new ColumnDefinition
-						{
+						new ColumnDefinition {
 							Width = new GridLength(1d, GridUnitType.Star)
 						}
 					},
-					Children =
-					{
+					Children = {
 						{ DedicationGraphics, 0, 0 },
 						{ GoalGraphics, 1, 0 }
 					}
@@ -147,31 +143,23 @@ namespace UnidosPerderemos.Views.Profile
 		/// Gets the dedication graphics.
 		/// </summary>
 		/// <value>The dedication graphics.</value>
-		ProfileViewGraphics DedicationGraphics
-		{
-			get
-			{
-				return new ProfileViewGraphics(70, "Dedication")
-				{
-					Title = "Dedicação"
-				};
-			}
-		}
+		ProfileViewGraphics DedicationGraphics {
+			get;
+		} = new ProfileViewGraphics {
+			Title = "Dedicação",
+			Type = RadialProgressType.Dedication
+		};
 
 		/// <summary>
 		/// Gets the goal graphics.
 		/// </summary>
 		/// <value>The goal graphics.</value>
-		ProfileViewGraphics GoalGraphics
-		{
-			get
-			{
-				return new ProfileViewGraphics(100, "Goal")
-				{
-					Title = "Meta"
-				};
-			}
-		}
+		ProfileViewGraphics GoalGraphics {
+			get;
+		} = new ProfileViewGraphics {
+			Title = "Meta",
+			Type = RadialProgressType.Goal
+		};
 
 		/// <summary>
 		/// Gets the user profile.
