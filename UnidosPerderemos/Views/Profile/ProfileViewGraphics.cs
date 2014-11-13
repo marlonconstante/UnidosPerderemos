@@ -10,31 +10,23 @@ namespace UnidosPerderemos.Views.Profile
 		/// <summary>
 		/// Initializes a new instance of the <see cref="UnidosPerderemos.Views.Profile.ProfileViewGraphics"/> class.
 		/// </summary>
-		/// <param name="percent">Percent.</param>
-		/// <param name="progressType">Progress type.</param>
-		public ProfileViewGraphics(int percent, string progressType)
+		public ProfileViewGraphics()
 		{
-			SetUp(percent, progressType);
+			SetUp();
 
-			Content = new StackLayout
-			{
-				Children =
-				{
+			Content = new StackLayout {
+				Spacing = 2.5d,
+				Children = {
 					LabelTitle,
-					new Grid
-					{
-						ColumnDefinitions =
-						{
-							new ColumnDefinition
-							{
+					new Grid {
+						ColumnDefinitions = {
+							new ColumnDefinition {
 								Width = new GridLength(1d, GridUnitType.Star)
 							}
 						},
-						Children =
-						{
-							LabelPercentage,
-							LabelPercent,
-							RadialProgress
+						Children = {
+							RadialProgress,
+							GridProgress
 						}
 					}
 				}
@@ -44,30 +36,30 @@ namespace UnidosPerderemos.Views.Profile
 		/// <summary>
 		/// Sets up.
 		/// </summary>
-		/// <param name="percent">Percent.</param>
-		/// <param name="progressType">Progress type.</param>
-		void SetUp(int percent, string progressType)
+		void SetUp()
 		{
 			Title = "Percentual";
-			Percentage = percent;
+			Progress = 0;
+		}
 
-			RadialProgress = new RadialProgressBar
-			{
-				WidthRequest = 80d,
-				HeightRequest = 80d,
-				Progress = percent,
-				ProgressType = progressType,
-				HorizontalOptions = LayoutOptions.CenterAndExpand
-			};
+		/// <summary>
+		/// Updates the labels.
+		/// </summary>
+		void UpdateLabels()
+		{
+			var progress = Progress.ToString();
+			LabelProgress.Text = progress;
 
+			var fontSize = 44 - ((progress.Length - 1) * 9);
+			LabelProgress.FontSize = fontSize;
+			LabelPercent.FontSize = fontSize / 2;
 		}
 
 		/// <summary>
 		/// Gets the label title.
 		/// </summary>
 		/// <value>The label title.</value>
-		CompressedLabel LabelTitle
-		{
+		CompressedLabel LabelTitle {
 			get;
 		} = new CompressedLabel {
 			Font = Font.OfSize("Roboto-Regular", 16),
@@ -76,76 +68,109 @@ namespace UnidosPerderemos.Views.Profile
 		};
 
 		/// <summary>
-		/// Gets the label percentage.
+		/// Gets the radial progress.
 		/// </summary>
-		/// <value>The label percentage.</value>
-		CompressedLabel LabelPercentage
-		{
+		/// <value>The radial progress.</value>
+		RadialProgressBar RadialProgress {
 			get;
-		} = new CompressedLabel {
-			Font = Font.OfSize("Roboto-Light", 28),
-			TextColor = Color.FromHex("fcfbfb"),
-			XAlign = TextAlignment.Center,
-			YAlign = TextAlignment.Center,
-			HeightRequest = 80d,
-			TranslationX = -5d
+		} = new RadialProgressBar {
+			HorizontalOptions = LayoutOptions.Center,
+			VerticalOptions = LayoutOptions.Center,
+			WidthRequest = 80d,
+			HeightRequest = 80d
+		};
+
+		/// <summary>
+		/// Gets the grid progress.
+		/// </summary>
+		/// <value>The grid progress.</value>
+		Grid GridProgress {
+			get {
+				return new Grid {
+					HorizontalOptions = LayoutOptions.Center,
+					VerticalOptions = LayoutOptions.Center,
+					ColumnSpacing = 0d,
+					ColumnDefinitions = {
+						new ColumnDefinition {
+							Width = GridLength.Auto
+						},
+						new ColumnDefinition {
+							Width = GridLength.Auto
+						}
+					},
+					Children = {
+						{ LabelProgress, 0, 0 },
+						{ LabelPercent, 1, 0 }
+					}
+				};
+			}
+		}
+
+		/// <summary>
+		/// Gets the label progress.
+		/// </summary>
+		/// <value>The label progress.</value>
+		Label LabelProgress {
+			get;
+		} = new Label {
+			HorizontalOptions = LayoutOptions.Center,
+			VerticalOptions = LayoutOptions.Center,
+			FontFamily = "Roboto-Light",
+			TextColor = Color.FromHex("fcfbfb")
 		};
 
 		/// <summary>
 		/// Gets the label percent.
 		/// </summary>
 		/// <value>The label percent.</value>
-		CompressedLabel LabelPercent
-		{
+		Label LabelPercent {
 			get;
-		} = new CompressedLabel {
-			Font = Font.OfSize("Roboto-Light", 14),
+		} = new Label {
+			HorizontalOptions = LayoutOptions.Center,
+			VerticalOptions = LayoutOptions.Center,
+			FontFamily = "Roboto-Light",
 			TextColor = Color.FromHex("fcfbfb"),
-			Text = "%",
-			XAlign = TextAlignment.Center,
-			YAlign = TextAlignment.Center,
-			TranslationY = 5d,
-			TranslationX = -25d,
-			HeightRequest = 80d
+			Text = "%"
 		};
-
-		RadialProgressBar RadialProgress
-		{
-			get;
-			set;
-		}
 
 		/// <summary>
 		/// Gets or sets the title.
 		/// </summary>
 		/// <value>The title.</value>
-		public string Title
-		{
-			get
-			{
+		public string Title {
+			get {
 				return LabelTitle.Text;
 			}
-			set
-			{
+			set {
 				LabelTitle.Text = value;
 			}
 		}
 
 		/// <summary>
-		/// Gets or sets the percentage.
+		/// Gets or sets the progress.
 		/// </summary>
-		/// <value>The percentage.</value>
-		public int Percentage
-		{
-			get
-			{
-				return int.Parse(LabelPercentage.Text);
+		/// <value>The progress.</value>
+		public int Progress {
+			get {
+				return RadialProgress.Progress;
 			}
-			set
-			{
-				LabelPercentage.Text = value.ToString();
+			set {
+				RadialProgress.Progress = value;
 
-				LabelPercent.TranslationX = 6d + (LabelPercentage.Text.Length * 10d);
+				UpdateLabels();
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the type.
+		/// </summary>
+		/// <value>The type.</value>
+		public RadialProgressType Type {
+			get {
+				return RadialProgress.Type;
+			}
+			set {
+				RadialProgress.Type = value;
 			}
 		}
 	}
