@@ -3,6 +3,7 @@ using Xamarin.Forms.Platform.iOS;
 using Xamarin.Forms;
 using UnidosPerderemos.Core.Controls;
 using MonoTouch.UIKit;
+using System.ComponentModel;
 
 [assembly: ExportRenderer(typeof(ImageButton), typeof(UnidosPerderemos.iOS.Renderers.Controls.ImageButtonRenderer))]
 namespace UnidosPerderemos.iOS.Renderers.Controls
@@ -13,29 +14,39 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 		{
 		}
 
-		/// <Docs>Lays out subviews.</Docs>
 		/// <summary>
-		/// Layouts the subviews.
+		/// Raises the element changed event.
 		/// </summary>
-		public override void LayoutSubviews()
+		/// <param name="args">Arguments.</param>
+		protected override void OnElementChanged(ElementChangedEventArgs<Button> args)
 		{
-			base.LayoutSubviews();
+			base.OnElementChanged(args);
 
-			SetUp();
+			UpdateImage();
 		}
 
 		/// <summary>
-		/// Sets up.
+		/// Raises the element property changed event.
 		/// </summary>
-		void SetUp()
+		/// <param name="sender">Sender.</param>
+		/// <param name="args">Arguments.</param>
+		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs args)
 		{
-			if (!Initialized)
-			{
-				Target.ImageView.ContentMode = UIViewContentMode.ScaleAspectFit;
-				Target.SetImage(OriginalImage, UIControlState.Normal);
+			base.OnElementPropertyChanged(sender, args);
 
-				Initialized = true;
+			if (ImageButton.ImageProperty.PropertyName == args.PropertyName)
+			{
+				UpdateImage();
 			}
+		}
+
+		/// <summary>
+		/// Updates the image.
+		/// </summary>
+		void UpdateImage()
+		{
+			Target.ImageView.ContentMode = UIViewContentMode.ScaleAspectFit;
+			Target.SetImage(OriginalImage, UIControlState.Normal);
 		}
 
 		/// <summary>
@@ -71,15 +82,5 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 				return Control;
 			}
 		}
-
-		/// <summary>
-		/// Gets or sets a value indicating whether this
-		/// <see cref="UnidosPerderemos.iOS.Renderers.Controls.ImageButtonRenderer"/> is initialized.
-		/// </summary>
-		/// <value><c>true</c> if initialized; otherwise, <c>false</c>.</value>
-		bool Initialized {
-			get;
-			set;
-		} = false;
 	}
 }
