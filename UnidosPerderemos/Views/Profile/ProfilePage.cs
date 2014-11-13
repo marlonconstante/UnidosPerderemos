@@ -49,12 +49,34 @@ namespace UnidosPerderemos.Views.Profile
 		}
 
 		/// <summary>
+		/// Updates the status.
+		/// </summary>
+		void UpdateStatus()
+		{
+			if (UserProfileLoaded)
+			{
+				UpButton.IsDone = UserProfile.DateLastDaily == DateTime.Now.Date;
+			}
+		}
+
+		/// <summary>
 		/// Raises the user profile loaded event.
 		/// </summary>
 		/// <param name="userProfile">User profile.</param>
 		public void OnUserProfileLoaded(UserProfile userProfile) {
 			SetContentPage();
+			UpdateStatus();
 			ProfileViewBox.LoadPhoto();
+		}
+
+		/// <summary>
+		/// Raises the appearing event.
+		/// </summary>
+		protected override void OnAppearing()
+		{
+			base.OnAppearing();
+
+			UpdateStatus();
 		}
 
 		/// <summary>
@@ -148,6 +170,26 @@ namespace UnidosPerderemos.Views.Profile
 				{
 					Title = "Meta"
 				};
+			}
+		}
+
+		/// <summary>
+		/// Gets the user profile.
+		/// </summary>
+		/// <value>The user profile.</value>
+		UserProfile UserProfile {
+			get {
+				return App.Instance.CurrentUserProfile;
+			}
+		}
+
+		/// <summary>
+		/// Gets a value indicating whether this <see cref="UnidosPerderemos.Views.Profile.ProfilePage"/> user profile loaded.
+		/// </summary>
+		/// <value><c>true</c> if user profile loaded; otherwise, <c>false</c>.</value>
+		bool UserProfileLoaded {
+			get {
+				return UserProfile != null;
 			}
 		}
 
