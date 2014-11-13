@@ -37,8 +37,6 @@ namespace UnidosPerderemos.Views.Profile
 		/// </summary>
 		void SetUp()
 		{
-			LinearProgress = new LinearProgressBar();
-			LinearProgress.Progress = 42;
 			AddTappedPhoto();
 		}
 
@@ -213,9 +211,10 @@ namespace UnidosPerderemos.Views.Profile
 		/// </summary>
 		/// <value>The linear progress.</value>
 		LinearProgressBar LinearProgress {
-			set;
 			get;
-		}
+		} = new LinearProgressBar {
+			Progress = 0
+		};
 
 		/// <summary>
 		/// Gets the label current day.
@@ -237,6 +236,19 @@ namespace UnidosPerderemos.Views.Profile
 		UserProfile UserProfile {
 			get {
 				return App.Instance.CurrentUserProfile;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the progress.
+		/// </summary>
+		/// <value>The progress.</value>
+		public int Progress {
+			get {
+				return LinearProgress.Progress;
+			}
+			set {
+				LinearProgress.Progress = value;
 			}
 		}
 
