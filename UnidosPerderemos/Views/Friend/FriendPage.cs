@@ -32,7 +32,8 @@ namespace UnidosPerderemos.Views.Friend
 		/// <summary>
 		/// Sets the content page.
 		/// </summary>
-		void SetContentPage() {
+		void SetContentPage()
+		{
 			Content = new Grid {
 				ColumnDefinitions = {
 					new ColumnDefinition {
@@ -55,7 +56,8 @@ namespace UnidosPerderemos.Views.Friend
 		/// Raises the user profile loaded event.
 		/// </summary>
 		/// <param name="userProfile">User profile.</param>
-		public void OnUserProfileLoaded(UserProfile userProfile) {
+		public void OnUserProfileLoaded(UserProfile userProfile)
+		{
 			SetContentPage();
 
 			LoadFriends();
