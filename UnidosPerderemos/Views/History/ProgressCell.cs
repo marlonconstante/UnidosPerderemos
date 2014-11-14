@@ -9,30 +9,25 @@ namespace UnidosPerderemos.Views.History
 	{
 		public static readonly BindableProperty ProgressTypeProperty = BindableProperty.Create<ProgressCell, ProgressType>(p => p.Type, ProgressType.Daily);
 
-		public ProgressType Type
-		{
-			get
-			{
-				return (ProgressType)GetValue(ProgressTypeProperty);
+		public ProgressType Type {
+			get {
+				return (ProgressType) GetValue(ProgressTypeProperty);
 			}
-			set
-			{
+			set {
 				SetValue(ProgressTypeProperty, value);
 			}
 		}
 
-		public Label DescriptionLabel
-		{
+		public Label DescriptionLabel {
 			get;
 			set;
-		} = new Label()
+		} = new Label
 		{
 			YAlign = TextAlignment.Center,
 			XAlign = TextAlignment.End
 		};
 
-		public Image Photo
-		{
+		public Image Photo {
 			get;
 			set;
 		} = new Image {
@@ -46,21 +41,17 @@ namespace UnidosPerderemos.Views.History
 		{
 			this.SetBinding(ProgressTypeProperty, "Type");
 
-
-			if (Type == ProgressType.Daily )
+			if (Type == ProgressType.Daily)
 			{
 				DescriptionLabel.SetBinding(Label.TextProperty, "Comments");
 				Photo.SetBinding(Image.SourceProperty, "Photo");
 
-				m_grid = new Grid
-				{
+				m_grid = new Grid {
 					Padding = new Thickness(5, 5, 5, 5),
-					ColumnDefinitions =
-					{
+					ColumnDefinitions = {
 						new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
 					},
-					Children =
-					{
+					Children = {
 						DescriptionLabel,
 						Photo
 					}
@@ -68,15 +59,12 @@ namespace UnidosPerderemos.Views.History
 			}
 			else
 			{
-				m_grid = new Grid
-				{
+				m_grid = new Grid {
 					Padding = new Thickness(5, 5, 5, 5),
-					ColumnDefinitions =
-					{
+					ColumnDefinitions = {
 						new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
 					},
-					Children =
-					{
+					Children = {
 						new Label { Text = "Semanal" }
 					}
 				};
@@ -85,7 +73,5 @@ namespace UnidosPerderemos.Views.History
 			View = m_grid;
 			View.BackgroundColor = Color.Transparent;
 		}
-			
 	}
 }
-
