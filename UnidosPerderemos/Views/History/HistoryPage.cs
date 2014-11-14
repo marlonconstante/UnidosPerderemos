@@ -5,6 +5,7 @@ using UnidosPerderemos.Core.Pages;
 using UnidosPerderemos.Models;
 using UnidosPerderemos.Services;
 using System.Collections.Generic;
+using UnidosPerderemos.Core.Controls;
 
 namespace UnidosPerderemos.Views.History
 {
@@ -22,6 +23,9 @@ namespace UnidosPerderemos.Views.History
 		{
 			Title = "Histórico";
 			Icon = ImageSource.FromFile("History.png") as FileImageSource;
+
+			InputProgressType.Items = ProgressTypeInfo.GetItems();
+			InputProgressType.SelectedItem = ProgressType.Daily;
 
 			Content = new ActivityIndicator {
 				Color = Color.White,
@@ -47,7 +51,7 @@ namespace UnidosPerderemos.Views.History
 				},
 				Children = {
 					BackgroundGradient,
-					ListView
+					ContentLayout
 				}
 			};
 		}
@@ -86,6 +90,37 @@ namespace UnidosPerderemos.Views.History
 		}
 
 		/// <summary>
+		/// Gets the content layout.
+		/// </summary>
+		/// <value>The content layout.</value>
+		StackLayout ContentLayout {
+			get {
+				return new StackLayout {
+					Spacing = 0d,
+					Children = {
+						ProgressTypeBox,
+						ListView
+					}
+				};
+			}
+		}
+
+		/// <summary>
+		/// Gets the progress type box.
+		/// </summary>
+		/// <value>The progress type box.</value>
+		StackLayout ProgressTypeBox {
+			get {
+				return new StackLayout {
+					Padding = new Thickness(10d, 10d, 10d, 0d),
+					Children = {
+						InputProgressType
+					}
+				};
+			}
+		}
+
+		/// <summary>
 		/// Gets the list view.
 		/// </summary>
 		/// <value>The list view.</value>
@@ -95,6 +130,16 @@ namespace UnidosPerderemos.Views.History
 			ItemTemplate = new DataTemplate(typeof(ProgressCell)),
 			BackgroundColor = Color.Transparent,
 			RowHeight = 52
+		};
+
+		/// <summary>
+		/// Gets the type of the input progress.
+		/// </summary>
+		/// <value>The type of the input progress.</value>
+		OptionButton InputProgressType {
+			get;
+		} = new OptionButton {
+			TintColor = Color.FromHex("f26522")
 		};
 
 		/// <summary>
