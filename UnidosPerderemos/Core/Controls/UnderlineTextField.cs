@@ -70,7 +70,7 @@ namespace UnidosPerderemos.Core.Controls
 		/// <param name="args">Arguments.</param>
 		void OnAfterTextChanged(object sender, TextChangedEventArgs args)
 		{
-			var width = DependencyService.Get<ITextService>().PreferredSize(Text, Font).Width;
+			var width = DependencyService.Get<ITextService>().PreferredSize(Text, Font, Size.Zero).Width;
 			LabelAdditional.TranslationX = width + (string.IsNullOrWhiteSpace(Text) ? 0d : 5d);
 		}
 
