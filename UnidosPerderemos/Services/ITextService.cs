@@ -11,6 +11,7 @@ namespace UnidosPerderemos.Services
 		/// <returns>The size.</returns>
 		/// <param name="text">Text.</param>
 		/// <param name="font">Font.</param>
-		Size PreferredSize(string text, Font font);
+		/// <param name="maxSize">Max size.</param>
+		Size PreferredSize(string text, Font font, Size maxSize);
 	}
 }
