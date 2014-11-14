@@ -20,11 +20,12 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 		/// </summary>
 		/// <returns>The cell.</returns>
 		/// <param name="item">Item.</param>
+		/// <param name="reusableCell">Reusable cell.</param>
 		/// <param name="tableView">Table view.</param>
-		public override UITableViewCell GetCell(Cell item, UITableView tableView)
+		public override UITableViewCell GetCell(Cell item, UITableViewCell reusableCell, UITableView tableView)
 		{
 			var source = item as FriendCell;
-			var target = base.GetCell(source, tableView);
+			var target = base.GetCell(source, reusableCell, tableView);
 
 			if (!IsLoadedCell(target))
 			{
