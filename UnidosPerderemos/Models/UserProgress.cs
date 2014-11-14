@@ -113,5 +113,15 @@ namespace UnidosPerderemos.Models
 			get;
 			set;
 		}
+
+		/// <summary>
+		/// Gets the formatted date.
+		/// </summary>
+		/// <value>The formatted date.</value>
+		public string FormattedDate {
+			get {
+				return Date.ToString("dd.MM.yyyy");
+			}
+		}
 	}
 }
