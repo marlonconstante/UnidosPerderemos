@@ -83,7 +83,7 @@ namespace UnidosPerderemos.Views.Friend
 		}
 
 		/// <summary>
-		/// Gets or sets the list view.
+		/// Gets the list view.
 		/// </summary>
 		/// <value>The list view.</value>
 		ListView ListView {
