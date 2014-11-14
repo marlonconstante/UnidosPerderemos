@@ -219,7 +219,6 @@
     <Compile Include="Renderers\Controls\OptionButtonRenderer.cs" />
     <Compile Include="Utils\ParseExtension.cs" />
     <Compile Include="Services\UserService.cs" />
-    <Compile Include="Renderers\Pages\ConfigPageRenderer.cs" />
     <Compile Include="Services\FacebookService.cs" />
     <Compile Include="Renderers\Controls\FriendCellRenderer.cs" />
     <Compile Include="Renderers\Controls\TextAreaRenderer.cs" />
