@@ -38,7 +38,7 @@ namespace UnidosPerderemos.Views.About
 		{
 			ButtonContinue.Clicked += OnContinueClicked;
 
-			InputGender.Items = GenderInfo.GetGenderItems();
+			InputGender.Items = GenderInfo.GetItems();
 			InputGender.SelectedItem = App.Instance.CurrentUser.Gender;
 		}
 

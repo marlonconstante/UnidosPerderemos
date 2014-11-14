@@ -18,15 +18,15 @@ namespace UnidosPerderemos.Models
 	public static class GenderInfo
 	{
 		/// <summary>
-		/// Gets the gender items.
+		/// Gets the items.
 		/// </summary>
-		/// <returns>The gender items.</returns>
-		public static IDictionary<string, object> GetGenderItems()
+		/// <returns>The items.</returns>
+		public static IDictionary<string, object> GetItems()
 		{
-			var genderItems = new Dictionary<string, object>();
-			genderItems.Add("Masculino", Gender.Male);
-			genderItems.Add("Feminino", Gender.Female);
-			return genderItems;
+			var items = new Dictionary<string, object>();
+			items.Add("Masculino", Gender.Male);
+			items.Add("Feminino", Gender.Female);
+			return items;
 		}
 	}
 }

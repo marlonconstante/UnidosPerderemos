@@ -68,7 +68,7 @@ namespace UnidosPerderemos.Views.Config
 
 			m_inputGender = new OptionButton();
 			m_inputGender.TintColor = Color.Black;
-			m_inputGender.Items = GenderInfo.GetGenderItems();
+			m_inputGender.Items = GenderInfo.GetItems();
 			m_inputGender.SelectedItem = UserProfile.Gender;
 
 			m_name = new CellTextField(UserProfile.UserName, Keyboard.Text);
