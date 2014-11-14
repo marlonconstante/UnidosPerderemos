@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using UnidosPerderemos.iOS.Utils;
 using MonoTouch.UIKit;
+using Xamarin.Forms.Platform.iOS;
 
 [assembly: Xamarin.Forms.Dependency(typeof(UnidosPerderemos.iOS.Services.MediaService))]
 namespace UnidosPerderemos.iOS.Services
@@ -28,8 +29,7 @@ namespace UnidosPerderemos.iOS.Services
 			}
 
 			await RunIfMediaAvailable((f) => {
-				var size = new System.Drawing.SizeF((float) maxSize.Width, (float) maxSize.Height);
-				stream = f.GetStream().ResizeImage(size);
+				stream = f.GetStream().ResizeImage(maxSize.ToSizeF());
 			});
 
 			return stream;
