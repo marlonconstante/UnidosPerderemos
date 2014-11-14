@@ -4,10 +4,12 @@ using UnidosPerderemos.Models;
 using UnidosPerderemos.Services;
 using System.Threading.Tasks;
 using System;
+using UnidosPerderemos.Core.Pages;
+using UnidosPerderemos.Core.Styles;
 
 namespace UnidosPerderemos.Views.Config
 {
-	public class ConfigPage : ContentPage
+	public class ConfigPage : ContentPage, IControlPage
 	{
 		TextField m_name;
 		DateField m_dateField;
@@ -44,14 +46,13 @@ namespace UnidosPerderemos.Views.Config
 		{
 			Title = "Configurações";
 
-			ToolbarItems.Add(new ToolbarItem {
-				Name = "Salvar",
-				Command = new Command(() => Save()),
-			});
-
-			ToolbarItems.Add(new ToolbarItem {
+			ToolbarItems.Add(new LeftToolbarItem {
 				Name = "Cancelar",
-				Command = new Command(() => Navigation.PopModalAsync()),
+				Command = new Command(() => Navigation.PopModalAsync())
+			});
+			ToolbarItems.Add(new RightToolbarItem {
+				Name = "Salvar",
+				Command = new Command(() => Save())
 			});
 		}
 
@@ -92,6 +93,7 @@ namespace UnidosPerderemos.Views.Config
 			m_btnLogout = new Button {
 				Text = "Sair",
 				TextColor = Color.Red,
+				Font = Font.OfSize("Roboto-Regular", 16),
 				BackgroundColor = Color.Transparent
 			};
 			m_btnLogout.Clicked += (sender, e) => Logout();
@@ -172,6 +174,42 @@ namespace UnidosPerderemos.Views.Config
 			get {
 				return App.Instance.CurrentUserProfile;
 			}
+		}
+
+		/// <summary>
+		/// Preferreds the status bar style.
+		/// </summary>
+		/// <returns>The status bar style.</returns>
+		public StatusBarStyle PreferredStatusBarStyle()
+		{
+			return StatusBarStyle.Dark;
+		}
+
+		/// <summary>
+		/// Determines whether this instance is show navigation bar.
+		/// </summary>
+		/// <returns><c>true</c> if this instance is show navigation bar; otherwise, <c>false</c>.</returns>
+		public bool IsShowNavigationBar()
+		{
+			return true;
+		}
+
+		/// <summary>
+		/// Determines whether this instance is show status bar.
+		/// </summary>
+		/// <returns><c>true</c> if this instance is show status bar; otherwise, <c>false</c>.</returns>
+		public bool IsShowStatusBar()
+		{
+			return true;
+		}
+
+		/// <summary>
+		/// Backgrounds the name of the image.
+		/// </summary>
+		/// <returns>The image name.</returns>
+		public string BackgroundImageName()
+		{
+			return null;
 		}
 	}
 }

@@ -5,6 +5,8 @@ using Xamarin.Forms;
 using UnidosPerderemos;
 using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Core.Pages;
+using UnidosPerderemos.Core.Controls;
+using System.Collections.Generic;
 
 [assembly: ExportRenderer(typeof(ContentPage), typeof(UnidosPerderemos.iOS.Renderers.Pages.ContentPageRenderer))]
 namespace UnidosPerderemos.iOS.Renderers.Pages
@@ -29,6 +31,8 @@ namespace UnidosPerderemos.iOS.Renderers.Pages
 
 				AddBackgroundImage(ControlPage.BackgroundImageName());
 			}
+
+			AddNavigationItems();
 		}
 
 		/// <summary>
@@ -45,6 +49,36 @@ namespace UnidosPerderemos.iOS.Renderers.Pages
 					ContentMode = UIViewContentMode.ScaleAspectFill,
 					Frame = UIScreen.MainScreen.Bounds
 				}, 0);
+			}
+		}
+
+		/// <summary>
+		/// Adds the navigation items.
+		/// </summary>
+		void AddNavigationItems()
+		{
+			var toolbarItems = Source.ToolbarItems;
+			if (toolbarItems.Count > 0)
+			{
+				var leftItems = new List<UIBarButtonItem>();
+				var rightItems =  new List<UIBarButtonItem>();
+				foreach (var item in toolbarItems)
+				{
+					var items = (item is LeftToolbarItem) ? leftItems : rightItems;
+					items.Add(item.ToUIBarButtonItem());
+				}
+				TopNavigationItem.LeftBarButtonItems = leftItems.ToArray();
+				TopNavigationItem.RightBarButtonItems = rightItems.ToArray();
+			}
+		}
+
+		/// <summary>
+		/// Gets the top navigation item.
+		/// </summary>
+		/// <value>The top navigation item.</value>
+		UINavigationItem TopNavigationItem {
+			get {
+				return NavigationController.TopViewController.NavigationItem;
 			}
 		}
 
