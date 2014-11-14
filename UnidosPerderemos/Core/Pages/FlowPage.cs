@@ -26,7 +26,7 @@ namespace UnidosPerderemos.Core.Pages
 		void SetUp()
 		{
 			BarBackgroundColor = Color.FromHex("f8f8f8");
-			BarTextColor = Color.FromHex("ee5555");
+			BarTextColor = Color.FromHex("f26522");
 			Font = Font.OfSize("TisaSansPro-BoldItalic", 18);
 		}
 
