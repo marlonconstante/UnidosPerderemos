@@ -52,7 +52,7 @@ namespace UnidosPerderemos.iOS.Utils
 				{
 					target.ObjectId = (string) value;
 				}
-				else if (IsAddValue(value))
+				else if (property.CanWrite && IsAddValue(value))
 				{
 					if (value is Enum)
 					{
