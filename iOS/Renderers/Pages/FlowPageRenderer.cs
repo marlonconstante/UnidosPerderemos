@@ -15,11 +15,12 @@ namespace UnidosPerderemos.iOS.Renderers.Pages
 		}
 
 		/// <summary>
-		/// Views the did load.
+		/// Views the will appear.
 		/// </summary>
-		public override void ViewDidLoad()
+		/// <param name="animated">If set to <c>true</c> animated.</param>
+		public override void ViewWillAppear(bool animated)
 		{
-			base.ViewDidLoad();
+			base.ViewWillAppear(animated);
 
 			Target.TitleTextAttributes = TextAttributes;
 		}
