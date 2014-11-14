@@ -21,7 +21,6 @@ namespace UnidosPerderemos.Views.History
 		void SetUp()
 		{
 			Title = "Histórico";
-			ListView.BackgroundColor = Color.Transparent;
 			Icon = ImageSource.FromFile("History.png") as FileImageSource;
 
 			Content = new ActivityIndicator {
@@ -47,6 +46,7 @@ namespace UnidosPerderemos.Views.History
 					}
 				},
 				Children = {
+					BackgroundGradient,
 					ListView
 				}
 			};
@@ -73,13 +73,28 @@ namespace UnidosPerderemos.Views.History
 		}
 
 		/// <summary>
-		/// Gets or sets the list view.
+		/// Gets the background gradient.
+		/// </summary>
+		/// <value>The background gradient.</value>
+		Image BackgroundGradient {
+			get {
+				return new Image {
+					Source = ImageSource.FromFile("BackgroundGradient.png"),
+					Aspect = Aspect.Fill
+				};
+			}
+		}
+
+		/// <summary>
+		/// Gets the list view.
 		/// </summary>
 		/// <value>The list view.</value>
 		ListView ListView {
 			get;
 		} = new ListView {
-			ItemTemplate = new DataTemplate(typeof(ProgressCell))
+			ItemTemplate = new DataTemplate(typeof(ProgressCell)),
+			BackgroundColor = Color.Transparent,
+			RowHeight = 52
 		};
 
 		/// <summary>
