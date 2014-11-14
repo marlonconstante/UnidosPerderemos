@@ -1,5 +1,6 @@
 ﻿using System;
 using Xamarin.Forms;
+using System.Collections.Generic;
 
 namespace UnidosPerderemos.Models
 {
@@ -8,8 +9,26 @@ namespace UnidosPerderemos.Models
 	/// </summary>
 	public enum ProgressType
 	{
-		Daily = 0,
-		Weekly = 1
+		Daily,
+		Weekly
+	}
+
+	/// <summary>
+	/// Progress type info.
+	/// </summary>
+	public static class ProgressTypeInfo
+	{
+		/// <summary>
+		/// Gets the items.
+		/// </summary>
+		/// <returns>The items.</returns>
+		public static IDictionary<string, object> GetItems()
+		{
+			var items = new Dictionary<string, object>();
+			items.Add("Diário", ProgressType.Daily);
+			items.Add("Semanal", ProgressType.Weekly);
+			return items;
+		}
 	}
 
 	/// <summary>
