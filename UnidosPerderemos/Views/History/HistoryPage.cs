@@ -26,11 +26,11 @@ namespace UnidosPerderemos.Views.History
 
 			InputProgressType.Items = ProgressTypeInfo.GetItems();
 			InputProgressType.SelectedItem = ProgressType.Daily;
-
-			Content = new ActivityIndicator {
-				Color = Color.White,
-				IsRunning = true
+			InputProgressType.AfterSelectedItem += (object sender, EventArgs args) => {
+				UpdateHistory();
 			};
+
+			SetContentPage();
 		}
 
 		/// <summary>
@@ -51,7 +51,8 @@ namespace UnidosPerderemos.Views.History
 				},
 				Children = {
 					BackgroundGradient,
-					ContentLayout
+					ContentLayout,
+					ActivityIndicator
 				}
 			};
 		}
@@ -62,18 +63,33 @@ namespace UnidosPerderemos.Views.History
 		/// <param name="userProfile">User profile.</param>
 		public void OnUserProfileLoaded(UserProfile userProfile)
 		{
-			SetContentPage();
-
-			LoadList(App.Instance.CurrentUser);
+			UpdateHistory();
 		}
 
 		/// <summary>
-		/// Loads the list.
+		/// Updates the history.
+		/// </summary>
+		void UpdateHistory()
+		{
+			ReloadItems(App.Instance.CurrentUser, (ProgressType) InputProgressType.SelectedItem);
+		}
+
+		/// <summary>
+		/// Reloads the items.
 		/// </summary>
 		/// <param name="user">User.</param>
-		async void LoadList(User user)
+		/// <param name="type">Type.</param>
+		async void ReloadItems(User user, ProgressType type)
 		{
-			ListView.ItemsSource = await DependencyService.Get<IProgressService>().FindAll(user);
+			if (UserProfileLoaded)
+			{
+				ActivityIndicator.IsVisible = true;
+
+				ListView.ItemsSource = null;
+				ListView.ItemsSource = await DependencyService.Get<IProgressService>().Find(user, type);
+
+				ActivityIndicator.IsVisible = false;
+			}
 		}
 
 		/// <summary>
@@ -104,6 +120,17 @@ namespace UnidosPerderemos.Views.History
 				};
 			}
 		}
+
+		/// <summary>
+		/// Gets the activity indicator.
+		/// </summary>
+		/// <value>The activity indicator.</value>
+		ActivityIndicator ActivityIndicator {
+			get;
+		} = new ActivityIndicator {
+			Color = Color.White,
+			IsRunning = true
+		};
 
 		/// <summary>
 		/// Gets the progress type box.
@@ -141,6 +168,26 @@ namespace UnidosPerderemos.Views.History
 		} = new OptionButton {
 			TintColor = Color.FromHex("f26522")
 		};
+
+		/// <summary>
+		/// Gets the user profile.
+		/// </summary>
+		/// <value>The user profile.</value>
+		UserProfile UserProfile {
+			get {
+				return App.Instance.CurrentUserProfile;
+			}
+		}
+
+		/// <summary>
+		/// Gets a value indicating whether this <see cref="UnidosPerderemos.Views.History.HistoryPage"/> user profile loaded.
+		/// </summary>
+		/// <value><c>true</c> if user profile loaded; otherwise, <c>false</c>.</value>
+		bool UserProfileLoaded {
+			get {
+				return UserProfile != null;
+			}
+		}
 
 		/// <summary>
 		/// Preferreds the status bar style.
