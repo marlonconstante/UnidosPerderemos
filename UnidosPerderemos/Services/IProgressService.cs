@@ -14,11 +14,11 @@ namespace UnidosPerderemos.Services
 		Task<UserProgress> LoadDaily();
 
 		/// <summary>
-		/// Finds all.
+		/// Find the specified user and type.
 		/// </summary>
-		/// <returns>The all.</returns>
 		/// <param name="user">User.</param>
-		Task<IEnumerable<UserProgress>> FindAll(User user);
+		/// <param name="type">Type.</param>
+		Task<IEnumerable<UserProgress>> Find(User user, ProgressType type);
 
 		/// <summary>
 		/// Save the specified progress.

@@ -39,17 +39,18 @@ namespace UnidosPerderemos.iOS.Services
 		}
 
 		/// <summary>
-		/// Finds all.
+		/// Find the specified user and type.
 		/// </summary>
-		/// <returns>The all.</returns>
 		/// <param name="user">User.</param>
-		public async Task<IEnumerable<UserProgress>> FindAll(User user)
+		/// <param name="type">Type.</param>
+		public async Task<IEnumerable<UserProgress>> Find(User user, ProgressType type)
 		{
 			var result = new List<UserProgress>();
 
 			try
 			{
 				var query = ParseObject.GetQuery("UserProgress")
+					.WhereEqualTo("type", type.ToString())
 					.WhereEqualTo("user", user.ToParseObject<ParseUser>())
 					.OrderByDescending((p) => p.Get<DateTime>("date"));
 
