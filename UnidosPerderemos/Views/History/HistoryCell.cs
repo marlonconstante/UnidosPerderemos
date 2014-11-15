@@ -27,6 +27,9 @@ namespace UnidosPerderemos.Views.History
 
 			LabelDate.SetBinding(Label.TextProperty, "FormattedDate");
 			LabelDescription.SetBinding(Label.TextProperty, "Comments");
+
+			InfoLayout.Children.Add(LabelDate);
+			InfoLayout.Children.Add(LabelDescription);
 		}
 
 		/// <summary>
@@ -133,16 +136,10 @@ namespace UnidosPerderemos.Views.History
 		/// </summary>
 		/// <value>The info layout.</value>
 		StackLayout InfoLayout {
-			get {
-				return new StackLayout {
-					Spacing = 0d,
-					Children = {
-						LabelDate,
-						LabelDescription
-					}
-				};
-			}
-		}
+			get;
+		} = new StackLayout {
+			Spacing = 0d
+		};
 
 		/// <summary>
 		/// Gets the label date.
