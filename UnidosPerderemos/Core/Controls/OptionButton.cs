@@ -36,6 +36,11 @@ namespace UnidosPerderemos.Core.Controls
 			}
 			set {
 				SetValue(SelectedItemProperty, value);
+
+				if (AfterSelectedItem != null)
+				{
+					AfterSelectedItem(this, EventArgs.Empty);
+				}
 			}
 		}
 
@@ -65,5 +70,10 @@ namespace UnidosPerderemos.Core.Controls
 				SetValue(TintColorProperty, value);
 			}
 		}
+
+		/// <summary>
+		/// Occurs when after selected item.
+		/// </summary>
+		public event EventHandler<EventArgs> AfterSelectedItem;
 	}
 }
