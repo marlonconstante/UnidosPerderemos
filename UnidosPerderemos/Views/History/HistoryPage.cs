@@ -127,9 +127,9 @@ namespace UnidosPerderemos.Views.History
 		ListView ListView {
 			get;
 		} = new ListView {
-			ItemTemplate = new DataTemplate(typeof(ProgressCell)),
+			ItemTemplate = new DataTemplate(typeof(HistoryCell)),
 			BackgroundColor = Color.Transparent,
-			RowHeight = 52
+			HasUnevenRows = true
 		};
 
 		/// <summary>
