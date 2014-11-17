@@ -17,8 +17,7 @@ namespace UnidosPerderemos.iOS.Services
 		/// <param name="font">Font.</param>
 		/// <param name="maxSize">Max size.</param>
 		public Size PreferredSize(string text, Font font, Size maxSize) {
-
-			var stringSize = new NSString(text).StringSize(font.ToUIFont(), maxSize.ToSizeF());
+			var stringSize = new NSString(text ?? " ").StringSize(font.ToUIFont(), maxSize.ToSizeF());
 			return new Size(stringSize.Width, stringSize.Height);
 		}
 	}
