@@ -44,7 +44,6 @@ namespace UnidosPerderemos.Core.Controls
 		Label LabelTitle {
 			get;
 		} = new Label {
-			Text = "Parabéns!",
 			TextColor = Color.FromHex("59135d"),
 			XAlign = TextAlignment.Center,
 			FontFamily = "Roboto-LightItalic",
@@ -71,7 +70,6 @@ namespace UnidosPerderemos.Core.Controls
 		Label LabelMessage {
 			get;
 		} = new Label {
-			Text = "Tudo pronto para alcançar o peso desejado.\nBoa sorte :)",
 			TextColor = Color.FromHex("464646"),
 			XAlign = TextAlignment.Center,
 			FontFamily = "Roboto-Light",

@@ -17,25 +17,10 @@ namespace UnidosPerderemos.Views.Tactic
 			SetUp();
 
 			Content = new ScrollView {
-				Content = new StackLayout {
-					Spacing = 10d,
+				Content = new GridView {
 					Children = {
-						new StackLayout {
-							Spacing = 10d,
-							Padding = new Thickness(16d, 25d),
-							Children = {
-								QuestionTacticsBox,
-								LabelPretension
-							}
-						},
-						SwitchExercise,
-						SwitchFeed,
-						new StackLayout {
-							Padding = new Thickness(16d, 54d),
-							Children = {
-								ButtonContinue
-							}
-						}
+						ContentView,
+						ModalView
 					}
 				}
 			};
@@ -46,7 +31,11 @@ namespace UnidosPerderemos.Views.Tactic
 		/// </summary>
 		void SetUp()
 		{
-			ButtonContinue.Clicked += OnContinueClicked;
+			ModalView.ConfirmClicked += OnContinueClicked;
+
+			ButtonContinue.Clicked += (object sender, EventArgs args) => {
+				ModalView.Show();
+			};
 		}
 
 		/// <summary>
@@ -68,6 +57,47 @@ namespace UnidosPerderemos.Views.Tactic
 				await DisplayAlert("Ops...", "Ocorreu uma falha na conexão com o servidor.", "Entendi");
 			}
 		}
+
+		/// <summary>
+		/// Gets the content view.
+		/// </summary>
+		/// <value>The content view.</value>
+		StackLayout ContentView {
+			get {
+				return new StackLayout {
+					Spacing = 10d,
+					Children = {
+						new StackLayout {
+							Spacing = 10d,
+							Padding = new Thickness(16d, 25d),
+							Children = {
+								QuestionTacticsBox,
+								LabelPretension
+							}
+						},
+						SwitchExercise,
+						SwitchFeed,
+						new StackLayout {
+							Padding = new Thickness(16d, 54d),
+							Children = {
+								ButtonContinue
+							}
+						}
+					}
+				};
+			}
+		}
+
+		/// <summary>
+		/// Gets the modal view.
+		/// </summary>
+		/// <value>The modal view.</value>
+		ModalView ModalView {
+			get;
+		} = new ModalView {
+			Title = "Parabéns!",
+			Message = "Tudo pronto para alcançar o peso desejado.\nBoa sorte :)"
+		};
 
 		/// <summary>
 		/// Gets the question tactics box.

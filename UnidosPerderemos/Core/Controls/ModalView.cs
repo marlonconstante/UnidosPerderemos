@@ -22,8 +22,10 @@ namespace UnidosPerderemos.Core.Controls
 		/// </summary>
 		void SetUp()
 		{
+			Hide();
+
 			CancelClicked += (object sender, EventArgs args) => {
-				IsVisible = false;
+				Hide();
 			};
 		}
 
@@ -95,6 +97,21 @@ namespace UnidosPerderemos.Core.Controls
 			remove {
 				DialogView.ConfirmClicked -= value;
 			}
+		}
+
+		/// <summary>
+		/// Show this instance.
+		/// </summary>
+		public void Show()
+		{
+			Opacity = 1d;
+		}
+
+		/// <summary>
+		/// Hide this instance.
+		/// </summary>
+		public void Hide() {
+			Opacity = 0d;
 		}
 	}
 }
