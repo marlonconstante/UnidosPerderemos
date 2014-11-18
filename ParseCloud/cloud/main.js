@@ -37,6 +37,7 @@ Parse.Cloud.afterSave("UserProgress", function(request) {
 	query.first({
 		success: function(userProfile) {
 			userProfile.set("dateLast" + userProgress.get("type"), userProgress.get("date"));
+			userProfile.set("weight", userProgress.get("weight"));
 			userProfile.save();
 		}
 	});
