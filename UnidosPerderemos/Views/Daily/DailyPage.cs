@@ -5,6 +5,7 @@ using UnidosPerderemos.Core.Pages;
 using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Services;
 using UnidosPerderemos.Models;
+using UnidosPerderemos.Views.Weekly;
 
 namespace UnidosPerderemos.Views.Daily
 {
@@ -25,7 +26,17 @@ namespace UnidosPerderemos.Views.Daily
 			BackgroundColor = Color.FromHex("ef6a2a");
 
 			ButtonCancel.Clicked += OnCancelClicked;
-			ButtonUp.Clicked += OnUpClicked;
+			ButtonUp.Clicked += (object sender, EventArgs args) => {
+				if ((DateTime.Now.Date - UserProfile.DateLastWeekly).TotalDays >= 7)
+				{
+					WeeklyModal.Show();
+				}
+				else
+				{
+					OnUpClicked(sender, args);
+				}
+			};
+			WeeklyModal.ConfirmClicked += OnUpClicked;
 
 			ContentView = new StackLayout {
 				Spacing = 5d,
@@ -37,7 +48,12 @@ namespace UnidosPerderemos.Views.Daily
 			};
 
 			Content = new ScrollView {
-				Content = ContentView
+				Content = new GridView {
+					Children = {
+						ContentView,
+						WeeklyModal
+					}
+				}
 			};
 		}
 
@@ -95,6 +111,7 @@ namespace UnidosPerderemos.Views.Daily
 			UserProgress.PerformanceExercise = PerformanceExercise.Performance;
 			UserProgress.PerformanceFeed = PerformanceFeed.Performance;
 			UserProgress.Comments = ActivityToday.Text;
+			UserProgress.Weight = UserProfile.Weight;
 
 			if (await DependencyService.Get<IProgressService>().Save(UserProgress))
 			{
@@ -117,6 +134,14 @@ namespace UnidosPerderemos.Views.Daily
 			get;
 			set;
 		}
+
+		/// <summary>
+		/// Gets the weekly modal.
+		/// </summary>
+		/// <value>The weekly modal.</value>
+		WeeklyModalView WeeklyModal {
+			get;
+		} = new WeeklyModalView();
 
 		/// <summary>
 		/// Gets the activity indicator.
