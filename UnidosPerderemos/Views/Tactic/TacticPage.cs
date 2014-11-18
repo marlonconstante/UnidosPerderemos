@@ -48,6 +48,9 @@ namespace UnidosPerderemos.Views.Tactic
 			UserProfile.IsTacticExercise = SwitchExercise.IsToggled;
 			UserProfile.IsTacticFeed = SwitchFeed.IsToggled;
 
+			UserProfile.DateStart = DateTime.Now.Date;
+			UserProfile.DateLastWeekly = DateTime.Now.Date;
+
 			if (await DependencyService.Get<IProfileService>().Save(UserProfile))
 			{
 				App.Instance.ReloadMainPage();

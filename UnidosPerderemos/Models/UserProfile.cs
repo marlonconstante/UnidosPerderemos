@@ -110,6 +110,15 @@ namespace UnidosPerderemos.Models
 		};
 
 		/// <summary>
+		/// Gets or sets the date start.
+		/// </summary>
+		/// <value>The date start.</value>
+		public DateTime DateStart {
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// Gets or sets the date last daily.
 		/// </summary>
 		/// <value>The date last daily.</value>
