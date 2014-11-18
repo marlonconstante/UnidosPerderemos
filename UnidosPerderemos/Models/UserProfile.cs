@@ -119,10 +119,10 @@ namespace UnidosPerderemos.Models
 		};
 
 		/// <summary>
-		/// Gets or sets the date start.
+		/// Gets or sets the start date.
 		/// </summary>
-		/// <value>The date start.</value>
-		public DateTime DateStart {
+		/// <value>The start date.</value>
+		public DateTime StartDate {
 			get;
 			set;
 		}
