@@ -67,6 +67,14 @@ namespace UnidosPerderemos.Views.Main
 		}
 
 		/// <summary>
+		/// Updates the history.
+		/// </summary>
+		public void UpdateHistory()
+		{
+			HistoryPage.UpdateHistory();
+		}
+
+		/// <summary>
 		/// Gets or sets a value indicating whether this <see cref="UnidosPerderemos.Views.Main.MainPage"/> user profile loaded.
 		/// </summary>
 		/// <value><c>true</c> if user profile loaded; otherwise, <c>false</c>.</value>
@@ -82,6 +90,16 @@ namespace UnidosPerderemos.Views.Main
 		UserProfile UserProfile {
 			get {
 				return App.Instance.CurrentUserProfile;
+			}
+		}
+
+		/// <summary>
+		/// Gets the history page.
+		/// </summary>
+		/// <value>The history page.</value>
+		HistoryPage HistoryPage {
+			get {
+				return Children[0] as HistoryPage;
 			}
 		}
 	}

@@ -69,7 +69,7 @@ namespace UnidosPerderemos.Views.History
 		/// <summary>
 		/// Updates the history.
 		/// </summary>
-		void UpdateHistory()
+		public void UpdateHistory()
 		{
 			ReloadItems(App.Instance.CurrentUser, (ProgressType) InputProgressType.SelectedItem);
 		}

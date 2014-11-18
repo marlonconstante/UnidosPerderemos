@@ -6,6 +6,7 @@ using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Services;
 using UnidosPerderemos.Models;
 using UnidosPerderemos.Views.Weekly;
+using UnidosPerderemos.Views.Main;
 
 namespace UnidosPerderemos.Views.Daily
 {
@@ -124,6 +125,8 @@ namespace UnidosPerderemos.Views.Daily
 
 				await DisplayAlert("Pronto!", "Progresso atualizado com sucesso.", "Entendi");
 				await Navigation.PopModalAsync();
+
+				MainPage.UpdateHistory();
 			}
 			else
 			{
@@ -246,6 +249,17 @@ namespace UnidosPerderemos.Views.Daily
 			HeightRequest = 50d,
 			IsEnabled = false
 		};
+
+		/// <summary>
+		/// Gets the main page.
+		/// </summary>
+		/// <value>The main page.</value>
+		MainPage MainPage {
+			get {
+				var flowPage = App.Instance.MainPage as MainFlowPage;
+				return flowPage.CurrentPage as MainPage;
+			}
+		}
 
 		/// <summary>
 		/// Gets or sets the user progress.
