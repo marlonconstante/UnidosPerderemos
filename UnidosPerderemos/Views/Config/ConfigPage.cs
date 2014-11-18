@@ -150,10 +150,10 @@ namespace UnidosPerderemos.Views.Config
 			UserProfile.DateOfBirth = m_dateField.Date;
 			UserProfile.Gender = (Gender) m_inputGender.SelectedItem;
 			UserProfile.UserName = m_name.Text;
-			UserProfile.Weight = Convert.ToInt32(m_weightInput.Text);
-			UserProfile.Height = Convert.ToInt32(m_heightInput.Text);
-			UserProfile.GoalWeight = Convert.ToInt32(m_goalWeight.Text);
-			UserProfile.GoalTime = Convert.ToInt32(m_goalTime.Text);
+			UserProfile.Weight = double.Parse(m_weightInput.Text);
+			UserProfile.Height = double.Parse(m_heightInput.Text);
+			UserProfile.GoalWeight = double.Parse(m_goalWeight.Text);
+			UserProfile.GoalTime = double.Parse(m_goalTime.Text);
 			UserProfile.IsTacticExercise = m_entryTacticExercise.IsToggled;
 			UserProfile.IsTacticFeed = m_entryTacticFeed.IsToggled;
 
