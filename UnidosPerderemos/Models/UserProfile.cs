@@ -45,6 +45,15 @@ namespace UnidosPerderemos.Models
 		}
 
 		/// <summary>
+		/// Gets or sets the initial weight.
+		/// </summary>
+		/// <value>The initial weight.</value>
+		public double InitialWeight {
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// Gets or sets the weight.
 		/// </summary>
 		/// <value>The weight.</value>

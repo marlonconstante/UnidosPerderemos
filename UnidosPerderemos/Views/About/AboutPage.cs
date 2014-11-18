@@ -56,6 +56,8 @@ namespace UnidosPerderemos.Views.About
 			UserProfile.Weight = double.Parse(InputWeight.Text);
 			UserProfile.Height = double.Parse(InputHeight.Text);
 
+			UserProfile.InitialWeight = UserProfile.Weight;
+
 			await Navigation.PushAsync(new GoalPage());
 		}
 
