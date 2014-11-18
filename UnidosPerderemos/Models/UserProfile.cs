@@ -126,5 +126,35 @@ namespace UnidosPerderemos.Models
 			get;
 			set;
 		}
+
+		/// <summary>
+		/// Gets a value indicating whether this instance is daily performed.
+		/// </summary>
+		/// <value><c>true</c> if this instance is daily performed; otherwise, <c>false</c>.</value>
+		public bool IsDailyPerformed {
+			get {
+				return DateLastDaily == DateTime.Now.Date;
+			}
+		}
+
+		/// <summary>
+		/// Gets a value indicating whether this instance is weekly performed.
+		/// </summary>
+		/// <value><c>true</c> if this instance is weekly performed; otherwise, <c>false</c>.</value>
+		public bool IsWeeklyPerformed {
+			get {
+				return (DateTime.Now.Date - DateLastWeekly).TotalDays <= 7;
+			}
+		}
+
+		/// <summary>
+		/// Gets the type of the current progress.
+		/// </summary>
+		/// <value>The type of the current progress.</value>
+		public ProgressType CurrentProgressType {
+			get {
+ 				return (DateLastDaily == DateLastWeekly || !IsWeeklyPerformed) ? ProgressType.Weekly : ProgressType.Daily;
+			}
+		}
 	}
 }
