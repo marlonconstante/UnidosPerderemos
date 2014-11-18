@@ -54,6 +54,8 @@ namespace UnidosPerderemos.Views.Profile
 		{
 			if (UserProfileLoaded)
 			{
+				ProfileViewBox.UpdateInfo();
+
 				UpButton.IsDone = UserProfile.IsDailyPerformed;
 
 				//TODO: Dados fictícios por enquanto...
@@ -73,7 +75,6 @@ namespace UnidosPerderemos.Views.Profile
 		{
 			SetContentPage();
 			UpdateStatus();
-			ProfileViewBox.LoadPhoto();
 		}
 
 		/// <summary>

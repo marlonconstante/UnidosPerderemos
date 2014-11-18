@@ -190,8 +190,7 @@ namespace UnidosPerderemos.Views.Profile
 			get;
 		} = new CompressedLabel {
 			Font = Font.OfSize("Roboto-Regular", 16),
-			TextColor = Color.White,
-			Text = "Comecei com 120kg"
+			TextColor = Color.White
 		};
 
 		/// <summary>
@@ -202,8 +201,7 @@ namespace UnidosPerderemos.Views.Profile
 			get;
 		} = new CompressedLabel {
 			Font = Font.OfSize("Roboto-Medium", 20),
-			TextColor = Color.White,
-			Text = "ESTOU COM 120KG"
+			TextColor = Color.White
 		};
 
 		/// <summary>
@@ -225,8 +223,9 @@ namespace UnidosPerderemos.Views.Profile
 		} = new CompressedLabel {
 			Font = Font.OfSize("Roboto-Light", 13),
 			TextColor = Color.White,
-			Text = "Atualmente no dia 60 de 100",
-			TranslationX = 30d
+			XAlign = TextAlignment.End,
+			TranslationX = -10d,
+			TranslationY = -5d
 		};
 
 		/// <summary>
@@ -255,7 +254,7 @@ namespace UnidosPerderemos.Views.Profile
 		/// <summary>
 		/// Loads the photo.
 		/// </summary>
-		public async void LoadPhoto()
+		async void LoadPhoto()
 		{
 			Photo.LoadingSource = true;
 
@@ -264,6 +263,21 @@ namespace UnidosPerderemos.Views.Profile
 			Photo.Source = ImageSource.FromStream(() => {
 				return UserProfile.Photo.Stream;
 			});
+		}
+
+		/// <summary>
+		/// Updates the information.
+		/// </summary>
+		public void UpdateInfo()
+		{
+			LabelInitialWeight.Text = string.Concat("Comecei com ", UserProfile.InitialWeight.ToString(), "kg");
+			LabelCurrentWeight.Text = string.Concat("ESTOU COM ", UserProfile.Weight.ToString(), "KG");
+			LabelCurrentDay.Text = string.Concat("Atualmente no dia ", UserProfile.ElapsedTime.ToString() ," de ", UserProfile.GoalTime.ToString());
+
+			if (Photo.Source == null)
+			{
+				LoadPhoto();
+			}
 		}
 	}
 }

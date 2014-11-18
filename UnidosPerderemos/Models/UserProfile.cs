@@ -174,5 +174,15 @@ namespace UnidosPerderemos.Models
  				return (DateLastDaily == DateLastWeekly || !IsWeeklyPerformed) ? ProgressType.Weekly : ProgressType.Daily;
 			}
 		}
+
+		/// <summary>
+		/// Gets the elapsed time.
+		/// </summary>
+		/// <value>The elapsed time.</value>
+		public double ElapsedTime {
+			get {
+				return 1d + GoalTime - (StartDate.AddDays(GoalTime) - DateTime.Now.Date).TotalDays;
+			}
+		}
 	}
 }
