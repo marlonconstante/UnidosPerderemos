@@ -65,6 +65,8 @@ namespace UnidosPerderemos.Views.Config
 			m_dateField.TextColor = Color.Black;
 			m_dateField.Font = Font.OfSize("Roboto-Regular", 16);
 			m_dateField.TextAlignment = TextAlignment.End;
+			m_dateField.HeightRequest = 22d;
+			m_dateField.Date = UserProfile.DateOfBirth;
 
 			m_inputGender = new OptionButton();
 			m_inputGender.TintColor = Color.Black;
