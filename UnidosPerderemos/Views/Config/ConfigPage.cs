@@ -15,7 +15,7 @@ namespace UnidosPerderemos.Views.Config
 		DateField m_dateField;
 		OptionButton m_inputGender;
 		TextField m_weightInput;
-		TextField m_heigthInput;
+		TextField m_heightInput;
 		TextField m_goalWeight;
 		TextField m_goalTime;
 		Switch m_entryTacticExercise;
@@ -73,7 +73,7 @@ namespace UnidosPerderemos.Views.Config
 
 			m_name = new CellTextField(UserProfile.UserName, Keyboard.Text);
 			m_weightInput = new CellTextField(UserProfile.Weight.ToString(), Keyboard.Numeric);
-			m_heigthInput = new CellTextField(UserProfile.Height.ToString(), Keyboard.Numeric);
+			m_heightInput = new CellTextField(UserProfile.Height.ToString(), Keyboard.Numeric);
 			m_goalWeight = new CellTextField(UserProfile.GoalWeight.ToString(), Keyboard.Numeric);
 			m_goalTime = new CellTextField(UserProfile.GoalTime.ToString(), Keyboard.Numeric);
 
@@ -111,7 +111,7 @@ namespace UnidosPerderemos.Views.Config
 					new EntryViewCell("Nascimento:", m_dateField),
 					new EntryViewCell("Sexo:", m_inputGender),
 					new EntryViewCell("Peso:", m_weightInput),
-					new EntryViewCell("Altura:", m_heigthInput),
+					new EntryViewCell("Altura:", m_heightInput),
 				},
 				new TableSection("Metas") {
 					new EntryViewCell("Meta de peso:", m_goalWeight),
@@ -149,7 +149,7 @@ namespace UnidosPerderemos.Views.Config
 			UserProfile.Gender = (Gender) m_inputGender.SelectedItem;
 			UserProfile.UserName = m_name.Text;
 			UserProfile.Weight = Convert.ToInt32(m_weightInput.Text);
-			UserProfile.Height = Convert.ToInt32(m_heigthInput.Text);
+			UserProfile.Height = Convert.ToInt32(m_heightInput.Text);
 			UserProfile.GoalWeight = Convert.ToInt32(m_goalWeight.Text);
 			UserProfile.GoalTime = Convert.ToInt32(m_goalTime.Text);
 			UserProfile.IsTacticExercise = m_entryTacticExercise.IsToggled;
