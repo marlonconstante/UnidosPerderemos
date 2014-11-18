@@ -54,7 +54,7 @@ namespace UnidosPerderemos.Views.Profile
 		{
 			if (UserProfileLoaded)
 			{
-				UpButton.IsDone = UserProfile.DateLastDaily == DateTime.Now.Date;
+				UpButton.IsDone = UserProfile.IsDailyPerformed;
 
 				//TODO: Dados fictícios por enquanto...
 				UpButton.IsStar = !UpButton.IsStar;
