@@ -63,6 +63,19 @@ namespace UnidosPerderemos.Core.Controls
 		}
 
 		/// <summary>
+		/// Gets or sets the size of the title font.
+		/// </summary>
+		/// <value>The size of the title font.</value>
+		public double TitleFontSize {
+			get {
+				return DialogView.TitleFontSize;
+			}
+			set {
+				DialogView.TitleFontSize = value;
+			}
+		}
+
+		/// <summary>
 		/// Gets or sets the message.
 		/// </summary>
 		/// <value>The message.</value>
@@ -72,6 +85,19 @@ namespace UnidosPerderemos.Core.Controls
 			}
 			set {
 				DialogView.Message = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the inner view.
+		/// </summary>
+		/// <value>The inner view.</value>
+		public View InnerView {
+			get {
+				return DialogView.InnerView;
+			}
+			set {
+				DialogView.InnerView = value;
 			}
 		}
 
@@ -102,7 +128,7 @@ namespace UnidosPerderemos.Core.Controls
 		/// <summary>
 		/// Show this instance.
 		/// </summary>
-		public void Show()
+		public virtual void Show()
 		{
 			Opacity = 1d;
 		}
@@ -110,7 +136,7 @@ namespace UnidosPerderemos.Core.Controls
 		/// <summary>
 		/// Hide this instance.
 		/// </summary>
-		public void Hide() {
+		public virtual void Hide() {
 			Opacity = 0d;
 		}
 	}

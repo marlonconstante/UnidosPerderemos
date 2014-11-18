@@ -16,9 +16,9 @@ namespace UnidosPerderemos.Core.Controls
 					LabelTitle,
 					Separator,
 					new StackLayout {
-						Padding = new Thickness(9d),
+						Padding = new Thickness(10d, 0d, 10d, 0d),
 						Children = {
-							LabelMessage
+							InnerContent
 						}
 					},
 					GridButton
@@ -35,6 +35,8 @@ namespace UnidosPerderemos.Core.Controls
 			VerticalOptions = LayoutOptions.Center;
 			BackgroundColor = Color.White;
 			WidthRequest = 250d;
+
+			InnerView = LabelMessage;
 		}
 
 		/// <summary>
@@ -64,17 +66,12 @@ namespace UnidosPerderemos.Core.Controls
 		}
 
 		/// <summary>
-		/// Gets the label message.
+		/// Gets the content of the inner.
 		/// </summary>
-		/// <value>The label message.</value>
-		Label LabelMessage {
+		/// <value>The content of the inner.</value>
+		ContentView InnerContent {
 			get;
-		} = new Label {
-			TextColor = Color.FromHex("464646"),
-			XAlign = TextAlignment.Center,
-			FontFamily = "Roboto-Light",
-			FontSize = 18d
-		};
+		} = new ContentView();
 
 		/// <summary>
 		/// Gets the grid button.
@@ -107,6 +104,19 @@ namespace UnidosPerderemos.Core.Controls
 				};
 			}
 		}
+
+		/// <summary>
+		/// Gets the label message.
+		/// </summary>
+		/// <value>The label message.</value>
+		Label LabelMessage {
+			get;
+		} = new Label {
+			TextColor = Color.FromHex("464646"),
+			XAlign = TextAlignment.Center,
+			FontFamily = "Roboto-Light",
+			FontSize = 18d
+		};
 
 		/// <summary>
 		/// Gets the button cancel.
@@ -152,6 +162,19 @@ namespace UnidosPerderemos.Core.Controls
 		}
 
 		/// <summary>
+		/// Gets or sets the size of the title font.
+		/// </summary>
+		/// <value>The size of the title font.</value>
+		public double TitleFontSize {
+			get {
+				return LabelTitle.FontSize;
+			}
+			set {
+				LabelTitle.FontSize = value;
+			}
+		}
+
+		/// <summary>
 		/// Gets or sets the message.
 		/// </summary>
 		/// <value>The message.</value>
@@ -161,6 +184,19 @@ namespace UnidosPerderemos.Core.Controls
 			}
 			set {
 				LabelMessage.Text = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the inner view.
+		/// </summary>
+		/// <value>The inner view.</value>
+		public View InnerView {
+			get {
+				return InnerContent.Content;
+			}
+			set {
+				InnerContent.Content = value;
 			}
 		}
 
