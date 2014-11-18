@@ -20,7 +20,7 @@ namespace UnidosPerderemos.Views.Tactic
 				Content = new GridView {
 					Children = {
 						ContentView,
-						ModalView
+						CongratulationsModal
 					}
 				}
 			};
@@ -31,10 +31,10 @@ namespace UnidosPerderemos.Views.Tactic
 		/// </summary>
 		void SetUp()
 		{
-			ModalView.ConfirmClicked += OnContinueClicked;
+			CongratulationsModal.ConfirmClicked += OnContinueClicked;
 
 			ButtonContinue.Clicked += (object sender, EventArgs args) => {
-				ModalView.Show();
+				CongratulationsModal.Show();
 			};
 		}
 
@@ -89,10 +89,10 @@ namespace UnidosPerderemos.Views.Tactic
 		}
 
 		/// <summary>
-		/// Gets the modal view.
+		/// Gets the congratulations modal.
 		/// </summary>
-		/// <value>The modal view.</value>
-		ModalView ModalView {
+		/// <value>The congratulations modal.</value>
+		ModalView CongratulationsModal {
 			get;
 		} = new ModalView {
 			Title = "Parabéns!",
