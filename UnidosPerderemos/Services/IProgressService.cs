@@ -8,17 +8,15 @@ namespace UnidosPerderemos.Services
 	public interface IProgressService
 	{
 		/// <summary>
-		/// Loads the daily.
+		/// Load this instance.
 		/// </summary>
-		/// <returns>The daily.</returns>
-		Task<UserProgress> LoadDaily();
+		Task<UserProgress> Load();
 
 		/// <summary>
-		/// Find the specified user and type.
+		/// Find the specified user.
 		/// </summary>
 		/// <param name="user">User.</param>
-		/// <param name="type">Type.</param>
-		Task<IEnumerable<UserProgress>> Find(User user, ProgressType type);
+		Task<IEnumerable<UserProgress>> Find(User user);
 
 		/// <summary>
 		/// Save the specified progress.

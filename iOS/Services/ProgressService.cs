@@ -13,15 +13,13 @@ namespace UnidosPerderemos.iOS.Services
 	public class ProgressService : IProgressService
 	{
 		/// <summary>
-		/// Loads the daily.
+		/// Load this instance.
 		/// </summary>
-		/// <returns>The daily.</returns>
-		public async Task<UserProgress> LoadDaily()
+		public async Task<UserProgress> Load()
 		{
 			try
 			{
 				var query = ParseObject.GetQuery("UserProgress")
-					.WhereEqualTo("type", ProgressType.Daily.ToString())
 					.WhereEqualTo("user", ParseUser.CurrentUser)
 					.WhereEqualTo("date", DateTime.Now.Date);
 
@@ -35,22 +33,20 @@ namespace UnidosPerderemos.iOS.Services
 			{
 				// Ignora...
 			}
-			return DailyUserProgress;
+			return new UserProgress();
 		}
 
 		/// <summary>
-		/// Find the specified user and type.
+		/// Find the specified user.
 		/// </summary>
 		/// <param name="user">User.</param>
-		/// <param name="type">Type.</param>
-		public async Task<IEnumerable<UserProgress>> Find(User user, ProgressType type)
+		public async Task<IEnumerable<UserProgress>> Find(User user)
 		{
 			var result = new List<UserProgress>();
 
 			try
 			{
 				var query = ParseObject.GetQuery("UserProgress")
-					.WhereEqualTo("type", type.ToString())
 					.WhereEqualTo("user", user.ToParseObject<ParseUser>())
 					.OrderByDescending((p) => p.Get<DateTime>("date"));
 
@@ -88,18 +84,6 @@ namespace UnidosPerderemos.iOS.Services
 			catch (Exception ex)
 			{
 				return false;
-			}
-		}
-
-		/// <summary>
-		/// Gets the daily user progress.
-		/// </summary>
-		/// <value>The daily user progress.</value>
-		UserProgress DailyUserProgress {
-			get {
-				return new UserProgress {
-					Type = ProgressType.Daily
-				};
 			}
 		}
 	}

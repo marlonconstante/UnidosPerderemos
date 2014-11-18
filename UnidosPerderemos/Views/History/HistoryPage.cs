@@ -86,7 +86,7 @@ namespace UnidosPerderemos.Views.History
 				ActivityIndicator.IsVisible = true;
 
 				ListView.ItemsSource = null;
-				ListView.ItemsSource = await DependencyService.Get<IProgressService>().Find(user, type);
+				ListView.ItemsSource = await DependencyService.Get<IProgressService>().Find(user);
 
 				ActivityIndicator.IsVisible = false;
 			}
