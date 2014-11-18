@@ -27,13 +27,13 @@ namespace UnidosPerderemos.Views.Daily
 
 			ButtonCancel.Clicked += OnCancelClicked;
 			ButtonUp.Clicked += (object sender, EventArgs args) => {
-				if ((DateTime.Now.Date - UserProfile.DateLastWeekly).TotalDays >= 7)
+				if (UserProfile.IsWeeklyPerformed)
 				{
-					WeeklyModal.Show();
+					OnUpClicked(sender, args);
 				}
 				else
 				{
-					OnUpClicked(sender, args);
+					WeeklyModal.Show();
 				}
 			};
 			WeeklyModal.ConfirmClicked += OnUpClicked;
@@ -81,7 +81,7 @@ namespace UnidosPerderemos.Views.Daily
 		/// </summary>
 		async void LoadDaily()
 		{
-			UserProgress = await DependencyService.Get<IProgressService>().LoadDaily();
+			UserProgress = await DependencyService.Get<IProgressService>().Load();
 
 			PerformanceExercise.Performance = UserProgress.PerformanceExercise;
 			PerformanceFeed.Performance = UserProgress.PerformanceFeed;
@@ -112,10 +112,15 @@ namespace UnidosPerderemos.Views.Daily
 			UserProgress.PerformanceFeed = PerformanceFeed.Performance;
 			UserProgress.Comments = ActivityToday.Text;
 			UserProgress.Weight = UserProfile.Weight;
+			UserProgress.Type = UserProfile.CurrentProgressType;
 
 			if (await DependencyService.Get<IProgressService>().Save(UserProgress))
 			{
 				UserProfile.DateLastDaily = UserProgress.Date;
+				if (UserProgress.Type == ProgressType.Weekly)
+				{
+					UserProfile.DateLastWeekly = UserProgress.Date;
+				}
 
 				await DisplayAlert("Pronto!", "Progresso atualizado com sucesso.", "Entendi");
 				await Navigation.PopModalAsync();

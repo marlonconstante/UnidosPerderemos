@@ -36,7 +36,10 @@ Parse.Cloud.afterSave("UserProgress", function(request) {
 	query.equalTo("user", userProgress.get("user"));
 	query.first({
 		success: function(userProfile) {
-			userProfile.set("dateLast" + userProgress.get("type"), userProgress.get("date"));
+			userProfile.set("dateLastDaily", userProgress.get("date"));
+			if (userProgress.get("type") == "Weekly") {
+				userProfile.set("dateLastWeekly", userProgress.get("date"));
+			}
 			userProfile.set("weight", userProgress.get("weight"));
 			userProfile.save();
 		}
