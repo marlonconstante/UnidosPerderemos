@@ -6,6 +6,7 @@ using UnidosPerderemos.Models;
 using UnidosPerderemos.Services;
 using System.Collections.Generic;
 using UnidosPerderemos.Core.Controls;
+using UnidosPerderemos.Views.Weekly;
 
 namespace UnidosPerderemos.Views.History
 {
@@ -85,8 +86,17 @@ namespace UnidosPerderemos.Views.History
 			{
 				ActivityIndicator.IsVisible = true;
 
-				ListView.ItemsSource = null;
-				ListView.ItemsSource = await DependencyService.Get<IProgressService>().Find(user);
+				DailyListView.IsVisible = type == ProgressType.Daily;
+				WeeklyProgressView.IsVisible = type == ProgressType.Weekly;
+				WeeklyProgressView.Opacity = WeeklyProgressView.IsVisible ? 1d : 0d;
+
+				if (DailyListView.IsVisible)
+				{
+					DailyListView.ItemsSource = await DependencyService.Get<IProgressService>().Find(user);
+				}
+				else
+				{
+				}
 
 				ActivityIndicator.IsVisible = false;
 			}
@@ -115,7 +125,8 @@ namespace UnidosPerderemos.Views.History
 					Spacing = 0d,
 					Children = {
 						ProgressTypeBox,
-						ListView
+						DailyListView,
+						WeeklyProgressView
 					}
 				};
 			}
@@ -148,15 +159,26 @@ namespace UnidosPerderemos.Views.History
 		}
 
 		/// <summary>
-		/// Gets the list view.
+		/// Gets the daily list view.
 		/// </summary>
-		/// <value>The list view.</value>
-		ListView ListView {
+		/// <value>The daily list view.</value>
+		ListView DailyListView {
 			get;
 		} = new ListView {
 			ItemTemplate = new DataTemplate(typeof(HistoryCell)),
 			BackgroundColor = Color.Transparent,
 			HasUnevenRows = true
+		};
+
+		/// <summary>
+		/// Gets the weekly progress view.
+		/// </summary>
+		/// <value>The weekly progress view.</value>
+		WeeklyProgressView WeeklyProgressView {
+			get;
+		} = new WeeklyProgressView {
+			IsVisible = false,
+			Opacity = 0d
 		};
 
 		/// <summary>
