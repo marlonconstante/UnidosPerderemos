@@ -6,6 +6,7 @@ using UnidosPerderemos.Models;
 using UnidosPerderemos.Services;
 using System.Collections.Generic;
 using UnidosPerderemos.Core.Controls;
+using UnidosPerderemos.Views.Daily;
 using UnidosPerderemos.Views.Weekly;
 
 namespace UnidosPerderemos.Views.History
@@ -165,7 +166,7 @@ namespace UnidosPerderemos.Views.History
 		ListView DailyListView {
 			get;
 		} = new ListView {
-			ItemTemplate = new DataTemplate(typeof(HistoryCell)),
+			ItemTemplate = new DataTemplate(typeof(DailyCell)),
 			BackgroundColor = Color.Transparent,
 			HasUnevenRows = true
 		};

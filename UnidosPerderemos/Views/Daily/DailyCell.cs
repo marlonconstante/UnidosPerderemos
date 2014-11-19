@@ -3,24 +3,24 @@ using Xamarin.Forms;
 using UnidosPerderemos.Services;
 using UnidosPerderemos.Models;
 
-namespace UnidosPerderemos.Views.History
+namespace UnidosPerderemos.Views.Daily
 {
-	public class HistoryCell : ViewCell
+	public class DailyCell : ViewCell
 	{
 		/// <summary>
 		/// The type property.
 		/// </summary>
-		public static readonly BindableProperty TypeProperty = BindableProperty.Create<HistoryCell, ProgressType>(p => p.Type, ProgressType.Daily);
+		public static readonly BindableProperty TypeProperty = BindableProperty.Create<DailyCell, ProgressType>(p => p.Type, ProgressType.Daily);
 
 		/// <summary>
 		/// The photo property.
 		/// </summary>
-		public static readonly BindableProperty PhotoProperty = BindableProperty.Create<HistoryCell, RemoteFile>(p => p.Photo, null);
+		public static readonly BindableProperty PhotoProperty = BindableProperty.Create<DailyCell, RemoteFile>(p => p.Photo, null);
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="UnidosPerderemos.Views.History.HistoryCell"/> class.
+		/// Initializes a new instance of the <see cref="UnidosPerderemos.Views.Daily.DailyCell"/> class.
 		/// </summary>
-		public HistoryCell()
+		public DailyCell()
 		{
 			this.SetBinding(TypeProperty, "Type");
 			this.SetBinding(PhotoProperty, "Photo");
