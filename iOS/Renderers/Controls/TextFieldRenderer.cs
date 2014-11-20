@@ -5,6 +5,7 @@ using UnidosPerderemos;
 using MonoTouch.UIKit;
 using UnidosPerderemos.Core.Controls;
 using MonoTouch.Foundation;
+using System.Drawing;
 
 [assembly: ExportRenderer(typeof(TextField), typeof(UnidosPerderemos.iOS.Renderers.Controls.TextFieldRenderer))]
 namespace UnidosPerderemos.iOS.Renderers.Controls
@@ -39,8 +40,25 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 				Target.Font = Source.Font.ToUIFont();
 				Target.SetValueForKeyPath(Source.TextColor.ToUIColor(), new NSString("_placeholderLabel.textColor"));
 
+				AddDoneButton();
+
 				Initialized = true;
 			}
+		}
+
+		/// <summary>
+		/// Adds the done button.
+		/// </summary>
+		void AddDoneButton()
+		{
+			Toolbar.Items = new UIBarButtonItem[] {
+				new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+				new UIBarButtonItem(UIBarButtonSystemItem.Done, delegate {
+					Target.ResignFirstResponder();
+				})
+			};
+
+			Target.InputAccessoryView = Toolbar;
 		}
 
 		/// <summary>
@@ -52,6 +70,14 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 				return Element as TextField;
 			}
 		}
+
+		/// <summary>
+		/// Gets the toolbar.
+		/// </summary>
+		/// <value>The toolbar.</value>
+		UIToolbar Toolbar {
+			get;
+		} = new UIToolbar(new RectangleF(0f, 0f, 0f, 44f));
 
 		/// <summary>
 		/// Gets the target.
