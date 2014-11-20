@@ -40,7 +40,7 @@ namespace UnidosPerderemos.Views.Daily
 		/// <param name="args">Arguments.</param>
 		async void OnCameraClicked(object sender, EventArgs args)
 		{
-			var stream = await DependencyService.Get<IMediaService>().GetPhoto(new Size(400d, 400d));
+			var stream = await DependencyService.Get<IMediaService>().GetPhoto(new Size(600d, 600d));
 			if (stream != Stream.Null)
 			{
 				Photo.Stream = stream;
