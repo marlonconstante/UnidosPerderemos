@@ -96,7 +96,6 @@ namespace UnidosPerderemos.iOS.Services
 		public void Logout()
 		{
 			ParseUser.LogOut();
-			FBSession.ActiveSession.CloseAndClearTokenInformation();
 			App.Instance.CurrentUserProfile = null;
 		}
 
