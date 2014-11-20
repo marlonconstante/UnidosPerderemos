@@ -28,8 +28,15 @@ namespace UnidosPerderemos.Views.Daily
 			LabelDate.SetBinding(Label.TextProperty, "FormattedDate");
 			LabelDescription.SetBinding(Label.TextProperty, "Comments");
 
-			InfoLayout.Children.Add(LabelDate);
-			InfoLayout.Children.Add(LabelDescription);
+			View = new StackLayout {
+				Spacing = 3d,
+				Padding = new Thickness(10d, 10d, 0d, 0d),
+				Children = {
+					LabelDate,
+					ImagePhoto,
+					LabelDescription
+				}
+			};
 		}
 
 		/// <summary>
@@ -39,19 +46,7 @@ namespace UnidosPerderemos.Views.Daily
 		{
 			base.OnAppearing();
 
-			if (Type == ProgressType.Daily)
-			{
-				GridDaily.Children.Add(ImagePhoto, 0, 0);
-				GridDaily.Children.Add(InfoLayout, 1, 0);
-				View = GridDaily;
-
-				LoadPhoto();
-			}
-			else
-			{
-				GridWeekly.Children.Add(InfoLayout, 0, 0);
-				View = GridWeekly;
-			}
+			LoadPhoto();
 
 			Height = PreferredHeight;
 		}
@@ -61,8 +56,10 @@ namespace UnidosPerderemos.Views.Daily
 		/// </summary>
 		async void LoadPhoto()
 		{
-			if (Photo != null)
+			if (Photo.IsValidUrl)
 			{
+				ImagePhoto.IsVisible = true;
+
 				await DependencyService.Get<IFileService>().Download(Photo);
 
 				ImagePhoto.Source = ImageSource.FromStream(() => {
@@ -70,76 +67,6 @@ namespace UnidosPerderemos.Views.Daily
 				});
 			}
 		}
-
-		/// <summary>
-		/// Gets the grid daily.
-		/// </summary>
-		/// <value>The grid daily.</value>
-		Grid GridDaily {
-			get;
-		} = new Grid {
-			ColumnSpacing = 0d,
-			Padding = new Thickness(0d, 10d, 0d, 0d),
-			ColumnDefinitions = {
-				new ColumnDefinition {
-					Width = 64d
-				},
-				new ColumnDefinition {
-					Width = new GridLength(1d, GridUnitType.Star)
-				}
-			},
-			RowDefinitions = {
-				new RowDefinition {
-					Height = new GridLength(1d, GridUnitType.Star)
-				}
-			}
-		};
-
-		/// <summary>
-		/// Gets the grid weekly.
-		/// </summary>
-		/// <value>The grid weekly.</value>
-		Grid GridWeekly {
-			get;
-		} = new Grid {
-			ColumnSpacing = 0d,
-			Padding = new Thickness(10d, 10d, 0d, 0d),
-			ColumnDefinitions = {
-				new ColumnDefinition {
-					Width = new GridLength(1d, GridUnitType.Star)
-				}
-			},
-			RowDefinitions = {
-				new RowDefinition {
-					Height = new GridLength(1d, GridUnitType.Star)
-				}
-			}
-		};
-
-		/// <summary>
-		/// Gets the image photo.
-		/// </summary>
-		/// <value>The image photo.</value>
-		Image ImagePhoto {
-			get;
-		} = new Image {
-			HorizontalOptions = LayoutOptions.Center,
-			VerticalOptions = LayoutOptions.Start,
-			Aspect = Aspect.AspectFill,
-			BackgroundColor = Color.White,
-			WidthRequest = 44d,
-			HeightRequest = 44d
-		};
-
-		/// <summary>
-		/// Gets the info layout.
-		/// </summary>
-		/// <value>The info layout.</value>
-		StackLayout InfoLayout {
-			get;
-		} = new StackLayout {
-			Spacing = 0d
-		};
 
 		/// <summary>
 		/// Gets the label date.
@@ -150,6 +77,22 @@ namespace UnidosPerderemos.Views.Daily
 		} = new Label {
 			Font = Font.OfSize("Roboto-Bold", 17),
 			TextColor = Color.FromHex("f26522")
+		};
+
+		/// <summary>
+		/// Gets the image photo.
+		/// </summary>
+		/// <value>The image photo.</value>
+		Image ImagePhoto {
+			get;
+		} = new Image {
+			HorizontalOptions = LayoutOptions.Start,
+			VerticalOptions = LayoutOptions.Start,
+			Aspect = Aspect.AspectFill,
+			BackgroundColor = Color.White,
+			WidthRequest = 300d,
+			HeightRequest = 169d,
+			IsVisible = false
 		};
 
 		/// <summary>
@@ -182,8 +125,13 @@ namespace UnidosPerderemos.Views.Daily
 		/// <value>The height of the preferred.</value>
 		double PreferredHeight {
 			get {
-				var size = DependencyService.Get<ITextService>().PreferredSize(LabelDescription.Text, LabelDescription.Font, MaxDescriptionSize);
-				return 44d + size.Height;
+				var height = 44d;
+				height += DependencyService.Get<ITextService>().PreferredSize(LabelDescription.Text, LabelDescription.Font, MaxDescriptionSize).Height;
+				if (ImagePhoto.IsVisible)
+				{
+					height += 3d + ImagePhoto.HeightRequest;
+				}
+				return height;
 			}
 		}
 
