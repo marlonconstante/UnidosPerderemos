@@ -109,11 +109,15 @@ namespace UnidosPerderemos.Views.Daily
 		/// <param name="args">Arguments.</param>
 		async void OnUpClicked(object sender, EventArgs args)
 		{
+			if (UserProgress.ObjectId == null)
+			{
+				UserProgress.Type = UserProfile.IsWeeklyPerformed ? ProgressType.Daily : ProgressType.Weekly;
+			}
+
 			UserProgress.PerformanceExercise = PerformanceExercise.Performance;
 			UserProgress.PerformanceFeed = PerformanceFeed.Performance;
 			UserProgress.Comments = ActivityToday.Text;
 			UserProgress.Weight = UserProfile.Weight;
-			UserProgress.Type = UserProfile.CurrentProgressType;
 
 			if (await DependencyService.Get<IProgressService>().Save(UserProgress))
 			{

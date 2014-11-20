@@ -161,17 +161,7 @@ namespace UnidosPerderemos.Models
 		/// <value><c>true</c> if this instance is weekly performed; otherwise, <c>false</c>.</value>
 		public bool IsWeeklyPerformed {
 			get {
-				return (DateTime.Now.Date - DateLastWeekly).TotalDays <= 7;
-			}
-		}
-
-		/// <summary>
-		/// Gets the type of the current progress.
-		/// </summary>
-		/// <value>The type of the current progress.</value>
-		public ProgressType CurrentProgressType {
-			get {
- 				return (DateLastDaily == DateLastWeekly || !IsWeeklyPerformed) ? ProgressType.Weekly : ProgressType.Daily;
+				return (DateTime.Now.Date - DateLastWeekly).TotalDays < 7;
 			}
 		}
 
