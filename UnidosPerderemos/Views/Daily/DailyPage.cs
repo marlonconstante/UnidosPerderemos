@@ -121,13 +121,24 @@ namespace UnidosPerderemos.Views.Daily
 
 			if (await DependencyService.Get<IProgressService>().Save(UserProgress))
 			{
+				var withoutPrize = !UserProfile.IsPrizewinner;
+
 				UserProfile.DateLastDaily = UserProgress.Date;
 				if (UserProgress.Type == ProgressType.Weekly)
 				{
 					UserProfile.DateLastWeekly = UserProgress.Date;
 				}
+				UserProfile.WeeklyDedication = UserProgress.WeeklyDedication;
 
-				await DisplayAlert("Pronto!", "Progresso atualizado com sucesso.", "Entendi");
+				if (withoutPrize && UserProfile.IsPrizewinner)
+				{
+					await DisplayAlert("Parabéns!", "Você foi premiado com uma estrela por sua dedicação.", "Entendi");
+				}
+				else
+				{
+					await DisplayAlert("Pronto!", "Progresso atualizado com sucesso.", "Entendi");
+				}
+
 				await Navigation.PopModalAsync();
 
 				MainPage.UpdateHistory();

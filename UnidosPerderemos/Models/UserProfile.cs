@@ -45,6 +45,15 @@ namespace UnidosPerderemos.Models
 		}
 
 		/// <summary>
+		/// Gets or sets the height.
+		/// </summary>
+		/// <value>The height.</value>
+		public double Height {
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// Gets or sets the initial weight.
 		/// </summary>
 		/// <value>The initial weight.</value>
@@ -63,12 +72,23 @@ namespace UnidosPerderemos.Models
 		}
 
 		/// <summary>
-		/// Gets or sets the height.
+		/// Gets the desired weight.
 		/// </summary>
-		/// <value>The height.</value>
-		public double Height {
-			get;
-			set;
+		/// <value>The desired weight.</value>
+		public double DesiredWeight {
+			get {
+				return InitialWeight - GoalWeight;
+			}
+		}
+
+		/// <summary>
+		/// Gets the lost weight.
+		/// </summary>
+		/// <value>The lost weight.</value>
+		public double LostWeight {
+			get {
+				return InitialWeight - Weight;
+			}
 		}
 
 		/// <summary>
@@ -85,6 +105,15 @@ namespace UnidosPerderemos.Models
 		/// </summary>
 		/// <value>The goal time.</value>
 		public double GoalTime {
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// Gets or sets the weekly dedication.
+		/// </summary>
+		/// <value>The weekly dedication.</value>
+		public long WeeklyDedication {
 			get;
 			set;
 		}
@@ -172,6 +201,46 @@ namespace UnidosPerderemos.Models
 		public double ElapsedTime {
 			get {
 				return 1d + GoalTime - (StartDate.AddDays(GoalTime) - DateTime.Now.Date).TotalDays;
+			}
+		}
+
+		/// <summary>
+		/// Gets the daily progress.
+		/// </summary>
+		/// <value>The daily progress.</value>
+		public int DailyProgress {
+			get {
+				return (int) Math.Min(Math.Max(ElapsedTime * 100d / GoalTime, 0d), 100d);
+			}
+		}
+
+		/// <summary>
+		/// Gets the dedication progress.
+		/// </summary>
+		/// <value>The dedication progress.</value>
+		public int DedicationProgress {
+			get {
+				return (int) Math.Min(Math.Max(WeeklyDedication * 100d / 28d, 0d), 100d);
+			}
+		}
+
+		/// <summary>
+		/// Gets the goal progress.
+		/// </summary>
+		/// <value>The goal progress.</value>
+		public int GoalProgress {
+			get {
+				return (int) Math.Min(Math.Max(LostWeight / GoalWeight * 100d, 0d), 100d);
+			}
+		}
+
+		/// <summary>
+		/// Gets a value indicating whether this instance is prizewinner.
+		/// </summary>
+		/// <value><c>true</c> if this instance is prizewinner; otherwise, <c>false</c>.</value>
+		public bool IsPrizewinner {
+			get {
+				return DedicationProgress >= 90;
 			}
 		}
 	}

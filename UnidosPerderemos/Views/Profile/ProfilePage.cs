@@ -57,13 +57,11 @@ namespace UnidosPerderemos.Views.Profile
 				ProfileViewBox.UpdateInfo();
 
 				UpButton.IsDone = UserProfile.IsDailyPerformed;
+				UpButton.IsStar = UserProfile.IsPrizewinner;
 
-				//TODO: Dados fictícios por enquanto...
-				UpButton.IsStar = !UpButton.IsStar;
-
-				ProfileViewBox.Progress += 12;
-				DedicationGraphics.Progress += 8;
-				GoalGraphics.Progress += 4;
+				ProfileViewBox.Progress = UserProfile.DailyProgress;
+				DedicationGraphics.Progress = UserProfile.DedicationProgress;
+				GoalGraphics.Progress = UserProfile.GoalProgress;
 			}
 		}
 

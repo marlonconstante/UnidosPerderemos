@@ -73,11 +73,13 @@ namespace UnidosPerderemos.iOS.Services
 			try
 			{
 				userProgress.Date = DateTime.Now.Date;
+				userProgress.DailyDedication = userProgress.TodayDedication;
 
 				var parseObject = userProgress.ToParseObject<ParseObject>();
 				await parseObject.SaveAsync();
 
 				userProgress.ObjectId = parseObject.ObjectId;
+				userProgress.WeeklyDedication = parseObject.Get<long>("weeklyDedication");
 
 				return true;
 			}

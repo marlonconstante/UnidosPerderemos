@@ -68,6 +68,34 @@ namespace UnidosPerderemos.Models
 		}
 
 		/// <summary>
+		/// Gets the today dedication.
+		/// </summary>
+		/// <value>The today dedication.</value>
+		public long TodayDedication {
+			get {
+				return (long) PerformanceExercise + (long) PerformanceFeed;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the daily dedication.
+		/// </summary>
+		/// <value>The daily dedication.</value>
+		public long DailyDedication {
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// Gets or sets the weekly dedication.
+		/// </summary>
+		/// <value>The weekly dedication.</value>
+		public long WeeklyDedication {
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// Gets or sets the photo.
 		/// </summary>
 		/// <value>The photo.</value>
