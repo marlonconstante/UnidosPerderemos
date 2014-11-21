@@ -25,9 +25,35 @@ var SaveProfilePhoto = function(imageUrl, userProfile) {
 	});
 }
 
+var QueryWeeklyDedication = function(userProgress) {
+	var maxDate = userProgress.get("date");
+	var minDate = new Date();
+	minDate.setDate(maxDate.getDate() - 6);
+	minDate.setHours(0, 0, 0, 0);
+
+	var query = new Parse.Query(Parse.Object.extend("UserProgress"));
+	query.equalTo("user", userProgress.get("user"));
+	query.greaterThanOrEqualTo("date", minDate);
+	query.lessThan("date", maxDate);
+
+	return query;
+}
+
 Parse.Cloud.beforeSave("UserProgress", function(request, response) {
 	request.object.set("user", request.user);
-	response.success();
+	QueryWeeklyDedication(request.object).find({
+		success: function(results) {
+			var weeklyDedication = request.object.get("dailyDedication");
+			for (var index = 0; index < results.length; index++) {
+				weeklyDedication += results[index].get("dailyDedication");
+			}
+			request.object.set("weeklyDedication", weeklyDedication);
+			response.success();
+		},
+		error: function() {
+			response.error("Atualização da dedicação semanal falhou...");
+		}
+	});
 });
 
 Parse.Cloud.afterSave("UserProgress", function(request) {
@@ -40,6 +66,7 @@ Parse.Cloud.afterSave("UserProgress", function(request) {
 			if (userProgress.get("type") == "Weekly") {
 				userProfile.set("dateLastWeekly", userProgress.get("date"));
 			}
+			userProfile.set("weeklyDedication", userProgress.get("weeklyDedication"));
 			userProfile.set("weight", userProgress.get("weight"));
 			userProfile.save();
 		}
