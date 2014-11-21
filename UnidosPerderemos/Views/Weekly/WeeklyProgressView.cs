@@ -117,7 +117,7 @@ namespace UnidosPerderemos.Views.Weekly
 				}
 				else
 				{
-					contentView.Content = BuildPerformanceImage((Performance) Random.Next(1, 4));
+					contentView.Content = BuildPerformanceImage((Performance) Random.Next(0, 3));
 				}
 			}
 		}
