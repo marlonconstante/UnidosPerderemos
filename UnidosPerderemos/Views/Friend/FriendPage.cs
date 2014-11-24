@@ -75,11 +75,27 @@ namespace UnidosPerderemos.Views.Friend
 		}
 
 		/// <summary>
+		/// Raises the appearing event.
+		/// </summary>
+		protected override void OnAppearing()
+		{
+			base.OnAppearing();
+
+			if (!IsFacebookUser)
+			{
+				DisplayAlert("Ops...", "Para visualizar amigos, conecte-se com o facebook.", "Entendi");
+			}
+		}
+
+		/// <summary>
 		/// Loads the friends.
 		/// </summary>
 		async void LoadFriends()
 		{
-			ListView.ItemsSource = await DependencyService.Get<IFacebookService>().FindAllFriends();
+			if (IsFacebookUser)
+			{
+				ListView.ItemsSource = await DependencyService.Get<IFacebookService>().FindAllFriends();
+			}
 		}
 
 		/// <summary>
@@ -106,6 +122,16 @@ namespace UnidosPerderemos.Views.Friend
 			BackgroundColor = Color.Transparent,
 			RowHeight = 52
 		};
+
+		/// <summary>
+		/// Gets a value indicating whether this instance is facebook user.
+		/// </summary>
+		/// <value><c>true</c> if this instance is facebook user; otherwise, <c>false</c>.</value>
+		bool IsFacebookUser {
+			get {
+				return App.Instance.CurrentUser.IsFacebookUser;
+			}
+		}
 
 		/// <summary>
 		/// Preferreds the status bar style.
