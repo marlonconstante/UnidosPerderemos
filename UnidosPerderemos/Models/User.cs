@@ -71,5 +71,15 @@ namespace UnidosPerderemos.Models
 			get;
 			set;
 		}
+
+		/// <summary>
+		/// Gets a value indicating whether this instance is facebook user.
+		/// </summary>
+		/// <value><c>true</c> if this instance is facebook user; otherwise, <c>false</c>.</value>
+		public bool IsFacebookUser {
+			get {
+				return !string.IsNullOrEmpty(FacebookId);
+			}
+		}
 	}
 }
