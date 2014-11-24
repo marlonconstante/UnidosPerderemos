@@ -49,7 +49,7 @@ namespace UnidosPerderemos.Views.Main
 
 				foreach (var page in Children.Where((page) => page is ISecurePage))
 				{
-					((ISecurePage) page).OnUserProfileLoaded(UserProfile);
+					((ISecurePage) page).OnUserProfileLoaded(UserProfile, CurrentPage == page);
 				}
 
 				IsUserProfileLoaded = true;
@@ -64,14 +64,6 @@ namespace UnidosPerderemos.Views.Main
 			base.OnCurrentPageChanged();
 
 			Title = CurrentPage.Title;
-		}
-
-		/// <summary>
-		/// Updates the history.
-		/// </summary>
-		public void UpdateHistory()
-		{
-			HistoryPage.UpdateHistory();
 		}
 
 		/// <summary>
@@ -90,16 +82,6 @@ namespace UnidosPerderemos.Views.Main
 		UserProfile UserProfile {
 			get {
 				return App.Instance.CurrentUserProfile;
-			}
-		}
-
-		/// <summary>
-		/// Gets the history page.
-		/// </summary>
-		/// <value>The history page.</value>
-		HistoryPage HistoryPage {
-			get {
-				return Children[0] as HistoryPage;
 			}
 		}
 	}

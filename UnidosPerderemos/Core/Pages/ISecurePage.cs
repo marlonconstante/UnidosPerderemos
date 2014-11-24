@@ -9,6 +9,7 @@ namespace UnidosPerderemos.Core.Pages
 		/// Raises the user profile loaded event.
 		/// </summary>
 		/// <param name="userProfile">User profile.</param>
-		void OnUserProfileLoaded(UserProfile userProfile);
+		/// <param name="isCurrentPage">If set to <c>true</c> is current page.</param>
+		void OnUserProfileLoaded(UserProfile userProfile, bool isCurrentPage);
 	}
 }
