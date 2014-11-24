@@ -15,6 +15,9 @@ namespace UnidosPerderemos.Views.Weekly
 			AddPerformanceImages();
 			AddStarImages();
 
+			RangeView.WeekChanged += (object sender, EventArgs args) => {
+				UpdateWeek();
+			};
 			UpdateWeek();
 
 			Content = new ScrollView {

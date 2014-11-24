@@ -82,5 +82,19 @@ namespace UnidosPerderemos.Views.Weekly
 				};
 			}
 		}
+
+		/// <summary>
+		/// Occurs when week changed.
+		/// </summary>
+		public event EventHandler WeekChanged {
+			add {
+				ButtonComeBack.Clicked += value;
+				ButtonGoForward.Clicked += value;
+			}
+			remove {
+				ButtonComeBack.Clicked -= value;
+				ButtonGoForward.Clicked -= value;
+			}
+		}
 	}
 }
