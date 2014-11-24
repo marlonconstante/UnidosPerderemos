@@ -5,6 +5,7 @@ using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Core.Pages;
 using UnidosPerderemos.Services;
 using UnidosPerderemos.Models;
+using UnidosPerderemos.Views.Profile;
 
 namespace UnidosPerderemos.Views.Friend
 {
@@ -22,6 +23,16 @@ namespace UnidosPerderemos.Views.Friend
 		{
 			Title = "Amigos";
 			Icon = ImageSource.FromFile("Contact.png") as FileImageSource;
+
+			ListView.ItemTapped += async (object sender, ItemTappedEventArgs args) => {
+				var friend = (sender as ListView).SelectedItem as PersonFacebook;
+
+				var profilePage = new ProfilePage(friend.Name);
+				await Navigation.PushModalAsync(new FlowPage(profilePage));
+
+				var userProfile = await DependencyService.Get<IProfileService>().LoadFriend(friend.Id);
+				profilePage.OnUserProfileLoaded(userProfile);
+			};
 
 			Content = new ActivityIndicator {
 				Color = Color.White,

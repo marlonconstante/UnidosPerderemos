@@ -19,6 +19,15 @@ namespace UnidosPerderemos.Models
 		}
 
 		/// <summary>
+		/// Gets or sets the facebook identifier.
+		/// </summary>
+		/// <value>The facebook identifier.</value>
+		public string FacebookId {
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// Gets or sets the name.
 		/// </summary>
 		/// <value>The name.</value>

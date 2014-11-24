@@ -10,18 +10,36 @@ namespace UnidosPerderemos.Views.Profile
 {
 	public class ProfilePage : ContentPage, IControlPage, ISecurePage
 	{
-		public ProfilePage()
+		/// <summary>
+		/// The default title.
+		/// </summary>
+		const string DefaultTitle = "Perfil";
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="UnidosPerderemos.Views.Profile.ProfilePage"/> class.
+		/// </summary>
+		/// <param name="title">Title.</param>
+		public ProfilePage(string title = DefaultTitle)
 		{
-			SetUp();
+			SetUp(title);
 		}
 
 		/// <summary>
 		/// Sets up.
 		/// </summary>
-		void SetUp()
+		/// <param name="title">Title.</param>
+		void SetUp(string title)
 		{
-			Title = "Perfil";
+			Title = title;
 			Icon = ImageSource.FromFile("Profile.png") as FileImageSource;
+
+			if (!DefaultTitle.Equals(title))
+			{
+				ToolbarItems.Add(new LeftToolbarItem {
+					Name = "Cancelar",
+					Command = new Command(() => Navigation.PopModalAsync())
+				});
+			}
 
 			Content = new ActivityIndicator {
 				Color = Color.White,
@@ -34,16 +52,16 @@ namespace UnidosPerderemos.Views.Profile
 		/// </summary>
 		void SetContentPage()
 		{
+			ContentView.Children.Add(ProfileViewBox);
+			if (IsCurrentUserProfile)
+			{
+				ContentView.Children.Add(UpButton);
+				ContentView.Children.Add(TransparentSeparator);
+			}
+			ContentView.Children.Add(GridGraphics);
+
 			Content = new ScrollView {
-				Content = new StackLayout {
-					Spacing = 5d,
-					Children = {
-						ProfileViewBox,
-						UpButton,
-						TransparentSeparator,
-						GridGraphics
-					}
-				}
+				Content = ContentView
 			};
 		}
 
@@ -56,8 +74,11 @@ namespace UnidosPerderemos.Views.Profile
 			{
 				ProfileViewBox.UpdateInfo();
 
-				UpButton.IsDone = UserProfile.IsDailyPerformed;
-				UpButton.IsStar = UserProfile.IsPrizewinner;
+				if (IsCurrentUserProfile)
+				{
+					UpButton.IsDone = UserProfile.IsDailyPerformed;
+					UpButton.IsStar = UserProfile.IsPrizewinner;
+				}
 
 				ProfileViewBox.Progress = UserProfile.DailyProgress;
 				DedicationGraphics.Progress = UserProfile.DedicationProgress;
@@ -71,6 +92,8 @@ namespace UnidosPerderemos.Views.Profile
 		/// <param name="userProfile">User profile.</param>
 		public void OnUserProfileLoaded(UserProfile userProfile)
 		{
+			UserProfile = userProfile;
+			ProfileViewBox = new ProfileViewBox(userProfile);
 			SetContentPage();
 			UpdateStatus();
 		}
@@ -86,12 +109,23 @@ namespace UnidosPerderemos.Views.Profile
 		}
 
 		/// <summary>
-		/// Gets the profile view box.
+		/// Gets the content view.
+		/// </summary>
+		/// <value>The content view.</value>
+		StackLayout ContentView {
+			get;
+		} = new StackLayout {
+			Spacing = 5d
+		};
+
+		/// <summary>
+		/// Gets or sets the profile view box.
 		/// </summary>
 		/// <value>The profile view box.</value>
 		ProfileViewBox ProfileViewBox {
 			get;
-		} = new ProfileViewBox();
+			set;
+		}
 
 		/// <summary>
 		/// Gets up button.
@@ -99,7 +133,6 @@ namespace UnidosPerderemos.Views.Profile
 		/// <value>Up button.</value>
 		UpButton UpButton {
 			get;
-			set;
 		} = new UpButton();
 
 		/// <summary>
@@ -161,13 +194,12 @@ namespace UnidosPerderemos.Views.Profile
 		};
 
 		/// <summary>
-		/// Gets the user profile.
+		/// Gets or sets the user profile.
 		/// </summary>
 		/// <value>The user profile.</value>
 		UserProfile UserProfile {
-			get {
-				return App.Instance.CurrentUserProfile;
-			}
+			get;
+			set;
 		}
 
 		/// <summary>
@@ -177,6 +209,16 @@ namespace UnidosPerderemos.Views.Profile
 		bool UserProfileLoaded {
 			get {
 				return UserProfile != null;
+			}
+		}
+
+		/// <summary>
+		/// Gets a value indicating whether this instance is current user profile.
+		/// </summary>
+		/// <value><c>true</c> if this instance is current user profile; otherwise, <c>false</c>.</value>
+		bool IsCurrentUserProfile {
+			get {
+				return UserProfile == App.Instance.CurrentUserProfile;
 			}
 		}
 

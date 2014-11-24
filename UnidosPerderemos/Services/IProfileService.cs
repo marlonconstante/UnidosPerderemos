@@ -12,6 +12,13 @@ namespace UnidosPerderemos.Services
 		Task<UserProfile> Load();
 
 		/// <summary>
+		/// Loads the friend.
+		/// </summary>
+		/// <returns>The friend.</returns>
+		/// <param name="facebookId">Facebook identifier.</param>
+		Task<UserProfile> LoadFriend(string facebookId);
+
+		/// <summary>
 		/// Save the specified userProfile.
 		/// </summary>
 		/// <param name="userProfile">User profile.</param>

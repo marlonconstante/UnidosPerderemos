@@ -9,8 +9,13 @@ namespace UnidosPerderemos.Views.Profile
 {
 	public class ProfileViewBox : ContentView
 	{
-		public ProfileViewBox()
+		/// <summary>
+		/// Initializes a new instance of the <see cref="UnidosPerderemos.Views.Profile.ProfileViewBox"/> class.
+		/// </summary>
+		/// <param name="userProfile">User profile.</param>
+		public ProfileViewBox(UserProfile userProfile)
 		{
+			UserProfile = userProfile;
 			SetUp();
 
 			Content = new StackLayout {
@@ -37,7 +42,10 @@ namespace UnidosPerderemos.Views.Profile
 		/// </summary>
 		void SetUp()
 		{
-			AddTappedPhoto();
+			if (IsCurrentUserProfile)
+			{
+				AddTappedPhoto();
+			}
 		}
 
 		/// <summary>
@@ -229,12 +237,21 @@ namespace UnidosPerderemos.Views.Profile
 		};
 
 		/// <summary>
-		/// Gets the user profile.
+		/// Gets or sets the user profile.
 		/// </summary>
 		/// <value>The user profile.</value>
 		UserProfile UserProfile {
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// Gets a value indicating whether this instance is current user profile.
+		/// </summary>
+		/// <value><c>true</c> if this instance is current user profile; otherwise, <c>false</c>.</value>
+		bool IsCurrentUserProfile {
 			get {
-				return App.Instance.CurrentUserProfile;
+				return UserProfile == App.Instance.CurrentUserProfile;
 			}
 		}
 
