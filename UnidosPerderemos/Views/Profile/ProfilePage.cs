@@ -90,12 +90,17 @@ namespace UnidosPerderemos.Views.Profile
 		/// Raises the user profile loaded event.
 		/// </summary>
 		/// <param name="userProfile">User profile.</param>
-		public void OnUserProfileLoaded(UserProfile userProfile)
+		/// <param name="isCurrentPage">If set to <c>true</c> is current page.</param>
+		public void OnUserProfileLoaded(UserProfile userProfile, bool isCurrentPage)
 		{
 			UserProfile = userProfile;
 			ProfileViewBox = new ProfileViewBox(userProfile);
 			SetContentPage();
-			UpdateStatus();
+
+			if (isCurrentPage)
+			{
+				UpdateStatus();
+			}
 		}
 
 		/// <summary>

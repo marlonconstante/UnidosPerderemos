@@ -31,7 +31,7 @@ namespace UnidosPerderemos.Views.Friend
 				await Navigation.PushModalAsync(new FlowPage(profilePage));
 
 				var friendProfile = await DependencyService.Get<IProfileService>().LoadFriend(friend.Id);
-				profilePage.OnUserProfileLoaded(friendProfile);
+				profilePage.OnUserProfileLoaded(friendProfile, true);
 			};
 
 			Content = new ActivityIndicator {
@@ -67,11 +67,16 @@ namespace UnidosPerderemos.Views.Friend
 		/// Raises the user profile loaded event.
 		/// </summary>
 		/// <param name="userProfile">User profile.</param>
-		public void OnUserProfileLoaded(UserProfile userProfile)
+		/// <param name="isCurrentPage">If set to <c>true</c> is current page.</param>
+		public void OnUserProfileLoaded(UserProfile userProfile, bool isCurrentPage)
 		{
 			UserProfile = userProfile;
 			SetContentPage();
-			LoadFriends();
+
+			if (isCurrentPage)
+			{
+				LoadFriends();
+			}
 		}
 
 		/// <summary>
@@ -81,10 +86,7 @@ namespace UnidosPerderemos.Views.Friend
 		{
 			base.OnAppearing();
 
-			if (!IsFacebookUser)
-			{
-				DisplayAlert("Ops...", "Para visualizar amigos, conecte-se com o facebook.", "Entendi");
-			}
+			LoadFriends();
 		}
 
 		/// <summary>
@@ -94,7 +96,15 @@ namespace UnidosPerderemos.Views.Friend
 		{
 			if (IsFacebookUser)
 			{
-				ListView.ItemsSource = await DependencyService.Get<IFacebookService>().FindAllFriends();
+				if (ListView.ItemsSource == null)
+				{
+					ListView.ItemsSource = await DependencyService.Get<IFacebookService>().FindAllFriends();
+					ListView.Opacity = 1d;
+				}
+			}
+			else
+			{
+				await DisplayAlert("Ops...", "Para visualizar amigos, conecte-se com o facebook.", "Entendi");
 			}
 		}
 
@@ -120,6 +130,7 @@ namespace UnidosPerderemos.Views.Friend
 		} = new ListView {
 			ItemTemplate = new DataTemplate(typeof(FriendCell)),
 			BackgroundColor = Color.Transparent,
+			Opacity = 0d,
 			RowHeight = 52
 		};
 

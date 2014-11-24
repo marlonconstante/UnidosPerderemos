@@ -63,44 +63,74 @@ namespace UnidosPerderemos.Views.History
 		/// Raises the user profile loaded event.
 		/// </summary>
 		/// <param name="userProfile">User profile.</param>
-		public void OnUserProfileLoaded(UserProfile userProfile)
+		/// <param name="isCurrentPage">If set to <c>true</c> is current page.</param>
+		public void OnUserProfileLoaded(UserProfile userProfile, bool isCurrentPage)
 		{
 			UserProfile = userProfile;
-			UpdateHistory();
+
+			if (isCurrentPage)
+			{
+				UpdateCurrentHistory();
+			}
+		}
+
+		/// <summary>
+		/// Raises the appearing event.
+		/// </summary>
+		protected override void OnAppearing()
+		{
+			base.OnAppearing();
+
+			UpdateCurrentHistory();
+		}
+
+		/// <summary>
+		/// Updates the current history.
+		/// </summary>
+		void UpdateCurrentHistory()
+		{
+			UpdateHistory(App.Instance.CurrentUser);
 		}
 
 		/// <summary>
 		/// Updates the history.
 		/// </summary>
-		public void UpdateHistory()
-		{
-			ReloadItems(App.Instance.CurrentUser, (ProgressType) InputProgressType.SelectedItem);
-		}
-
-		/// <summary>
-		/// Reloads the items.
-		/// </summary>
 		/// <param name="user">User.</param>
-		/// <param name="type">Type.</param>
-		async void ReloadItems(User user, ProgressType type)
+		async void UpdateHistory(User user = null)
 		{
 			if (IsUserProfileLoaded)
 			{
 				ActivityIndicator.IsVisible = true;
 
-				DailyListView.IsVisible = type == ProgressType.Daily;
-				WeeklyProgressView.IsVisible = type == ProgressType.Weekly;
-				WeeklyProgressView.Opacity = WeeklyProgressView.IsVisible ? 1d : 0d;
+				if (user != null)
+				{
+					AllProgress.Clear();
+					AllProgress.AddRange(await DependencyService.Get<IProgressService>().Find(user));
+				}
 
-				if (DailyListView.IsVisible)
-				{
-					DailyListView.ItemsSource = await DependencyService.Get<IProgressService>().Find(user);
-				}
-				else
-				{
-				}
+				UpdateContent((ProgressType) InputProgressType.SelectedItem);
 
 				ActivityIndicator.IsVisible = false;
+			}
+		}
+
+		/// <summary>
+		/// Updates the content.
+		/// </summary>
+		/// <param name="type">Type.</param>
+		void UpdateContent(ProgressType type)
+		{
+			DailyListView.IsVisible = false;
+			WeeklyProgressView.IsVisible = false;
+
+			if (type == ProgressType.Daily)
+			{
+				DailyListView.ItemsSource = AllProgress;
+				DailyListView.IsVisible = AllProgress.Count > 0;
+			}
+			else
+			{
+				WeeklyProgressView.IsVisible = AllProgress.Count > 0;
 			}
 		}
 
@@ -169,6 +199,7 @@ namespace UnidosPerderemos.Views.History
 		} = new ListView {
 			ItemTemplate = new DataTemplate(typeof(DailyCell)),
 			BackgroundColor = Color.Transparent,
+			IsVisible = false,
 			HasUnevenRows = true
 		};
 
@@ -179,8 +210,7 @@ namespace UnidosPerderemos.Views.History
 		WeeklyProgressView WeeklyProgressView {
 			get;
 		} = new WeeklyProgressView {
-			IsVisible = false,
-			Opacity = 0d
+			IsVisible = false
 		};
 
 		/// <summary>
@@ -192,6 +222,14 @@ namespace UnidosPerderemos.Views.History
 		} = new OptionButton {
 			TintColor = Color.FromHex("f26522")
 		};
+
+		/// <summary>
+		/// Gets all progress.
+		/// </summary>
+		/// <value>All progress.</value>
+		List<UserProgress> AllProgress {
+			get;
+		} = new List<UserProgress>();
 
 		/// <summary>
 		/// Gets or sets the user profile.
