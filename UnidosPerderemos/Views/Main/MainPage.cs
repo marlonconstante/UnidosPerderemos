@@ -43,7 +43,7 @@ namespace UnidosPerderemos.Views.Main
 		/// </summary>
 		async void LoadUserProfile()
 		{
-			if (!UserProfileLoaded)
+			if (!IsUserProfileLoaded)
 			{
 				await App.Instance.LoadUserProfile();
 
@@ -52,7 +52,7 @@ namespace UnidosPerderemos.Views.Main
 					((ISecurePage) page).OnUserProfileLoaded(UserProfile);
 				}
 
-				UserProfileLoaded = true;
+				IsUserProfileLoaded = true;
 			}
 		}
 
@@ -75,10 +75,10 @@ namespace UnidosPerderemos.Views.Main
 		}
 
 		/// <summary>
-		/// Gets or sets a value indicating whether this <see cref="UnidosPerderemos.Views.Main.MainPage"/> user profile loaded.
+		/// Gets or sets a value indicating whether this instance is user profile loaded.
 		/// </summary>
-		/// <value><c>true</c> if user profile loaded; otherwise, <c>false</c>.</value>
-		bool UserProfileLoaded {
+		/// <value><c>true</c> if this instance is user profile loaded; otherwise, <c>false</c>.</value>
+		bool IsUserProfileLoaded {
 			get;
 			set;
 		} = false;

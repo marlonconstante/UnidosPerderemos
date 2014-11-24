@@ -83,7 +83,7 @@ namespace UnidosPerderemos.Views.History
 		/// <param name="type">Type.</param>
 		async void ReloadItems(User user, ProgressType type)
 		{
-			if (UserProfileLoaded)
+			if (IsUserProfileLoaded)
 			{
 				ActivityIndicator.IsVisible = true;
 
@@ -203,10 +203,10 @@ namespace UnidosPerderemos.Views.History
 		}
 
 		/// <summary>
-		/// Gets a value indicating whether this <see cref="UnidosPerderemos.Views.History.HistoryPage"/> user profile loaded.
+		/// Gets a value indicating whether this instance is user profile loaded.
 		/// </summary>
-		/// <value><c>true</c> if user profile loaded; otherwise, <c>false</c>.</value>
-		bool UserProfileLoaded {
+		/// <value><c>true</c> if this instance is user profile loaded; otherwise, <c>false</c>.</value>
+		bool IsUserProfileLoaded {
 			get {
 				return UserProfile != null;
 			}

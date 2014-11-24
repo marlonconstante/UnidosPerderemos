@@ -70,7 +70,7 @@ namespace UnidosPerderemos.Views.Profile
 		/// </summary>
 		void UpdateStatus()
 		{
-			if (UserProfileLoaded)
+			if (IsUserProfileLoaded)
 			{
 				ProfileViewBox.UpdateInfo();
 
@@ -203,10 +203,10 @@ namespace UnidosPerderemos.Views.Profile
 		}
 
 		/// <summary>
-		/// Gets a value indicating whether this <see cref="UnidosPerderemos.Views.Profile.ProfilePage"/> user profile loaded.
+		/// Gets a value indicating whether this instance is user profile loaded.
 		/// </summary>
-		/// <value><c>true</c> if user profile loaded; otherwise, <c>false</c>.</value>
-		bool UserProfileLoaded {
+		/// <value><c>true</c> if this instance is user profile loaded; otherwise, <c>false</c>.</value>
+		bool IsUserProfileLoaded {
 			get {
 				return UserProfile != null;
 			}
