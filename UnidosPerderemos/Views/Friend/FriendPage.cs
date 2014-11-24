@@ -30,8 +30,8 @@ namespace UnidosPerderemos.Views.Friend
 				var profilePage = new ProfilePage(friend.Name);
 				await Navigation.PushModalAsync(new FlowPage(profilePage));
 
-				var userProfile = await DependencyService.Get<IProfileService>().LoadFriend(friend.Id);
-				profilePage.OnUserProfileLoaded(userProfile);
+				var friendProfile = await DependencyService.Get<IProfileService>().LoadFriend(friend.Id);
+				profilePage.OnUserProfileLoaded(friendProfile);
 			};
 
 			Content = new ActivityIndicator {
