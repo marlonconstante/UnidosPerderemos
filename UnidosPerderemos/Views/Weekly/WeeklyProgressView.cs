@@ -254,5 +254,14 @@ namespace UnidosPerderemos.Views.Weekly
 			ColumnSpacing = 1d,
 			RowSpacing = 1d
 		};
+
+		/// <summary>
+		/// Gets or sets the items source.
+		/// </summary>
+		/// <value>The items source.</value>
+		public List<UserProgress> ItemsSource {
+			get;
+			set;
+		}
 	}
 }

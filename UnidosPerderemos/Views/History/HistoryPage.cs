@@ -130,6 +130,7 @@ namespace UnidosPerderemos.Views.History
 			}
 			else
 			{
+				WeeklyProgressView.ItemsSource = AllProgress;
 				WeeklyProgressView.IsVisible = AllProgress.Count > 0;
 			}
 		}
