@@ -200,7 +200,11 @@ namespace UnidosPerderemos.Models
 		/// <value>The elapsed time.</value>
 		public double ElapsedTime {
 			get {
-				return 1d + GoalTime - (StartDate.AddDays(GoalTime) - DateTime.Now.Date).TotalDays;
+				if (GoalTime > 0d)
+				{
+					return 1d + GoalTime - (StartDate.AddDays(GoalTime) - DateTime.Now.Date).TotalDays;
+				}
+				return 0d;
 			}
 		}
 
@@ -210,7 +214,11 @@ namespace UnidosPerderemos.Models
 		/// <value>The daily progress.</value>
 		public int DailyProgress {
 			get {
-				return (int) Math.Min(Math.Max(ElapsedTime * 100d / GoalTime, 0d), 100d);
+				if (GoalTime > 0d)
+				{
+					return (int) Math.Min(Math.Max(ElapsedTime * 100d / GoalTime, 0d), 100d);
+				}
+				return 0;
 			}
 		}
 
@@ -230,7 +238,11 @@ namespace UnidosPerderemos.Models
 		/// <value>The goal progress.</value>
 		public int GoalProgress {
 			get {
-				return (int) Math.Min(Math.Max(LostWeight / GoalWeight * 100d, 0d), 100d);
+				if (GoalWeight > 0d)
+				{
+					return (int) Math.Min(Math.Max(LostWeight / GoalWeight * 100d, 0d), 100d);
+				}
+				return 0;
 			}
 		}
 
