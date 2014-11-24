@@ -69,8 +69,8 @@ namespace UnidosPerderemos.Views.Friend
 		/// <param name="userProfile">User profile.</param>
 		public void OnUserProfileLoaded(UserProfile userProfile)
 		{
+			UserProfile = userProfile;
 			SetContentPage();
-
 			LoadFriends();
 		}
 
@@ -130,6 +130,25 @@ namespace UnidosPerderemos.Views.Friend
 		bool IsFacebookUser {
 			get {
 				return App.Instance.CurrentUser.IsFacebookUser;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the user profile.
+		/// </summary>
+		/// <value>The user profile.</value>
+		UserProfile UserProfile {
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// Gets a value indicating whether this instance is user profile loaded.
+		/// </summary>
+		/// <value><c>true</c> if this instance is user profile loaded; otherwise, <c>false</c>.</value>
+		bool IsUserProfileLoaded {
+			get {
+				return UserProfile != null;
 			}
 		}
 

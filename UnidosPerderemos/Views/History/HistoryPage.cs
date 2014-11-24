@@ -65,6 +65,7 @@ namespace UnidosPerderemos.Views.History
 		/// <param name="userProfile">User profile.</param>
 		public void OnUserProfileLoaded(UserProfile userProfile)
 		{
+			UserProfile = userProfile;
 			UpdateHistory();
 		}
 
@@ -193,13 +194,12 @@ namespace UnidosPerderemos.Views.History
 		};
 
 		/// <summary>
-		/// Gets the user profile.
+		/// Gets or sets the user profile.
 		/// </summary>
 		/// <value>The user profile.</value>
 		UserProfile UserProfile {
-			get {
-				return App.Instance.CurrentUserProfile;
-			}
+			get;
+			set;
 		}
 
 		/// <summary>
