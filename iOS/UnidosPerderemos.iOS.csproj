@@ -149,8 +149,6 @@
     <BundleResource Include="Resources\Ruler%402x.png" />
     <BundleResource Include="Resources\70percent.png" />
     <BundleResource Include="Resources\100percent.png" />
-    <BundleResource Include="Resources\UPLogo%402x.png" />
-    <BundleResource Include="Resources\UPLogo%403x.png" />
     <BundleResource Include="Resources\Default%402x.png" />
     <BundleResource Include="Resources\Default-568h%402x.png" />
     <BundleResource Include="Resources\BackgroundGradient%403x.png" />
