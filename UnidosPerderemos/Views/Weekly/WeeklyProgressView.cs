@@ -70,7 +70,7 @@ namespace UnidosPerderemos.Views.Weekly
 		{
 			foreach (var value in Enum.GetValues(typeof(Performance)))
 			{
-				PerformanceImages.Add((Performance) value, ImageSource.FromFile(string.Concat(value.ToString(), ".png")));
+				PerformanceImages.Add((Performance) value, ImageSource.FromFile(string.Concat(value.ToString(), "Color.png")));
 			}
 		}
 
