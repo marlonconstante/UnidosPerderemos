@@ -55,13 +55,10 @@ namespace UnidosPerderemos.Views.Daily
 		/// </summary>
 		/// <value>The box.</value>
 		BoxView Box {
-			get {
-				return new BoxView {
-					BackgroundColor = Color.White.MultiplyAlpha(0.2d),
-					HeightRequest = 56d
-				};
-			}
-		}
+			get;
+		} = new BoxView {
+			HeightRequest = 56d
+		};
 
 		/// <summary>
 		/// Gets the button.
@@ -80,7 +77,8 @@ namespace UnidosPerderemos.Views.Daily
 				return Button.Opacity == 1d;
 			}
 			set {
-				Button.Opacity = value ? 1d : 0.5d;
+				Box.BackgroundColor = Color.White.MultiplyAlpha(value ? 0.3d : 0.2d);
+				Button.Opacity = value ? 1d : 0.4d;
 			}
 		}
 
