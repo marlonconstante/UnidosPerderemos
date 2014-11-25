@@ -18,7 +18,6 @@ namespace UnidosPerderemos.Views.Weekly
 			RangeView.WeekChanged += (object sender, EventArgs args) => {
 				UpdateWeek();
 			};
-			UpdateWeek();
 
 			Content = new ScrollView {
 				Content = new StackLayout {
@@ -91,6 +90,7 @@ namespace UnidosPerderemos.Views.Weekly
 		{
 			for (var row = 1; row < Days.Length; row++)
 			{
+				var userProgress = GetDailyProgress(RangeView.CurrentStartOfWeek.AddDays(row - 1d));
 				for (var column = 1; column < Titles.Length; column++)
 				{
 					var key = new KeyValuePair<int, int>(row, column);
@@ -100,7 +100,7 @@ namespace UnidosPerderemos.Views.Weekly
 						ContentViews.Add(key, contentView);
 						GridWeekly.Children.Add(contentView, column, row);
 					}
-					UpdateContentView(key);
+					UpdateContentView(key, userProgress);
 				}
 			}
 		}
@@ -109,20 +109,39 @@ namespace UnidosPerderemos.Views.Weekly
 		/// Updates the content view.
 		/// </summary>
 		/// <param name="key">Key.</param>
-		void UpdateContentView(KeyValuePair<int, int> key)
+		/// <param name="userProgress">User progress.</param>
+		void UpdateContentView(KeyValuePair<int, int> key, UserProgress userProgress)
 		{
 			ContentView contentView;
 			if (ContentViews.TryGetValue(key, out contentView))
 			{
-				if (key.Value == 3)
+				switch (key.Value)
 				{
-					contentView.Content = BuildStarImage(Random.Next(0, 2) == 0);
-				}
-				else
-				{
-					contentView.Content = BuildPerformanceImage((Performance) Random.Next(0, 3));
+					case 1:
+						contentView.Content = BuildPerformanceImage(userProgress.PerformanceExercise);
+						break;
+					case 2:
+						contentView.Content = BuildPerformanceImage(userProgress.PerformanceFeed);
+						break;
+					case 3:
+						contentView.Content = BuildStarImage(false);
+						break;
+					default:
+						break;
 				}
 			}
+		}
+
+		/// <summary>
+		/// Gets the daily progress.
+		/// </summary>
+		/// <returns>The daily progress.</returns>
+		/// <param name="date">Date.</param>
+		UserProgress GetDailyProgress(DateTime date)
+		{
+			UserProgress userProgress;
+			DateProgress.TryGetValue(date, out userProgress);
+			return userProgress ?? EmptyUserProgress;
 		}
 
 		/// <summary>
@@ -192,14 +211,6 @@ namespace UnidosPerderemos.Views.Weekly
 		}
 
 		/// <summary>
-		/// Gets the random.
-		/// </summary>
-		/// <value>The random.</value>
-		Random Random {
-			get;
-		} = new Random();
-
-		/// <summary>
 		/// Gets the titles.
 		/// </summary>
 		/// <value>The titles.</value>
@@ -240,6 +251,22 @@ namespace UnidosPerderemos.Views.Weekly
 		} = new Dictionary<bool, ImageSource>();
 
 		/// <summary>
+		/// Gets the date progress.
+		/// </summary>
+		/// <value>The date progress.</value>
+		Dictionary<DateTime, UserProgress> DateProgress {
+			get;
+		} = new Dictionary<DateTime, UserProgress>();
+
+		/// <summary>
+		/// Gets the empty user progress.
+		/// </summary>
+		/// <value>The empty user progress.</value>
+		UserProgress EmptyUserProgress {
+			get;
+		} = new UserProgress();
+
+		/// <summary>
 		/// Gets the range view.
 		/// </summary>
 		/// <value>The range view.</value>
@@ -259,12 +286,18 @@ namespace UnidosPerderemos.Views.Weekly
 		};
 
 		/// <summary>
-		/// Gets or sets the items source.
+		/// Sets the items source.
 		/// </summary>
 		/// <value>The items source.</value>
-		public List<UserProgress> ItemsSource {
-			get;
-			set;
+		public IEnumerable<UserProgress> ItemsSource {
+			set {
+				DateProgress.Clear();
+				foreach (var userProgress in value)
+				{
+					DateProgress.Add(userProgress.Date, userProgress);
+				}
+				UpdateWeek();
+			}
 		}
 	}
 }

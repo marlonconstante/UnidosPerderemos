@@ -1,5 +1,6 @@
 ﻿using System;
 using Xamarin.Forms;
+using UnidosPerderemos.Utils;
 
 namespace UnidosPerderemos.Views.Weekly
 {
@@ -8,6 +9,28 @@ namespace UnidosPerderemos.Views.Weekly
 		public WeeklyRangeView()
 		{
 			Content = GridRange;
+
+			ButtonComeBack.Clicked += (object sender, EventArgs args) => {
+				UpdateInfo(-1);
+			};
+			ButtonGoForward.Clicked += (object sender, EventArgs args) => {
+				UpdateInfo(1);
+			};
+			UpdateInfo();
+		}
+
+		/// <summary>
+		/// Updates the info.
+		/// </summary>
+		/// <param name="additionalWeeks">Additional weeks.</param>
+		void UpdateInfo(int additionalWeeks = 0)
+		{
+			CurrentStartOfWeek = CurrentStartOfWeek.AddDays(additionalWeeks * 7d);
+			LabelRange.Text = string.Concat(CurrentStartOfWeek.ToString("dd/MM/yyyy"), " à ", CurrentStartOfWeek.AddDays(6d).ToString("dd/MM/yyyy"));
+			if (additionalWeeks != 0 && WeekChanged != null)
+			{
+				WeekChanged.Invoke(this, EventArgs.Empty);
+			}
 		}
 
 		/// <summary>
@@ -32,7 +55,6 @@ namespace UnidosPerderemos.Views.Weekly
 		Label LabelRange {
 			get;
 		} = new Label {
-			Text = "17/11/2014 à 23/11/2014",
 			TextColor = Color.FromHex("f26522"),
 			FontFamily = "Roboto-Medium",
 			FontSize = 16d,
@@ -84,17 +106,17 @@ namespace UnidosPerderemos.Views.Weekly
 		}
 
 		/// <summary>
+		/// Gets or sets the current start of week.
+		/// </summary>
+		/// <value>The current start of week.</value>
+		public DateTime CurrentStartOfWeek {
+			get;
+			set;
+		} = DateTime.Now.Date.StartOfWeek();
+
+		/// <summary>
 		/// Occurs when week changed.
 		/// </summary>
-		public event EventHandler WeekChanged {
-			add {
-				ButtonComeBack.Clicked += value;
-				ButtonGoForward.Clicked += value;
-			}
-			remove {
-				ButtonComeBack.Clicked -= value;
-				ButtonGoForward.Clicked -= value;
-			}
-		}
+		public event EventHandler<EventArgs> WeekChanged;
 	}
 }
