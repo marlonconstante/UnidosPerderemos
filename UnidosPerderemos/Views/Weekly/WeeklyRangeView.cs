@@ -84,7 +84,7 @@ namespace UnidosPerderemos.Views.Weekly
 		Grid GridRange {
 			get {
 				return new Grid {
-					Padding = new Thickness(5d),
+					Padding = new Thickness(10d, 5d),
 					ColumnDefinitions = {
 						new ColumnDefinition {
 							Width = GridLength.Auto

@@ -22,7 +22,7 @@ namespace UnidosPerderemos.Views.Weekly
 			Content = new ScrollView {
 				Content = new StackLayout {
 					Spacing = 0d,
-					Padding = new Thickness(5d),
+					Padding = new Thickness(0d, 5d, 0d, 0d),
 					Children = {
 						RangeView,
 						GridWeekly
@@ -37,12 +37,13 @@ namespace UnidosPerderemos.Views.Weekly
 		void ConfigColumns()
 		{
 			var index = 0;
-			foreach (var title in Titles)
+			foreach (var source in SourceHeaders)
 			{
+				var contentView = BuildContentView(5d, 0d, new Image { Source = source });
 				GridWeekly.ColumnDefinitions.Add(new ColumnDefinition {
-					Width = (index == 0) ? 40d : new GridLength(1d, GridUnitType.Star)
+					Width = (index == 0) ? 130d : new GridLength(1d, GridUnitType.Star)
 				});
-				GridWeekly.Children.Add(BuildLabel(title, "Roboto-Light"), index, 0);
+				GridWeekly.Children.Add(contentView, index, 0);
 				index++;
 			}
 		}
@@ -55,10 +56,12 @@ namespace UnidosPerderemos.Views.Weekly
 			var index = 0;
 			foreach (var day in Days)
 			{
+				var contentView = BuildContentView(9d, (index == 0) ? 0d : 0.4d, BuildStarGrid(day));
+				ContentViews.Add(new KeyValuePair<int, int>(index, 0), contentView);
 				GridWeekly.RowDefinitions.Add(new RowDefinition {
-					Height = (index == 0) ? 23d : 53d
+					Height = (index == 0) ? 40d : 55d
 				});
-				GridWeekly.Children.Add(BuildLabel(day, "Roboto-LightItalic"), 0, index);
+				GridWeekly.Children.Add(contentView, 0, index);
 				index++;
 			}
 		}
@@ -91,12 +94,12 @@ namespace UnidosPerderemos.Views.Weekly
 			for (var row = 1; row < Days.Length; row++)
 			{
 				var userProgress = GetDailyProgress(RangeView.CurrentStartOfWeek.AddDays(row - 1d));
-				for (var column = 1; column < Titles.Length; column++)
+				for (var column = 0; column < SourceHeaders.Length; column++)
 				{
 					var key = new KeyValuePair<int, int>(row, column);
 					if (!ContentViews.ContainsKey(key))
 					{
-						var contentView = BuildContentView((column == 3) ? 5d : 0d);
+						var contentView = BuildContentView(0d, 0.3d);
 						ContentViews.Add(key, contentView);
 						GridWeekly.Children.Add(contentView, column, row);
 					}
@@ -117,19 +120,30 @@ namespace UnidosPerderemos.Views.Weekly
 			{
 				switch (key.Value)
 				{
+					case 0:
+						UpdateStarContent((Grid) contentView.Content, userProgress);
+						break;
 					case 1:
 						contentView.Content = BuildPerformanceImage(userProgress.PerformanceExercise);
 						break;
 					case 2:
 						contentView.Content = BuildPerformanceImage(userProgress.PerformanceFeed);
 						break;
-					case 3:
-						contentView.Content = BuildStarImage(false);
-						break;
 					default:
 						break;
 				}
 			}
+		}
+
+		/// <summary>
+		/// Updates the content of the star.
+		/// </summary>
+		/// <param name="grid">Grid.</param>
+		/// <param name="userProgress">User progress.</param>
+		void UpdateStarContent(Grid grid, UserProgress userProgress)
+		{
+			var contentView = grid.Children[1] as ContentView;
+			contentView.Content = BuildStarImage(userProgress.IsPrizewinner);
 		}
 
 		/// <summary>
@@ -154,10 +168,9 @@ namespace UnidosPerderemos.Views.Weekly
 		{
 			return new Label {
 				Text = text,
-				TextColor = Color.FromHex("59135d"),
+				TextColor = Color.FromHex("2e3192"),
 				FontFamily = fontFamily,
-				FontSize = 15d,
-				XAlign = TextAlignment.Center,
+				FontSize = 18.5d,
 				YAlign = TextAlignment.Center
 			};
 		}
@@ -191,7 +204,8 @@ namespace UnidosPerderemos.Views.Weekly
 			if (StarImages.TryGetValue(full, out source))
 			{
 				return new Image {
-					Source = source
+					Source = source,
+					Opacity = full ? 1d : 0.5d
 				};
 			}
 			return null;
@@ -202,21 +216,48 @@ namespace UnidosPerderemos.Views.Weekly
 		/// </summary>
 		/// <returns>The content view.</returns>
 		/// <param name="padding">Padding.</param>
-		ContentView BuildContentView(double padding)
+		/// <param name="backgroundOpacity">Background opacity.</param>
+		/// <param name="content">Content.</param>
+		ContentView BuildContentView(double padding, double backgroundOpacity, View content = null)
 		{
 			return new ContentView {
+				Content = content,
 				Padding = padding,
-				BackgroundColor = Color.White.MultiplyAlpha(0.2d)
+				BackgroundColor = Color.White.MultiplyAlpha(backgroundOpacity)
 			};
 		}
 
 		/// <summary>
-		/// Gets the titles.
+		/// Builds the star grid.
 		/// </summary>
-		/// <value>The titles.</value>
-		string[] Titles {
+		/// <returns>The star grid.</returns>
+		/// <param name="text">Text.</param>
+		Grid BuildStarGrid(string text)
+		{
+			return new Grid {
+				ColumnSpacing = 0d,
+				ColumnDefinitions = {
+					new ColumnDefinition {
+						Width = 84d
+					},
+					new ColumnDefinition {
+						Width = new GridLength(1d, GridUnitType.Star)
+					}
+				},
+				Children = {
+					{ BuildLabel(text, "Roboto-Regular"), 0, 0 },
+					{ BuildContentView(0d, 0d), 1, 0 }
+				}
+			};
+		}
+
+		/// <summary>
+		/// Gets the source headers.
+		/// </summary>
+		/// <value>The source headers.</value>
+		ImageSource[] SourceHeaders {
 			get;
-		} = new string[] { string.Empty, "Exercícios", "Alimentação", string.Empty };
+		} = new ImageSource[] { null, ImageSource.FromFile("BenchPresses.png"), ImageSource.FromFile("Apple.png") };
 
 		/// <summary>
 		/// Gets the days.
@@ -224,7 +265,7 @@ namespace UnidosPerderemos.Views.Weekly
 		/// <value>The days.</value>
 		string[] Days {
 			get;
-		} = new string[] { string.Empty, "SEG", "TER", "QUA", "QUI", "SEX", "SÁB", "DOM" };
+		} = new string[] { string.Empty, "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo" };
 
 		/// <summary>
 		/// Gets the content views.
