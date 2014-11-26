@@ -32,9 +32,9 @@ namespace UnidosPerderemos.Models
 	}
 
 	/// <summary>
-	/// User progress.
+	/// User progress. 
 	/// </summary>
-	public class UserProgress
+	public class UserProgress : Dedication
 	{
 		public UserProgress()
 		{
@@ -82,15 +82,6 @@ namespace UnidosPerderemos.Models
 		/// </summary>
 		/// <value>The daily dedication.</value>
 		public long DailyDedication {
-			get;
-			set;
-		}
-
-		/// <summary>
-		/// Gets or sets the weekly dedication.
-		/// </summary>
-		/// <value>The weekly dedication.</value>
-		public long WeeklyDedication {
 			get;
 			set;
 		}
