@@ -107,6 +107,22 @@ namespace UnidosPerderemos.Views.Profile
 		};
 
 		/// <summary>
+		/// Gets the default background image.
+		/// </summary>
+		/// <value>The default background image.</value>
+		FileImageSource DefaultBackgroundImage {
+			get;
+		} = ImageSource.FromFile("UpButton.png") as FileImageSource;
+
+		/// <summary>
+		/// Gets the done background image.
+		/// </summary>
+		/// <value>The done background image.</value>
+		FileImageSource DoneBackgroundImage {
+			get;
+		} = ImageSource.FromFile("UpButtonDone.png") as FileImageSource;
+
+		/// <summary>
 		/// Gets or sets a value indicating whether this instance is star.
 		/// </summary>
 		/// <value><c>true</c> if this instance is star; otherwise, <c>false</c>.</value>
@@ -133,7 +149,7 @@ namespace UnidosPerderemos.Views.Profile
 			set {
 				SetValue(IsDoneProperty, value);
 
-				Button.Image = ImageSource.FromFile(value ? "UpButtonDone.png" : "UpButton.png") as FileImageSource;
+				Button.Image = value ? DoneBackgroundImage : DefaultBackgroundImage;
 			}
 		}
 	}

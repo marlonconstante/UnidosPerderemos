@@ -1,5 +1,6 @@
 ﻿using System;
 using Xamarin.Forms;
+using System.Collections.Generic;
 
 namespace UnidosPerderemos.Core.Controls
 {
@@ -34,6 +35,21 @@ namespace UnidosPerderemos.Core.Controls
 			};
 			Children.Add(EmptyProgressImage);
 			Children.Add(ProgressImage);
+
+			AddImageSources();
+		}
+
+		/// <summary>
+		/// Adds the image sources.
+		/// </summary>
+		void AddImageSources()
+		{
+			ImageSources.Clear();
+
+			for (var index = 1; index <= 10; index++)
+			{
+				ImageSources.Add(index, ImageSource.FromFile(string.Concat("Progress", index * 10, ".png")));
+			}
 		}
 
 		/// <summary>
@@ -41,7 +57,7 @@ namespace UnidosPerderemos.Core.Controls
 		/// </summary>
 		void UpdateProgressBar()
 		{
-			ProgressImage.Source = LoadImage();
+			ProgressImage.Source = ProgressImageSource;
 		}
 
 		/// <summary>
@@ -66,17 +82,19 @@ namespace UnidosPerderemos.Core.Controls
 		};
 
 		/// <summary>
-		/// Loads the image.
+		/// Gets the progress image source.
 		/// </summary>
-		/// <returns>The image.</returns>
-		ImageSource LoadImage()
-		{
-			if (Progress > 0)
-			{
-				var value = (Progress < 10) ? Math.Ceiling(Progress / 10d) : Math.Floor(Progress / 10d);
-				return ImageSource.FromFile(string.Concat("Progress", value * 10, ".png"));
+		/// <value>The progress image source.</value>
+		ImageSource ProgressImageSource {
+			get {
+				ImageSource source = null;
+				if (Progress > 0)
+				{
+					var key = (Progress < 10) ? Math.Ceiling(Progress / 10d) : Math.Floor(Progress / 10d);
+					ImageSources.TryGetValue((int) key, out source);
+				}
+				return source;
 			}
-			return null;
 		}
 
 		/// <summary>
@@ -93,5 +111,13 @@ namespace UnidosPerderemos.Core.Controls
 				UpdateProgressBar();
 			}
 		}
+
+		/// <summary>
+		/// Gets the image sources.
+		/// </summary>
+		/// <value>The image sources.</value>
+		Dictionary<int, ImageSource> ImageSources {
+			get;
+		} = new Dictionary<int, ImageSource>();
 	}
 }
