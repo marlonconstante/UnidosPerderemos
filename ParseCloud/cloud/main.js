@@ -1,6 +1,23 @@
-var Mandrill = require('mandrill');
-Mandrill.initialize('qzZLs8eZROdYBLd9IqnREQ');
+var Mandrill = require("mandrill");
+Mandrill.initialize("E229wwSK9NY7QbEKTCPObw");
 
+var SendEmail = function(email, name, subject, text) {
+	Mandrill.sendEmail({
+		message: {
+			subject: subject,
+			text: text,
+			from_email: "parse@cloudcode.com",
+			from_name: "Equipe Unidos Perderemos",
+			to: [
+				{
+					email: email,
+					name: name
+				}
+			]
+		},
+		async: true
+	});
+}
 
 var LoadProfilePhoto = function(userProfile) {
 	userProfile.get("user").fetch({
@@ -89,36 +106,11 @@ Parse.Cloud.afterSave("UserProfile", function(request) {
 	}
 });
 
-Parse.Cloud.beforeSave(Parse.User, function(request, response) {
+Parse.Cloud.afterSave(Parse.User, function(request) {
 		var user = request.object;
-		response.success();
-
-		if (user.get("email")) {
-			var emailText = "Caro " + user.get("name") + ", Obrigado por utilizar o UP.";
-
-			Mandrill.sendEmail({
-				message: {
-					text: emailText,
-					subject: "Bem vindo ao Unidos Perderemos!",
-					from_email: "parse@cloudcode.com",
-					from_name: "Equipe Unidos Perderemos",
-					to: [
-						{
-							email: user.get("email"),
-							name: user.get("name")
-						}
-					]
-				},
-				async: true
-			},{
-				success: function(httpResponse) {
-					console.log(httpResponse);
-					response.success("Email sent!");
-				},
-				error: function(httpResponse) {
-					console.error(httpResponse);
-					response.error("Uh oh, something went wrong");
-				}
-			});
+		var email = user.get("email");
+		if (email) {
+			var name = user.get("name") || "usuário";
+			SendEmail(email, name, "Bem vindo ao Unidos Perderemos!", "Caro " + name + ", obrigado por utilizar o UP.");
 		}
 });
