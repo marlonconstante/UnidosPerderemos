@@ -1,24 +1,6 @@
 var Mandrill = require("mandrill");
 Mandrill.initialize("E229wwSK9NY7QbEKTCPObw");
 
-var SendEmail = function(email, name, subject, text) {
-	Mandrill.sendEmail({
-		message: {
-			subject: subject,
-			text: text,
-			from_email: "parse@cloudcode.com",
-			from_name: "Equipe Unidos Perderemos",
-			to: [
-				{
-					email: email,
-					name: name
-				}
-			]
-		},
-		async: true
-	});
-}
-
 var LoadProfilePhoto = function(userProfile) {
 	userProfile.get("user").fetch({
 		success: function(user) {
@@ -111,6 +93,20 @@ Parse.Cloud.afterSave(Parse.User, function(request) {
 		var email = user.get("email");
 		if (email) {
 			var name = user.get("name") || "usuário";
-			SendEmail(email, name, "Bem vindo ao Unidos Perderemos!", "Caro " + name + ", obrigado por utilizar o UP.");
+			Mandrill.sendEmail({
+				message: {
+					subject: "Bem vindo ao Unidos Perderemos!",
+					text: "Caro " + name + ", obrigado por utilizar o UP.",
+					from_email: "parse@cloudcode.com",
+					from_name: "Equipe Unidos Perderemos",
+					to: [
+						{
+							email: email,
+							name: name
+						}
+					]
+				},
+				async: true
+			});
 		}
 });
