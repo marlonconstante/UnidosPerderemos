@@ -199,6 +199,11 @@
     <BundleResource Include="Resources\AverageColor%402x.png" />
     <BundleResource Include="Resources\FineColor%402x.png" />
     <BundleResource Include="Resources\PoorColor%402x.png" />
+    <BundleResource Include="Resources\Background-1%402x.jpg" />
+    <BundleResource Include="Resources\Background-2%402x.jpg" />
+    <BundleResource Include="Resources\Background-3%402x.jpg" />
+    <BundleResource Include="Resources\Background-4%402x.jpg" />
+    <BundleResource Include="Resources\BackgroundGradient%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
