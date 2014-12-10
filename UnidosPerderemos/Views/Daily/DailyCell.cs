@@ -40,11 +40,12 @@ namespace UnidosPerderemos.Views.Daily
 		}
 
 		/// <summary>
-		/// Raises the appearing event.
+		/// Override this method to execute an action when the BindingContext changes.
 		/// </summary>
-		protected override void OnAppearing()
+		/// <remarks></remarks>
+		protected override void OnBindingContextChanged()
 		{
-			base.OnAppearing();
+			base.OnBindingContextChanged();
 
 			LoadPhoto();
 

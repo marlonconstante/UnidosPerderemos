@@ -12,6 +12,7 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 	{
 		public DailyCellRenderer()
 		{
+			SeparatorInset = (CurrentVersion.Major >= 8) ? UIEdgeInsets.Zero : new UIEdgeInsets(0f, 10f, 0f, 0f);
 		}
 
 		/// <summary>
@@ -28,7 +29,7 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 
 			if (!IsLoadedCell(target))
 			{
-				target.SeparatorInset = UIEdgeInsets.Zero;
+				target.SeparatorInset = SeparatorInset;
 				tableView.SeparatorColor = UIColor.White.ColorWithAlpha(0.6f);
 				if (CurrentVersion.Major >= 8)
 				{
@@ -50,7 +51,16 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 		/// <param name="cell">Cell.</param>
 		bool IsLoadedCell(UITableViewCell cell)
 		{
-			return cell.SeparatorInset.Equals(UIEdgeInsets.Zero);
+			return cell.SeparatorInset.Equals(SeparatorInset);
+		}
+
+		/// <summary>
+		/// Gets or sets the separator inset.
+		/// </summary>
+		/// <value>The separator inset.</value>
+		UIEdgeInsets SeparatorInset {
+			get;
+			set;
 		}
 
 		/// <summary>
