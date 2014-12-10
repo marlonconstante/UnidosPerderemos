@@ -29,8 +29,11 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 			if (!IsLoadedCell(target))
 			{
 				target.SeparatorInset = UIEdgeInsets.Zero;
-				tableView.LayoutMargins = UIEdgeInsets.Zero;
 				tableView.SeparatorColor = UIColor.White.ColorWithAlpha(0.6f);
+				if (CurrentVersion.Major >= 8)
+				{
+					tableView.LayoutMargins = UIEdgeInsets.Zero;
+				}
 
 				target.SelectedBackgroundView = new UIView {
 					BackgroundColor = UIColor.White.ColorWithAlpha(0.2f)
@@ -48,6 +51,16 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 		bool IsLoadedCell(UITableViewCell cell)
 		{
 			return cell.SeparatorInset.Equals(UIEdgeInsets.Zero);
+		}
+
+		/// <summary>
+		/// Gets the current version.
+		/// </summary>
+		/// <value>The current version.</value>
+		Version CurrentVersion {
+			get {
+				return new Version(UIDevice.CurrentDevice.SystemVersion);
+			}
 		}
 	}
 }

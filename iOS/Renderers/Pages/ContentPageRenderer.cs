@@ -7,6 +7,7 @@ using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Core.Pages;
 using UnidosPerderemos.Core.Controls;
 using System.Collections.Generic;
+using System.Drawing;
 
 [assembly: ExportRenderer(typeof(ContentPage), typeof(UnidosPerderemos.iOS.Renderers.Pages.ContentPageRenderer))]
 namespace UnidosPerderemos.iOS.Renderers.Pages
@@ -36,6 +37,21 @@ namespace UnidosPerderemos.iOS.Renderers.Pages
 		}
 
 		/// <summary>
+		/// Wills the rotate.
+		/// </summary>
+		/// <param name="toInterfaceOrientation">To interface orientation.</param>
+		/// <param name="duration">Duration.</param>
+		public override void WillRotate(UIInterfaceOrientation toInterfaceOrientation, double duration)
+		{
+			base.WillRotate(toInterfaceOrientation, duration);
+
+			var frame = BackgroundImageView.Frame;
+			UIView.Animate(duration, () => {
+				BackgroundImageView.Frame = new RectangleF(0f, 0f, frame.Height, frame.Width);
+			});
+		}
+
+		/// <summary>
 		/// Adds the background image.
 		/// </summary>
 		/// <param name="imageName">Image name.</param>
@@ -43,12 +59,8 @@ namespace UnidosPerderemos.iOS.Renderers.Pages
 		{
 			if (!string.IsNullOrEmpty(imageName))
 			{
-				Target.InsertSubview(new UIImageView() {
-					Image = UIImage.FromFile(imageName),
-					AutoresizingMask = UIViewAutoresizing.FlexibleWidth,
-					ContentMode = UIViewContentMode.ScaleAspectFill,
-					Frame = UIScreen.MainScreen.Bounds
-				}, 0);
+				BackgroundImageView.Image = UIImage.FromFile(imageName);
+				Target.InsertSubview(BackgroundImageView, 0);
 			}
 		}
 
@@ -61,7 +73,7 @@ namespace UnidosPerderemos.iOS.Renderers.Pages
 			if (toolbarItems.Count > 0)
 			{
 				var leftItems = new List<UIBarButtonItem>();
-				var rightItems =  new List<UIBarButtonItem>();
+				var rightItems = new List<UIBarButtonItem>();
 				foreach (var item in toolbarItems)
 				{
 					var items = (item is LeftToolbarItem) ? leftItems : rightItems;
@@ -71,6 +83,17 @@ namespace UnidosPerderemos.iOS.Renderers.Pages
 				TopNavigationItem.RightBarButtonItems = rightItems.ToArray();
 			}
 		}
+
+		/// <summary>
+		/// Gets the background image view.
+		/// </summary>
+		/// <value>The background image view.</value>
+		UIImageView BackgroundImageView {
+			get;
+		} = new UIImageView() {
+			ContentMode = UIViewContentMode.ScaleAspectFill,
+			Frame = UIScreen.MainScreen.Bounds
+		};
 
 		/// <summary>
 		/// Gets the top navigation item.

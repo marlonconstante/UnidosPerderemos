@@ -132,7 +132,14 @@ namespace UnidosPerderemos.iOS.Renderers.Pages
 		/// <value>The height of the top bar.</value>
 		float TopBarHeight {
 			get {
-				return StatusBarSize.Height + NavigationBarSize.Height;
+				if (CurrentVersion.Major < 8)
+				{
+					return CurrentOrientation.IsLandscape() ? 52f : 64f;
+				}
+				else
+				{
+					return StatusBarSize.Height + NavigationBarSize.Height;
+				}
 			}
 		}
 
@@ -189,7 +196,32 @@ namespace UnidosPerderemos.iOS.Renderers.Pages
 		/// <value>The size of the screen.</value>
 		SizeF ScreenSize {
 			get {
-				return UIScreen.MainScreen.Bounds.Size;
+				var size = UIScreen.MainScreen.Bounds.Size;
+				if (CurrentVersion.Major < 8 && CurrentOrientation.IsLandscape())
+				{
+					size = new SizeF(size.Height, size.Width);
+				}
+				return size;
+			}
+		}
+
+		/// <summary>
+		/// Gets the current version.
+		/// </summary>
+		/// <value>The current version.</value>
+		Version CurrentVersion {
+			get {
+				return new Version(UIDevice.CurrentDevice.SystemVersion);
+			}
+		}
+
+		/// <summary>
+		/// Gets the current orientation.
+		/// </summary>
+		/// <value>The current orientation.</value>
+		UIDeviceOrientation CurrentOrientation {
+			get {
+				return UIDevice.CurrentDevice.Orientation;
 			}
 		}
 
