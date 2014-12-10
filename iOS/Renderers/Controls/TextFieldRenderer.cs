@@ -16,13 +16,13 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 		{
 		}
 
-		/// <Docs>Lays out subviews.</Docs>
 		/// <summary>
-		/// Layouts the subviews.
+		/// Raises the element changed event.
 		/// </summary>
-		public override void LayoutSubviews()
+		/// <param name="args">Arguments.</param>
+		protected override void OnElementChanged(ElementChangedEventArgs<Entry> args)
 		{
-			base.LayoutSubviews();
+			base.OnElementChanged(args);
 
 			SetUp();
 		}
