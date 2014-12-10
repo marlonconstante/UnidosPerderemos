@@ -46,8 +46,12 @@ namespace UnidosPerderemos.iOS.Renderers.Pages
 			base.WillRotate(toInterfaceOrientation, duration);
 
 			var frame = BackgroundImageView.Frame;
+			var max = Math.Max(frame.Width, frame.Height);
+			var min = Math.Min(frame.Width, frame.Height);
+
 			UIView.Animate(duration, () => {
-				BackgroundImageView.Frame = new RectangleF(0f, 0f, frame.Height, frame.Width);
+				var isLandscape = CurrentOrientation.IsLandscape();
+				BackgroundImageView.Frame = new RectangleF(0f, 0f, isLandscape ? max : min, isLandscape ? min : max);
 			});
 		}
 
@@ -81,6 +85,16 @@ namespace UnidosPerderemos.iOS.Renderers.Pages
 				}
 				TopNavigationItem.LeftBarButtonItems = leftItems.ToArray();
 				TopNavigationItem.RightBarButtonItems = rightItems.ToArray();
+			}
+		}
+
+		/// <summary>
+		/// Gets the current orientation.
+		/// </summary>
+		/// <value>The current orientation.</value>
+		UIDeviceOrientation CurrentOrientation {
+			get {
+				return UIDevice.CurrentDevice.Orientation;
 			}
 		}
 
