@@ -73,7 +73,7 @@ namespace UnidosPerderemos.Views.Friend
 			UserProfile = userProfile;
 			SetContentPage();
 
-			if (isCurrentPage)
+			if (isCurrentPage && IsFacebookUser)
 			{
 				LoadFriends();
 			}
