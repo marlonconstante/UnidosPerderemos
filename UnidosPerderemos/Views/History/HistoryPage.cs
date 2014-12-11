@@ -68,7 +68,7 @@ namespace UnidosPerderemos.Views.History
 		{
 			UserProfile = userProfile;
 
-			if (isCurrentPage)
+			if (isCurrentPage && DailyListView.ItemsSource == null)
 			{
 				UpdateCurrentHistory();
 			}
@@ -108,7 +108,9 @@ namespace UnidosPerderemos.Views.History
 					AllProgress.AddRange(await DependencyService.Get<IProgressService>().Find(user));
 				}
 
-				UpdateContent((ProgressType) InputProgressType.SelectedItem);
+				Device.BeginInvokeOnMainThread(() => {
+					UpdateContent((ProgressType) InputProgressType.SelectedItem);
+				});
 
 				ActivityIndicator.IsVisible = false;
 			}
