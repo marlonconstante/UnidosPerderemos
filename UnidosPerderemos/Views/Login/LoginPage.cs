@@ -48,7 +48,7 @@ namespace UnidosPerderemos.Views.Login
 		void OnFacebookClicked(object sender, EventArgs args)
 		{
 			DependencyService.Get<IUserService>().LoginWithFacebook(() => {
-				Navigation.PushAsync(new AboutPage());
+				App.Instance.PushAboutPageIfNeeded(Navigation);
 			}, () => {
 				DisplayAlert("Ops...", "Ocorreu um erro durante o processo de autenticação com o Facebook.", "Entendi");
 			});
@@ -63,7 +63,7 @@ namespace UnidosPerderemos.Views.Login
 		{
 			if (await DependencyService.Get<IUserService>().Login(User))
 			{
-				await Navigation.PushAsync(new AboutPage());
+				App.Instance.PushAboutPageIfNeeded(Navigation);
 			}
 			else
 			{

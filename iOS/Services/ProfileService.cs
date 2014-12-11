@@ -11,6 +11,11 @@ namespace UnidosPerderemos.iOS.Services
 	public class ProfileService : IProfileService
 	{
 		/// <summary>
+		/// The registration finished key.
+		/// </summary>
+		const string RegistrationFinishedKey = "isRegistrationFinished";
+
+		/// <summary>
 		/// Load this instance.
 		/// </summary>
 		public async Task<UserProfile> Load()
@@ -77,11 +82,35 @@ namespace UnidosPerderemos.iOS.Services
 
 				userProfile.ObjectId = parseObject.ObjectId;
 
+				FinalizeRegistration();
+
 				return true;
 			}
 			catch (Exception ex)
 			{
 				return false;
+			}
+		}
+
+		/// <summary>
+		/// Finalizes the registration.
+		/// </summary>
+		void FinalizeRegistration() {
+			if (!CurrentUser.Get<bool>(RegistrationFinishedKey))
+			{
+				CurrentUser.Remove(RegistrationFinishedKey);
+				CurrentUser.Add(RegistrationFinishedKey, true);
+				CurrentUser.SaveAsync();
+			}
+		}
+
+		/// <summary>
+		/// Gets the current user.
+		/// </summary>
+		/// <value>The current user.</value>
+		ParseUser CurrentUser {
+			get {
+				return ParseUser.CurrentUser;
 			}
 		}
 	}

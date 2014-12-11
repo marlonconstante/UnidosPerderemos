@@ -113,7 +113,7 @@ Parse.Cloud.afterSave("UserProfile", function(request) {
 Parse.Cloud.afterSave(Parse.User, function(request) {
 		var user = request.object;
 		var email = user.get("email");
-		if (email) {
+		if (email && !user.get("isRegistrationFinished")) {
 			var name = user.get("name") || "usuário";
 			SendEmail(email, name, "Bem vindo ao Unidos Perderemos!", "Caro " + name + ", obrigado por utilizar o UP.");
 		}
