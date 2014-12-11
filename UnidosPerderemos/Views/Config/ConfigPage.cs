@@ -33,8 +33,9 @@ namespace UnidosPerderemos.Views.Config
 		/// <summary>
 		/// Logout this instance.
 		/// </summary>
-		void Logout()
+		async void Logout()
 		{
+			await Navigation.PopModalAsync();
 			DependencyService.Get<IUserService>().Logout();
 			App.Instance.ReloadMainPage();
 		}
@@ -145,7 +146,7 @@ namespace UnidosPerderemos.Views.Config
 		/// <summary>
 		/// Save this instance.
 		/// </summary>
-		async Task Save()
+		async void Save()
 		{
 			UserProfile.DateOfBirth = m_dateField.Date;
 			UserProfile.Gender = (Gender) m_inputGender.SelectedItem;
