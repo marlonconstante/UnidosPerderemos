@@ -15,6 +15,21 @@ namespace UnidosPerderemos.iOS.Renderers.Pages
 	public class ContentPageRenderer : PageRenderer
 	{
 		/// <summary>
+		/// Raises the element changed event.
+		/// </summary>
+		/// <param name="args">Arguments.</param>
+		protected override void OnElementChanged(VisualElementChangedEventArgs args)
+		{
+			base.OnElementChanged(args);
+
+			if (ControlPage != null)
+			{
+				AddBackgroundImage(ControlPage.BackgroundImageName());
+			}
+			AddSwipeGestureRecognizer();
+		}
+
+		/// <summary>
 		/// Views the will appear.
 		/// </summary>
 		/// <param name="animated">If set to <c>true</c> animated.</param>
@@ -29,8 +44,6 @@ namespace UnidosPerderemos.iOS.Renderers.Pages
 
 				var lightStyle = StatusBarStyle.Light == ControlPage.PreferredStatusBarStyle();
 				Application.StatusBarStyle = lightStyle ? UIStatusBarStyle.LightContent : UIStatusBarStyle.Default;
-
-				AddBackgroundImage(ControlPage.BackgroundImageName());
 			}
 
 			AddNavigationItems();
@@ -89,6 +102,21 @@ namespace UnidosPerderemos.iOS.Renderers.Pages
 		}
 
 		/// <summary>
+		/// Adds the swipe gesture recognizer.
+		/// </summary>
+		void AddSwipeGestureRecognizer()
+		{
+			Target.AddGestureRecognizer(new UISwipeGestureRecognizer(() => {
+				if (TopViewController != InitialViewController)
+				{
+					NavigationController.PopViewControllerAnimated(true);
+				}
+			}) {
+				Direction = UISwipeGestureRecognizerDirection.Right
+			});
+		}
+
+		/// <summary>
 		/// Gets the current orientation.
 		/// </summary>
 		/// <value>The current orientation.</value>
@@ -115,7 +143,27 @@ namespace UnidosPerderemos.iOS.Renderers.Pages
 		/// <value>The top navigation item.</value>
 		UINavigationItem TopNavigationItem {
 			get {
-				return NavigationController.TopViewController.NavigationItem;
+				return TopViewController.NavigationItem;
+			}
+		}
+
+		/// <summary>
+		/// Gets the top view controller.
+		/// </summary>
+		/// <value>The top view controller.</value>
+		UIViewController TopViewController {
+			get {
+				return NavigationController.TopViewController;
+			}
+		}
+
+		/// <summary>
+		/// Gets the initial view controller.
+		/// </summary>
+		/// <value>The initial view controller.</value>
+		UIViewController InitialViewController {
+			get {
+				return NavigationController.ViewControllers[0];
 			}
 		}
 
