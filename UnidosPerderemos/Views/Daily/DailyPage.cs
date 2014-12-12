@@ -6,6 +6,7 @@ using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Services;
 using UnidosPerderemos.Models;
 using UnidosPerderemos.Views.Weekly;
+using System.Threading.Tasks;
 
 namespace UnidosPerderemos.Views.Daily
 {
@@ -108,6 +109,21 @@ namespace UnidosPerderemos.Views.Daily
 		/// <param name="sender">Sender.</param>
 		/// <param name="args">Arguments.</param>
 		async void OnUpClicked(object sender, EventArgs args)
+		{
+			var button = sender as Button;
+			try {
+				button.IsEnabled = false;
+				await SaveUserProgress();
+			} finally {
+				button.IsEnabled = true;
+			}
+		}
+
+		/// <summary>
+		/// Saves the user progress.
+		/// </summary>
+		/// <returns>The user progress.</returns>
+		async Task SaveUserProgress()
 		{
 			if (UserProgress.ObjectId == null)
 			{

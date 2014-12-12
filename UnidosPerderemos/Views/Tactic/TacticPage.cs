@@ -7,6 +7,7 @@ using UnidosPerderemos.Core.Pages;
 using UnidosPerderemos.Core.Controls;
 using UnidosPerderemos.Models;
 using UnidosPerderemos.Services;
+using System.Threading.Tasks;
 
 namespace UnidosPerderemos.Views.Tactic
 {
@@ -44,6 +45,21 @@ namespace UnidosPerderemos.Views.Tactic
 		/// <param name="sender">Sender.</param>
 		/// <param name="args">Arguments.</param>
 		async void OnContinueClicked(object sender, EventArgs args)
+		{
+			var button = sender as Button;
+			try {
+				button.IsEnabled = false;
+				await SaveUserProfile();
+			} finally {
+				button.IsEnabled = true;
+			}
+		}
+
+		/// <summary>
+		/// Saves the user profile.
+		/// </summary>
+		/// <returns>The user profile.</returns>
+		async Task SaveUserProfile()
 		{
 			UserProfile.IsTacticExercise = SwitchExercise.IsToggled;
 			UserProfile.IsTacticFeed = SwitchFeed.IsToggled;
