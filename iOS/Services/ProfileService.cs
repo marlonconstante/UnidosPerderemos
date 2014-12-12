@@ -102,7 +102,8 @@ namespace UnidosPerderemos.iOS.Services
 		/// <summary>
 		/// Finalizes the registration.
 		/// </summary>
-		void FinalizeRegistration() {
+		void FinalizeRegistration()
+		{
 			var isRegistrationFinished = CurrentUser.ContainsKey(RegistrationFinishedKey) && CurrentUser.Get<bool>(RegistrationFinishedKey);
 			if (!isRegistrationFinished)
 			{
