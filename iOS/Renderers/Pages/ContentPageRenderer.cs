@@ -8,6 +8,7 @@ using UnidosPerderemos.Core.Pages;
 using UnidosPerderemos.Core.Controls;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 [assembly: ExportRenderer(typeof(ContentPage), typeof(UnidosPerderemos.iOS.Renderers.Pages.ContentPageRenderer))]
 namespace UnidosPerderemos.iOS.Renderers.Pages
@@ -47,6 +48,8 @@ namespace UnidosPerderemos.iOS.Renderers.Pages
 			}
 
 			AddNavigationItems();
+			ScrollToTop();
+			UpdateBackgroundFrame();
 		}
 
 		/// <summary>
@@ -58,6 +61,31 @@ namespace UnidosPerderemos.iOS.Renderers.Pages
 		{
 			base.WillRotate(toInterfaceOrientation, duration);
 
+			ScrollToTop(duration);
+			UpdateBackgroundFrame(duration);
+		}
+
+		/// <summary>
+		/// Scrolls to top.
+		/// </summary>
+		/// <param name="duration">Duration.</param>
+		void ScrollToTop(double duration = 0d)
+		{
+			UIView.Animate(duration, () => {
+				foreach (var view in Target.Subviews.Where((v) => v is UIScrollView))
+				{
+					var scrollView = view as UIScrollView;
+					scrollView.ScrollRectToVisible(new RectangleF(0f, 0f, 1f, 1f), false);
+				}
+			});
+		}
+
+		/// <summary>
+		/// Updates the background frame.
+		/// </summary>
+		/// <param name="duration">Duration.</param>
+		void UpdateBackgroundFrame(double duration = 0d)
+		{
 			var frame = BackgroundImageView.Frame;
 			var max = Math.Max(frame.Width, frame.Height);
 			var min = Math.Min(frame.Width, frame.Height);
