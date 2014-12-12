@@ -6,6 +6,9 @@ using MonoTouch.UIKit;
 using UnidosPerderemos.Core.Controls;
 using MonoTouch.CoreAnimation;
 using System.Drawing;
+using System.ComponentModel;
+using MonoTouch.Foundation;
+using System.IO;
 
 [assembly: ExportRenderer(typeof(TextArea), typeof(UnidosPerderemos.iOS.Renderers.Controls.TextAreaRenderer))]
 namespace UnidosPerderemos.iOS.Renderers.Controls
@@ -16,6 +19,33 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 		{
 		}
 
+		/// <summary>
+		/// Raises the element changed event.
+		/// </summary>
+		/// <param name="args">Arguments.</param>
+		protected override void OnElementChanged(ElementChangedEventArgs<Editor> args)
+		{
+			base.OnElementChanged(args);
+
+			SetUp();
+		}
+
+		/// <summary>
+		/// Raises the element property changed event.
+		/// </summary>
+		/// <param name="sender">Sender.</param>
+		/// <param name="args">Arguments.</param>
+		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs args)
+		{
+			base.OnElementPropertyChanged(sender, args);
+
+			if (TextArea.BackgroundImageProperty.PropertyName == args.PropertyName)
+			{
+				var backgroundImage = UIImage.LoadFromData(NSData.FromStream(Source.BackgroundImage ?? Stream.Null));
+				BackgroundImageView.Image = backgroundImage;
+			}
+		}
+
 		/// <Docs>Lays out subviews.</Docs>
 		/// <summary>
 		/// Layouts the subviews.
@@ -24,7 +54,7 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 		{
 			base.LayoutSubviews();
 
-			SetUp();
+			BackgroundImageView.Frame = Target.Frame;
 		}
 
 		/// <summary>
@@ -38,9 +68,22 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 				Target.TextColor = Source.TextColor.ToUIColor();
 				Target.TextContainerInset = new UIEdgeInsets(10f, 10f, 10f, 10f);
 
+				Target.InsertSubview(BackgroundImageView, 0);
+
 				Initialized = true;
 			}
 		}
+
+		/// <summary>
+		/// Gets the background image view.
+		/// </summary>
+		/// <value>The background image view.</value>
+		UIImageView BackgroundImageView {
+			get;
+		} = new UIImageView() {
+			ContentMode = UIViewContentMode.ScaleAspectFill,
+			Alpha = 0.2f
+		};
 
 		/// <summary>
 		/// Gets the source.

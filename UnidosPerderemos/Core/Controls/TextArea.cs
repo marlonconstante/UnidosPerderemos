@@ -1,5 +1,6 @@
 ﻿using System;
 using Xamarin.Forms;
+using System.IO;
 
 namespace UnidosPerderemos.Core.Controls
 {
@@ -14,6 +15,11 @@ namespace UnidosPerderemos.Core.Controls
 		/// The text color property.
 		/// </summary>
 		public static readonly BindableProperty TextColorProperty = BindableProperty.Create<TextArea, Color>(p => p.TextColor, Color.Default);
+
+		/// <summary>
+		/// The background image property.
+		/// </summary>
+		public static readonly BindableProperty BackgroundImageProperty = BindableProperty.Create<TextArea, Stream>(p => p.BackgroundImage, Stream.Null);
 
 		public TextArea()
 		{
@@ -74,6 +80,19 @@ namespace UnidosPerderemos.Core.Controls
 			}
 			set {
 				SetValue(TextColorProperty, value);
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the background image.
+		/// </summary>
+		/// <value>The background image.</value>
+		public Stream BackgroundImage {
+			get {
+				return (Stream) GetValue(BackgroundImageProperty);
+			}
+			set {
+				SetValue(BackgroundImageProperty, value);
 			}
 		}
 	}

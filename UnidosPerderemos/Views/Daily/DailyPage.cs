@@ -87,6 +87,7 @@ namespace UnidosPerderemos.Views.Daily
 			PerformanceFeed.Performance = UserProgress.PerformanceFeed;
 			ActivityToday.Text = UserProgress.Comments;
 			ActivityToday.Photo = UserProgress.Photo;
+			ActivityToday.UpdatePhoto();
 
 			UpdateContentView();
 		}
