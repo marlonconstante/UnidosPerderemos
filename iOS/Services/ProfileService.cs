@@ -4,6 +4,7 @@ using UnidosPerderemos.Models;
 using System.Threading.Tasks;
 using UnidosPerderemos.iOS.Utils;
 using Parse;
+using System.Threading;
 
 [assembly: Xamarin.Forms.Dependency(typeof(UnidosPerderemos.iOS.Services.ProfileService))]
 namespace UnidosPerderemos.iOS.Services
@@ -75,6 +76,8 @@ namespace UnidosPerderemos.iOS.Services
 		{
 			try
 			{
+				await Semaphore.WaitAsync();
+
 				userProfile.UserName = ParseUser.CurrentUser.Get<string>("name");
 
 				var parseObject = userProfile.ToParseObject<ParseObject>();
@@ -90,6 +93,10 @@ namespace UnidosPerderemos.iOS.Services
 			{
 				return false;
 			}
+			finally
+			{
+				Semaphore.Release();
+			}
 		}
 
 		/// <summary>
@@ -104,6 +111,14 @@ namespace UnidosPerderemos.iOS.Services
 				CurrentUser.SaveAsync();
 			}
 		}
+
+		/// <summary>
+		/// Gets the semaphore.
+		/// </summary>
+		/// <value>The semaphore.</value>
+		SemaphoreSlim Semaphore {
+			get;
+		} = new SemaphoreSlim(1);
 
 		/// <summary>
 		/// Gets the current user.
