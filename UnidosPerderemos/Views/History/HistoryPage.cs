@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using UnidosPerderemos.Core.Controls;
 using UnidosPerderemos.Views.Daily;
 using UnidosPerderemos.Views.Weekly;
+using System.Linq;
 
 namespace UnidosPerderemos.Views.History
 {
@@ -71,7 +72,7 @@ namespace UnidosPerderemos.Views.History
 		{
 			UserProfile = userProfile;
 
-			if (isCurrentPage && DailyListView.ItemsSource == null)
+			if (isCurrentPage && AllProgress == null)
 			{
 				UpdateCurrentHistory();
 			}
@@ -107,8 +108,7 @@ namespace UnidosPerderemos.Views.History
 
 				if (user != null)
 				{
-					AllProgress.Clear();
-					AllProgress.AddRange(await DependencyService.Get<IProgressService>().Find(user));
+					AllProgress = (await DependencyService.Get<IProgressService>().Find(user)).ToList();
 				}
 
 				Device.BeginInvokeOnMainThread(() => {
@@ -129,7 +129,7 @@ namespace UnidosPerderemos.Views.History
 			if (type == ProgressType.Daily)
 			{
 				DailyListView.ItemsSource = AllProgress;
-				if (AllProgress.Count > 0)
+				if (AllProgress != null && AllProgress.Count > 0)
 				{
 					ContentLayout.Children.Add(DailyListView);
 				}
@@ -139,7 +139,7 @@ namespace UnidosPerderemos.Views.History
 			else
 			{
 				WeeklyProgressView.ItemsSource = AllProgress;
-				if (AllProgress.Count > 0)
+				if (AllProgress != null && AllProgress.Count > 0)
 				{
 					ContentLayout.Children.Add(WeeklyProgressView);
 				}
@@ -226,12 +226,13 @@ namespace UnidosPerderemos.Views.History
 		};
 
 		/// <summary>
-		/// Gets all progress.
+		/// Gets or sets all progress.
 		/// </summary>
 		/// <value>All progress.</value>
 		List<UserProgress> AllProgress {
 			get;
-		} = new List<UserProgress>();
+			set;
+		}
 
 		/// <summary>
 		/// Gets or sets the user profile.
