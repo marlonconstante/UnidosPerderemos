@@ -90,9 +90,7 @@ namespace UnidosPerderemos.Views.Daily
 			HorizontalOptions = LayoutOptions.Start,
 			VerticalOptions = LayoutOptions.Start,
 			Aspect = Aspect.AspectFill,
-			BackgroundColor = Color.White.MultiplyAlpha(0.3d),
-			WidthRequest = 300d,
-			HeightRequest = 169d,
+			HeightRequest = 200d,
 			IsVisible = false
 		};
 
