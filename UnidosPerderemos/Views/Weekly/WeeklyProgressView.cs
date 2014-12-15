@@ -91,6 +91,10 @@ namespace UnidosPerderemos.Views.Weekly
 		/// </summary>
 		void UpdateWeek()
 		{
+			if (ActivityIndicator != null)
+			{
+				ActivityIndicator.IsVisible = true;
+			}
 			for (var row = 1; row < Days.Length; row++)
 			{
 				var userProgress = GetDailyProgress(RangeView.CurrentStartOfWeek.AddDays(row - 1d));
@@ -105,6 +109,12 @@ namespace UnidosPerderemos.Views.Weekly
 					}
 					UpdateContentView(key, userProgress);
 				}
+			}
+			if (ActivityIndicator != null)
+			{
+				Device.BeginInvokeOnMainThread(() => {
+					ActivityIndicator.IsVisible = false;
+				});
 			}
 		}
 
@@ -329,6 +339,15 @@ namespace UnidosPerderemos.Views.Weekly
 				}
 				UpdateWeek();
 			}
+		}
+
+		/// <summary>
+		/// Gets or sets the activity indicator.
+		/// </summary>
+		/// <value>The activity indicator.</value>
+		public ActivityIndicator ActivityIndicator {
+			get;
+			set;
 		}
 	}
 }

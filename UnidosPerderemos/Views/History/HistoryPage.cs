@@ -32,6 +32,9 @@ namespace UnidosPerderemos.Views.History
 				UpdateHistory();
 			};
 
+			ContentLayout.Children.Add(ProgressTypeBox);
+			WeeklyProgressView.ActivityIndicator = ActivityIndicator;
+
 			SetContentPage();
 		}
 
@@ -111,8 +114,6 @@ namespace UnidosPerderemos.Views.History
 				Device.BeginInvokeOnMainThread(() => {
 					UpdateContent((ProgressType) InputProgressType.SelectedItem);
 				});
-
-				ActivityIndicator.IsVisible = false;
 			}
 		}
 
@@ -122,18 +123,26 @@ namespace UnidosPerderemos.Views.History
 		/// <param name="type">Type.</param>
 		void UpdateContent(ProgressType type)
 		{
-			DailyListView.IsVisible = false;
-			WeeklyProgressView.IsVisible = false;
+			ContentLayout.Children.Remove(DailyListView);
+			ContentLayout.Children.Remove(WeeklyProgressView);
 
 			if (type == ProgressType.Daily)
 			{
 				DailyListView.ItemsSource = AllProgress;
-				DailyListView.IsVisible = AllProgress.Count > 0;
+				if (AllProgress.Count > 0)
+				{
+					ContentLayout.Children.Add(DailyListView);
+				}
+
+				ActivityIndicator.IsVisible = false;
 			}
 			else
 			{
 				WeeklyProgressView.ItemsSource = AllProgress;
-				WeeklyProgressView.IsVisible = AllProgress.Count > 0;
+				if (AllProgress.Count > 0)
+				{
+					ContentLayout.Children.Add(WeeklyProgressView);
+				}
 			}
 		}
 
@@ -155,17 +164,10 @@ namespace UnidosPerderemos.Views.History
 		/// </summary>
 		/// <value>The content layout.</value>
 		StackLayout ContentLayout {
-			get {
-				return new StackLayout {
-					Spacing = 0d,
-					Children = {
-						ProgressTypeBox,
-						DailyListView,
-						WeeklyProgressView
-					}
-				};
-			}
-		}
+			get;
+		} = new StackLayout {
+			Spacing = 0d
+		};
 
 		/// <summary>
 		/// Gets the activity indicator.
@@ -202,7 +204,6 @@ namespace UnidosPerderemos.Views.History
 		} = new ListView {
 			ItemTemplate = new DataTemplate(typeof(DailyCell)),
 			BackgroundColor = Color.Transparent,
-			IsVisible = false,
 			HasUnevenRows = true
 		};
 
@@ -212,9 +213,7 @@ namespace UnidosPerderemos.Views.History
 		/// <value>The weekly progress view.</value>
 		WeeklyProgressView WeeklyProgressView {
 			get;
-		} = new WeeklyProgressView {
-			IsVisible = false
-		};
+		} = new WeeklyProgressView();
 
 		/// <summary>
 		/// Gets the type of the input progress.
