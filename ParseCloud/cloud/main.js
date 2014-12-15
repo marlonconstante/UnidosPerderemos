@@ -50,28 +50,32 @@ var SaveProfilePhoto = function(imageUrl, userProfile) {
 	});
 }
 
-var QueryWeeklyDedication = function(userProgress) {
-	var maxDate = userProgress.get("date");
+var QueryDedication = function(user, maxDate, previousDays) {
 	var minDate = new Date();
-	minDate.setDate(maxDate.getDate() - 6);
+	minDate.setDate(maxDate.getDate() - previousDays);
 	minDate.setHours(0, 0, 0, 0);
 
 	var query = new Parse.Query(Parse.Object.extend("UserProgress"));
-	query.equalTo("user", userProgress.get("user"));
+	query.equalTo("user", user);
 	query.greaterThanOrEqualTo("date", minDate);
 	query.lessThan("date", maxDate);
 
 	return query;
 }
 
+var SumDedication = function(results) {
+	var dedication = 0;
+	for (var index = 0; index < results.length; index++) {
+		dedication += results[index].get("dailyDedication");
+	}
+	return dedication;
+}
+
 Parse.Cloud.beforeSave("UserProgress", function(request, response) {
 	request.object.set("user", request.user);
-	QueryWeeklyDedication(request.object).find({
+	QueryDedication(request.user, request.object.get("date"), 6).find({
 		success: function(results) {
-			var weeklyDedication = request.object.get("dailyDedication");
-			for (var index = 0; index < results.length; index++) {
-				weeklyDedication += results[index].get("dailyDedication");
-			}
+			var weeklyDedication = request.object.get("dailyDedication") + SumDedication(results);
 			request.object.set("weeklyDedication", weeklyDedication);
 			response.success();
 		},
@@ -108,6 +112,30 @@ Parse.Cloud.afterSave("UserProfile", function(request) {
 	if (!userProfile.get("photo")) {
 		LoadProfilePhoto(userProfile);
 	}
+});
+
+Parse.Cloud.define("LoadUserProfile", function(request, response) {
+	var query = new Parse.Query(Parse.Object.extend("UserProfile"));
+	query.equalTo("user", request.user);
+	query.first({
+		success: function(userProfile) {
+			if (userProfile) {
+				QueryDedication(request.user, request.params.maxDate, 7).find({
+					success: function(results) {
+						var weeklyDedication = SumDedication(results);
+						userProfile.set("weeklyDedication", weeklyDedication);
+						userProfile.save();
+						response.success(userProfile);
+					},
+					error: function() {
+						response.error("Atualização da dedicação semanal falhou...");
+					}
+				});
+			} else {
+				response.success();
+			}
+		}
+	});
 });
 
 Parse.Cloud.afterSave(Parse.User, function(request) {
