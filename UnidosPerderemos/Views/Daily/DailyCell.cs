@@ -26,7 +26,7 @@ namespace UnidosPerderemos.Views.Daily
 			this.SetBinding(PhotoProperty, "Photo");
 
 			LabelDate.SetBinding(Label.TextProperty, "FormattedDate");
-			LabelDescription.SetBinding(Label.TextProperty, "Comments");
+			LabelDescription.SetBinding(Label.TextProperty, "NotEmptyComments");
 
 			View = new StackLayout {
 				Spacing = 3d,
@@ -90,7 +90,7 @@ namespace UnidosPerderemos.Views.Daily
 			HorizontalOptions = LayoutOptions.Start,
 			VerticalOptions = LayoutOptions.Start,
 			Aspect = Aspect.AspectFill,
-			BackgroundColor = Color.White,
+			BackgroundColor = Color.White.MultiplyAlpha(0.3d),
 			WidthRequest = 300d,
 			HeightRequest = 169d,
 			IsVisible = false

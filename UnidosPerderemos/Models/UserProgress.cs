@@ -134,6 +134,16 @@ namespace UnidosPerderemos.Models
 		}
 
 		/// <summary>
+		/// Gets the not empty comments.
+		/// </summary>
+		/// <value>The not empty comments.</value>
+		public string NotEmptyComments {
+			get {
+				return string.IsNullOrEmpty(Comments) ? "Nenhum comentário" : Comments;
+			}
+		}
+
+		/// <summary>
 		/// Gets the formatted date.
 		/// </summary>
 		/// <value>The formatted date.</value>
