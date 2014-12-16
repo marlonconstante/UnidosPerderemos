@@ -36,6 +36,7 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 			{
 				Target.BackgroundColor = UIColor.Clear;
 				Target.BorderStyle = UITextBorderStyle.None;
+				Target.AdjustsFontSizeToFitWidth = true;
 				Target.TextAlignment = Source.TextAlignment.ToUITextAlignment();
 				Target.Font = Source.Font.ToUIFont();
 				Target.SetValueForKeyPath(Source.TextColor.ToUIColor(), new NSString("_placeholderLabel.textColor"));
