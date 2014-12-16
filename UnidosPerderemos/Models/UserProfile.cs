@@ -166,6 +166,54 @@ namespace UnidosPerderemos.Models
 		}
 
 		/// <summary>
+		/// Gets or sets the date last prize.
+		/// </summary>
+		/// <value>The date last prize.</value>
+		public DateTime? DateLastPrize {
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// Gets the prize weeks.
+		/// </summary>
+		/// <value>The prize weeks.</value>
+		public int PrizeWeeks {
+			get {
+				if (DateLastPrize == null)
+				{
+					return 0;
+				}
+				else
+				{
+					return ((DateTime.Now.Date - DateLastPrize.Value).Days / 7) + 1;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Determines whether this instance is changed date last prize.
+		/// </summary>
+		/// <returns><c>true</c> if this instance is changed date last prize; otherwise, <c>false</c>.</returns>
+		public bool IsChangedDateLastPrize()
+		{
+			if (IsPrizewinner)
+			{
+				if (DateLastPrize == null)
+				{
+					DateLastPrize = DateTime.Now.Date;
+					return true;
+				}
+			}
+			else if (DateLastPrize != null)
+			{
+				DateLastPrize = null;
+				return true;
+			}
+			return false;
+		}
+
+		/// <summary>
 		/// Gets a value indicating whether this instance is daily performed.
 		/// </summary>
 		/// <value><c>true</c> if this instance is daily performed; otherwise, <c>false</c>.</value>

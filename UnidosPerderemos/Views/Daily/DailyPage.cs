@@ -137,22 +137,33 @@ namespace UnidosPerderemos.Views.Daily
 
 			if (await DependencyService.Get<IProgressService>().Save(UserProgress))
 			{
-				var withoutPrize = !UserProfile.IsPrizewinner;
-
 				UserProfile.DateLastDaily = UserProgress.Date;
 				if (UserProgress.Type == ProgressType.Weekly)
 				{
 					UserProfile.DateLastWeekly = UserProgress.Date;
 				}
 				UserProfile.WeeklyDedication = UserProgress.WeeklyDedication;
-
-				if (withoutPrize && UserProfile.IsPrizewinner)
+				if (UserProfile.IsChangedDateLastPrize())
 				{
-					await DisplayAlert("Parabéns!", "Você foi premiado com uma estrela por sua dedicação.", "Entendi");
+					DependencyService.Get<IProfileService>().Save(UserProfile);
 				}
-				else
+				switch (UserProfile.PrizeWeeks)
 				{
-					await DisplayAlert("Pronto!", "Progresso atualizado com sucesso.", "Entendi");
+					case 1:
+						await DisplayAlert("Continue firme!", "É só o início e você está indo bem.", "Entendi");
+						break;
+					case 2:
+						await DisplayAlert("Força!", "O resultado virá em breve!", "Entendi");
+						break;
+					case 3:
+						await DisplayAlert("Siga em frente!", "Sua dedicação será recompensada.", "Entendi");
+						break;
+					case 4:
+						await DisplayAlert("Parabéns!", "Agora você pode aproveitar um “happy com os amigos”.", "Entendi");
+						break;
+					default:
+						await DisplayAlert("Pronto!", "Progresso atualizado com sucesso.", "Entendi");
+						break;
 				}
 
 				await Navigation.PopModalAsync();
