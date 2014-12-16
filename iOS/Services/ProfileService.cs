@@ -4,6 +4,8 @@ using UnidosPerderemos.Models;
 using System.Threading.Tasks;
 using UnidosPerderemos.iOS.Utils;
 using Parse;
+using System.Threading;
+using System.Collections.Generic;
 
 [assembly: Xamarin.Forms.Dependency(typeof(UnidosPerderemos.iOS.Services.ProfileService))]
 namespace UnidosPerderemos.iOS.Services
@@ -11,13 +13,21 @@ namespace UnidosPerderemos.iOS.Services
 	public class ProfileService : IProfileService
 	{
 		/// <summary>
+		/// The registration finished key.
+		/// </summary>
+		const string RegistrationFinishedKey = "isRegistrationFinished";
+
+		/// <summary>
 		/// Load this instance.
 		/// </summary>
 		public async Task<UserProfile> Load()
 		{
-			var query = ParseObject.GetQuery("UserProfile").WhereEqualTo("user", ParseUser.CurrentUser);
+			var parameters = new Dictionary<string, object>();
+			parameters.Add("maxDate", DateTime.Now.AddDays(1d).Date);
 
-			return await FirstOrDefault(query);
+			return await FirstOrDefault(() => {
+				return ParseCloud.CallFunctionAsync<ParseObject>("LoadUserProfile", parameters);
+			});
 		}
 
 		/// <summary>
@@ -31,7 +41,9 @@ namespace UnidosPerderemos.iOS.Services
 			            join facebookUser in GetFacebookUserQuery(facebookId) on userProfile["user"] equals facebookUser
 			            select userProfile;
 
-			return await FirstOrDefault(query);
+			return await FirstOrDefault(() => {
+				return query.FirstOrDefaultAsync();
+			});
 		}
 
 		/// <summary>
@@ -48,12 +60,12 @@ namespace UnidosPerderemos.iOS.Services
 		/// Firsts the or default.
 		/// </summary>
 		/// <returns>The or default.</returns>
-		/// <param name="query">Query.</param>
-		async Task<UserProfile> FirstOrDefault(ParseQuery<ParseObject> query)
+		/// <param name="function">Function.</param>
+		async Task<UserProfile> FirstOrDefault(Func<Task<ParseObject>> function)
 		{
 			try
 			{
-				var parseObject = await query.FirstOrDefaultAsync() ?? new ParseObject("UserProfile");
+				var parseObject = await function() ?? new ParseObject("UserProfile");
 				return parseObject.ToDomain<UserProfile>();
 			}
 			catch (Exception ex)
@@ -70,6 +82,8 @@ namespace UnidosPerderemos.iOS.Services
 		{
 			try
 			{
+				await Semaphore.WaitAsync();
+
 				userProfile.UserName = ParseUser.CurrentUser.Get<string>("name");
 
 				var parseObject = userProfile.ToParseObject<ParseObject>();
@@ -77,11 +91,49 @@ namespace UnidosPerderemos.iOS.Services
 
 				userProfile.ObjectId = parseObject.ObjectId;
 
+				FinalizeRegistration();
+
 				return true;
 			}
 			catch (Exception ex)
 			{
 				return false;
+			}
+			finally
+			{
+				Semaphore.Release();
+			}
+		}
+
+		/// <summary>
+		/// Finalizes the registration.
+		/// </summary>
+		void FinalizeRegistration()
+		{
+			var isRegistrationFinished = CurrentUser.ContainsKey(RegistrationFinishedKey) && CurrentUser.Get<bool>(RegistrationFinishedKey);
+			if (!isRegistrationFinished)
+			{
+				CurrentUser.Remove(RegistrationFinishedKey);
+				CurrentUser.Add(RegistrationFinishedKey, true);
+				CurrentUser.SaveAsync();
+			}
+		}
+
+		/// <summary>
+		/// Gets the semaphore.
+		/// </summary>
+		/// <value>The semaphore.</value>
+		SemaphoreSlim Semaphore {
+			get;
+		} = new SemaphoreSlim(1);
+
+		/// <summary>
+		/// Gets the current user.
+		/// </summary>
+		/// <value>The current user.</value>
+		ParseUser CurrentUser {
+			get {
+				return ParseUser.CurrentUser;
 			}
 		}
 	}

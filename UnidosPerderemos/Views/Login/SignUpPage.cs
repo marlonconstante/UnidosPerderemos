@@ -17,7 +17,7 @@ namespace UnidosPerderemos.Views.Login
 
 			Content = new ScrollView {
 				Content = new StackLayout {
-					Spacing = 25d,
+					Spacing = 22d,
 					Padding = new Thickness(16d),
 					Children = {
 						WelcomeBox,
@@ -49,7 +49,7 @@ namespace UnidosPerderemos.Views.Login
 		void OnFacebookClicked(object sender, EventArgs args)
 		{
 			DependencyService.Get<IUserService>().LoginWithFacebook(() => {
-				Navigation.PushAsync(new AboutPage());
+				App.Instance.PushAboutPageIfNeeded(Navigation);
 			}, () => {
 				DisplayAlert("Ops...", "Ocorreu um erro durante o processo de autenticação com o Facebook.", "Entendi");
 			});
@@ -64,7 +64,7 @@ namespace UnidosPerderemos.Views.Login
 		{
 			if (await DependencyService.Get<IUserService>().SignUp(User))
 			{
-				await Navigation.PushAsync(new AboutPage());
+				App.Instance.PushAboutPageIfNeeded(Navigation);
 			}
 			else
 			{
@@ -141,7 +141,7 @@ namespace UnidosPerderemos.Views.Login
 		} = new UnderlineTextField {
 			Font = Font.OfSize("Roboto-Light", 28),
 			Placeholder = "Nome",
-			HeightRequest = 36d
+			HeightRequest = 42d
 		};
 
 		/// <summary>
@@ -154,7 +154,7 @@ namespace UnidosPerderemos.Views.Login
 			Font = Font.OfSize("Roboto-Light", 28),
 			Keyboard = Keyboard.Email,
 			Placeholder = "E-mail",
-			HeightRequest = 36d
+			HeightRequest = 42d
 		};
 
 		/// <summary>
@@ -168,7 +168,7 @@ namespace UnidosPerderemos.Views.Login
 			Padding = new Thickness(0d, 0d, 0d, 7d),
 			Placeholder = "Senha",
 			IsPassword = true,
-			HeightRequest = 36d
+			HeightRequest = 42d
 		};
 
 		/// <summary>

@@ -23,18 +23,21 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 		{
 			base.OnElementChanged(args);
 
-			SetNativeControl(new UISegmentedControl {
-				TintColor = Source.TintColor.ToUIColor()
-			});
-
-			foreach (var item in Source.Items.Keys)
+			if (Source != null)
 			{
-				Target.InsertSegment(item, Target.NumberOfSegments, false);
-			}
+				SetNativeControl(new UISegmentedControl {
+					TintColor = Source.TintColor.ToUIColor()
+				});
 
-			Target.SelectedSegment = Math.Max(Items.IndexOf(Source.SelectedItem), 0);
-			Target.ValueChanged += SelectSegment;
-			SelectSegment(Target, EventArgs.Empty);
+				foreach (var item in Source.Items.Keys)
+				{
+					Target.InsertSegment(item, Target.NumberOfSegments, false);
+				}
+
+				Target.SelectedSegment = Math.Max(Items.IndexOf(Source.SelectedItem), 0);
+				Target.ValueChanged += SelectSegment;
+				SelectSegment(Target, EventArgs.Empty);
+			}
 		}
 
 		/// <summary>

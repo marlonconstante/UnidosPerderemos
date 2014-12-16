@@ -6,6 +6,7 @@ using UnidosPerderemos.Core.Styles;
 using UnidosPerderemos.Services;
 using UnidosPerderemos.Models;
 using UnidosPerderemos.Views.Weekly;
+using System.Threading.Tasks;
 
 namespace UnidosPerderemos.Views.Daily
 {
@@ -87,6 +88,7 @@ namespace UnidosPerderemos.Views.Daily
 			PerformanceFeed.Performance = UserProgress.PerformanceFeed;
 			ActivityToday.Text = UserProgress.Comments;
 			ActivityToday.Photo = UserProgress.Photo;
+			ActivityToday.UpdatePhoto();
 
 			UpdateContentView();
 		}
@@ -108,6 +110,21 @@ namespace UnidosPerderemos.Views.Daily
 		/// <param name="args">Arguments.</param>
 		async void OnUpClicked(object sender, EventArgs args)
 		{
+			var button = sender as Button;
+			try {
+				button.IsEnabled = false;
+				await SaveUserProgress();
+			} finally {
+				button.IsEnabled = true;
+			}
+		}
+
+		/// <summary>
+		/// Saves the user progress.
+		/// </summary>
+		/// <returns>The user progress.</returns>
+		async Task SaveUserProgress()
+		{
 			if (UserProgress.ObjectId == null)
 			{
 				UserProgress.Type = UserProfile.IsWeeklyPerformed ? ProgressType.Daily : ProgressType.Weekly;
@@ -120,22 +137,33 @@ namespace UnidosPerderemos.Views.Daily
 
 			if (await DependencyService.Get<IProgressService>().Save(UserProgress))
 			{
-				var withoutPrize = !UserProfile.IsPrizewinner;
-
 				UserProfile.DateLastDaily = UserProgress.Date;
 				if (UserProgress.Type == ProgressType.Weekly)
 				{
 					UserProfile.DateLastWeekly = UserProgress.Date;
 				}
 				UserProfile.WeeklyDedication = UserProgress.WeeklyDedication;
-
-				if (withoutPrize && UserProfile.IsPrizewinner)
+				if (UserProfile.IsChangedDateLastPrize())
 				{
-					await DisplayAlert("Parabéns!", "Você foi premiado com uma estrela por sua dedicação.", "Entendi");
+					DependencyService.Get<IProfileService>().Save(UserProfile);
 				}
-				else
+				switch (UserProfile.PrizeWeeks)
 				{
-					await DisplayAlert("Pronto!", "Progresso atualizado com sucesso.", "Entendi");
+					case 1:
+						await DisplayAlert("Continue firme!", "É só o início e você está indo bem.", "Entendi");
+						break;
+					case 2:
+						await DisplayAlert("Força!", "O resultado virá em breve!", "Entendi");
+						break;
+					case 3:
+						await DisplayAlert("Siga em frente!", "Sua dedicação será recompensada.", "Entendi");
+						break;
+					case 4:
+						await DisplayAlert("Parabéns!", "Agora você pode aproveitar um “happy com os amigos”.", "Entendi");
+						break;
+					default:
+						await DisplayAlert("Pronto!", "Progresso atualizado com sucesso.", "Entendi");
+						break;
 				}
 
 				await Navigation.PopModalAsync();

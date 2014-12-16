@@ -6,6 +6,7 @@ using UnidosPerderemos.Models;
 using UnidosPerderemos.iOS.Utils;
 using Parse;
 using System.Linq;
+using System.Threading;
 
 [assembly: Xamarin.Forms.Dependency(typeof(UnidosPerderemos.iOS.Services.ProgressService))]
 namespace UnidosPerderemos.iOS.Services
@@ -72,6 +73,8 @@ namespace UnidosPerderemos.iOS.Services
 		{
 			try
 			{
+				await Semaphore.WaitAsync();
+
 				userProgress.Date = DateTime.Now.Date;
 				userProgress.DailyDedication = userProgress.TodayDedication;
 
@@ -87,6 +90,18 @@ namespace UnidosPerderemos.iOS.Services
 			{
 				return false;
 			}
+			finally
+			{
+				Semaphore.Release();
+			}
 		}
+
+		/// <summary>
+		/// Gets the semaphore.
+		/// </summary>
+		/// <value>The semaphore.</value>
+		SemaphoreSlim Semaphore {
+			get;
+		} = new SemaphoreSlim(1);
 	}
 }

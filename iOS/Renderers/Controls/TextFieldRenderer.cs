@@ -16,13 +16,13 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 		{
 		}
 
-		/// <Docs>Lays out subviews.</Docs>
 		/// <summary>
-		/// Layouts the subviews.
+		/// Raises the element changed event.
 		/// </summary>
-		public override void LayoutSubviews()
+		/// <param name="args">Arguments.</param>
+		protected override void OnElementChanged(ElementChangedEventArgs<Entry> args)
 		{
-			base.LayoutSubviews();
+			base.OnElementChanged(args);
 
 			SetUp();
 		}
@@ -36,6 +36,7 @@ namespace UnidosPerderemos.iOS.Renderers.Controls
 			{
 				Target.BackgroundColor = UIColor.Clear;
 				Target.BorderStyle = UITextBorderStyle.None;
+				Target.AdjustsFontSizeToFitWidth = true;
 				Target.TextAlignment = Source.TextAlignment.ToUITextAlignment();
 				Target.Font = Source.Font.ToUIFont();
 				Target.SetValueForKeyPath(Source.TextColor.ToUIColor(), new NSString("_placeholderLabel.textColor"));

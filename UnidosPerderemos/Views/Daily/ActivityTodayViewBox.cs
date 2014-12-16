@@ -44,6 +44,7 @@ namespace UnidosPerderemos.Views.Daily
 			if (stream != Stream.Null)
 			{
 				Photo.Stream = stream;
+				UpdatePhoto();
 			}
 		}
 
@@ -120,6 +121,18 @@ namespace UnidosPerderemos.Views.Daily
 			TranslationX = 5d,
 			Image = ImageSource.FromFile("Camera.png") as FileImageSource
 		};
+
+		/// <summary>
+		/// Updates the photo.
+		/// </summary>
+		public async void UpdatePhoto() {
+			if (Photo.Stream == null)
+			{
+				await DependencyService.Get<IFileService>().Download(Photo);
+			}
+
+			InputText.BackgroundImage = Photo.Stream;
+		}
 
 		/// <summary>
 		/// Gets or sets the photo.

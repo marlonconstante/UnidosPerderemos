@@ -34,7 +34,23 @@ namespace UnidosPerderemos
 		/// </summary>
 		public void ReloadMainPage()
 		{
-			MainPage = IsLoggedUser ? MainFlow : ActivationFlow;
+			MainPage = IsLoggedUser ? (CurrentUser.IsRegistrationFinished ? MainFlow : RegistrationFlow) : ActivationFlow;
+		}
+
+		/// <summary>
+		/// Pushs the about page if needed.
+		/// </summary>
+		/// <param name="navigation">Navigation.</param>
+		public void PushAboutPageIfNeeded(INavigation navigation)
+		{
+			if (IsLoggedUser && CurrentUser.IsRegistrationFinished)
+			{
+				ReloadMainPage();
+			}
+			else
+			{
+				navigation.PushAsync(new AboutPage());
+			}
 		}
 
 		/// <summary>
@@ -73,6 +89,16 @@ namespace UnidosPerderemos
 		MainFlowPage MainFlow {
 			get {
 				return new MainFlowPage(new MainPage());
+			}
+		}
+
+		/// <summary>
+		/// Gets the registration flow.
+		/// </summary>
+		/// <value>The registration flow.</value>
+		FlowPage RegistrationFlow {
+			get {
+				return new FlowPage(new AboutPage());
 			}
 		}
 

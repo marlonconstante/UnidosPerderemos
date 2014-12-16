@@ -91,6 +91,10 @@ namespace UnidosPerderemos.Views.Weekly
 		/// </summary>
 		void UpdateWeek()
 		{
+			if (ActivityIndicator != null)
+			{
+				ActivityIndicator.IsVisible = true;
+			}
 			for (var row = 1; row < Days.Length; row++)
 			{
 				var userProgress = GetDailyProgress(RangeView.CurrentStartOfWeek.AddDays(row - 1d));
@@ -99,12 +103,18 @@ namespace UnidosPerderemos.Views.Weekly
 					var key = new KeyValuePair<int, int>(row, column);
 					if (!ContentViews.ContainsKey(key))
 					{
-						var contentView = BuildContentView(0d, 0.3d);
+						var contentView = BuildContentView(0d, 0.3d, new Image { TranslationX = -4d });
 						ContentViews.Add(key, contentView);
 						GridWeekly.Children.Add(contentView, column, row);
 					}
 					UpdateContentView(key, userProgress);
 				}
+			}
+			if (ActivityIndicator != null)
+			{
+				Device.BeginInvokeOnMainThread(() => {
+					ActivityIndicator.IsVisible = false;
+				});
 			}
 		}
 
@@ -124,10 +134,10 @@ namespace UnidosPerderemos.Views.Weekly
 						UpdateStarContent((Grid) contentView.Content, userProgress);
 						break;
 					case 1:
-						contentView.Content = BuildPerformanceImage(userProgress.PerformanceExercise);
+						UpdatePerformanceImage((Image) contentView.Content, userProgress.PerformanceExercise);
 						break;
 					case 2:
-						contentView.Content = BuildPerformanceImage(userProgress.PerformanceFeed);
+						UpdatePerformanceImage((Image) contentView.Content, userProgress.PerformanceFeed);
 						break;
 					default:
 						break;
@@ -140,10 +150,36 @@ namespace UnidosPerderemos.Views.Weekly
 		/// </summary>
 		/// <param name="grid">Grid.</param>
 		/// <param name="userProgress">User progress.</param>
-		void UpdateStarContent(Grid grid, UserProgress userProgress)
+		async void UpdateStarContent(Grid grid, UserProgress userProgress)
 		{
 			var contentView = grid.Children[1] as ContentView;
-			contentView.Content = BuildStarImage(userProgress.IsPrizewinner);
+			var image = contentView.Content as Image;
+			var full = userProgress.IsPrizewinner;
+
+			ImageSource source;
+			if (StarImages.TryGetValue(full, out source))
+			{
+				Device.BeginInvokeOnMainThread(() => {
+					image.Source = source;
+					image.Opacity = full ? 1d : 0.5d;
+				});
+			}
+		}
+
+		/// <summary>
+		/// Updates the performance image.
+		/// </summary>
+		/// <param name="image">Image.</param>
+		/// <param name="performance">Performance.</param>
+		async void UpdatePerformanceImage(Image image, Performance performance)
+		{
+			ImageSource source;
+			if (PerformanceImages.TryGetValue(performance, out source))
+			{
+				Device.BeginInvokeOnMainThread(() => {
+					image.Source = source;
+				});
+			}	
 		}
 
 		/// <summary>
@@ -176,49 +212,13 @@ namespace UnidosPerderemos.Views.Weekly
 		}
 
 		/// <summary>
-		/// Builds the performance image.
-		/// </summary>
-		/// <returns>The performance image.</returns>
-		/// <param name="performance">Performance.</param>
-		Image BuildPerformanceImage(Performance performance)
-		{
-			ImageSource source;
-			if (PerformanceImages.TryGetValue(performance, out source))
-			{
-				return new Image {
-					Source = source,
-					TranslationX = -4d
-				};
-			}
-			return null;
-		}
-
-		/// <summary>
-		/// Builds the star image.
-		/// </summary>
-		/// <returns>The star image.</returns>
-		/// <param name="full">If set to <c>true</c> full.</param>
-		Image BuildStarImage(bool full)
-		{
-			ImageSource source;
-			if (StarImages.TryGetValue(full, out source))
-			{
-				return new Image {
-					Source = source,
-					Opacity = full ? 1d : 0.5d
-				};
-			}
-			return null;
-		}
-
-		/// <summary>
 		/// Builds the content view.
 		/// </summary>
 		/// <returns>The content view.</returns>
 		/// <param name="padding">Padding.</param>
 		/// <param name="backgroundOpacity">Background opacity.</param>
 		/// <param name="content">Content.</param>
-		ContentView BuildContentView(double padding, double backgroundOpacity, View content = null)
+		ContentView BuildContentView(double padding, double backgroundOpacity, View content)
 		{
 			return new ContentView {
 				Content = content,
@@ -246,7 +246,7 @@ namespace UnidosPerderemos.Views.Weekly
 				},
 				Children = {
 					{ BuildLabel(text, "Roboto-Regular"), 0, 0 },
-					{ BuildContentView(0d, 0d), 1, 0 }
+					{ BuildContentView(0d, 0d, new Image()), 1, 0 }
 				}
 			};
 		}
@@ -339,6 +339,15 @@ namespace UnidosPerderemos.Views.Weekly
 				}
 				UpdateWeek();
 			}
+		}
+
+		/// <summary>
+		/// Gets or sets the activity indicator.
+		/// </summary>
+		/// <value>The activity indicator.</value>
+		public ActivityIndicator ActivityIndicator {
+			get;
+			set;
 		}
 	}
 }

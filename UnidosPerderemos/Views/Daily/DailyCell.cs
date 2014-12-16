@@ -26,7 +26,7 @@ namespace UnidosPerderemos.Views.Daily
 			this.SetBinding(PhotoProperty, "Photo");
 
 			LabelDate.SetBinding(Label.TextProperty, "FormattedDate");
-			LabelDescription.SetBinding(Label.TextProperty, "Comments");
+			LabelDescription.SetBinding(Label.TextProperty, "NotEmptyComments");
 
 			View = new StackLayout {
 				Spacing = 3d,
@@ -40,11 +40,12 @@ namespace UnidosPerderemos.Views.Daily
 		}
 
 		/// <summary>
-		/// Raises the appearing event.
+		/// Override this method to execute an action when the BindingContext changes.
 		/// </summary>
-		protected override void OnAppearing()
+		/// <remarks></remarks>
+		protected override void OnBindingContextChanged()
 		{
-			base.OnAppearing();
+			base.OnBindingContextChanged();
 
 			LoadPhoto();
 
@@ -89,9 +90,7 @@ namespace UnidosPerderemos.Views.Daily
 			HorizontalOptions = LayoutOptions.Start,
 			VerticalOptions = LayoutOptions.Start,
 			Aspect = Aspect.AspectFill,
-			BackgroundColor = Color.White,
-			WidthRequest = 300d,
-			HeightRequest = 169d,
+			HeightRequest = 200d,
 			IsVisible = false
 		};
 
