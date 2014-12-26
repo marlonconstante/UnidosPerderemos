@@ -36,7 +36,7 @@ namespace UnidosPerderemos.Views.Daily
 		{
 			IsSelected = false;
 
-			Button.Image = ImageSource.FromFile(string.Concat(Performance.ToString(), ".png")) as FileImageSource;
+			Button.Image = ImageSource.FromFile(string.Concat(Performance.ToString(), "Color.png")) as FileImageSource;
 			Button.Clicked += OnSelectPerformance;
 		}
 
@@ -78,7 +78,7 @@ namespace UnidosPerderemos.Views.Daily
 			}
 			set {
 				Box.BackgroundColor = Color.White.MultiplyAlpha(value ? 0.3d : 0.2d);
-				Button.Opacity = value ? 1d : 0.4d;
+				Button.Opacity = value ? 1d : 0.5d;
 			}
 		}
 
