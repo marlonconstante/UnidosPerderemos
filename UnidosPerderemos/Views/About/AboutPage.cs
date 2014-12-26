@@ -216,7 +216,8 @@ namespace UnidosPerderemos.Views.About
 			AdditionalFont = Font.OfSize("Roboto-Light", 28),
 			AdditionalText = "Quilos",
 			AdditionalTranslationY = 3.5d,
-			Text = "0",
+			AdditionalTranslationX = 28.10d,
+			Placeholder = "0",
 			MaxLength = 4,
 			Keyboard = Keyboard.Numeric
 		};
@@ -246,7 +247,8 @@ namespace UnidosPerderemos.Views.About
 			AdditionalFont = Font.OfSize("Roboto-Light", 28),
 			AdditionalText = "Metros",
 			AdditionalTranslationY = 3.5d,
-			Text = "0",
+			AdditionalTranslationX = 28.10d,
+			Placeholder = "0",
 			MaxLength = 4,
 			Keyboard = Keyboard.Numeric
 		};

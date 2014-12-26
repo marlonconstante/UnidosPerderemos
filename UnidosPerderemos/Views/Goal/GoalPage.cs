@@ -96,7 +96,8 @@ namespace UnidosPerderemos.Views.Goal
 			AdditionalFont = Font.OfSize("Roboto-Light", 28),
 			AdditionalText = "Quilos",
 			AdditionalTranslationY = 1.5d,
-			Text = "0",
+			AdditionalTranslationX = 30.91d,
+			Placeholder = "0",
 			MaxLength = 4,
 			Keyboard = Keyboard.Numeric,
 			Padding = new Thickness(0d, 1d, 0d, 20d)
@@ -126,7 +127,8 @@ namespace UnidosPerderemos.Views.Goal
 			AdditionalFont = Font.OfSize("Roboto-Light", 28),
 			AdditionalText = "Dias",
 			AdditionalTranslationY = 1.5d,
-			Text = "0",
+			AdditionalTranslationX = 30.91d,
+			Placeholder = "0",
 			MaxLength = 4,
 			Keyboard = Keyboard.Numeric,
 			Padding = new Thickness(0d, 1d, 0d, 34d)

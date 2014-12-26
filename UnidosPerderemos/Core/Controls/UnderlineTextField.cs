@@ -71,7 +71,7 @@ namespace UnidosPerderemos.Core.Controls
 		void OnAfterTextChanged(object sender, TextChangedEventArgs args)
 		{
 			var width = DependencyService.Get<ITextService>().PreferredSize(Text, Font, Size.Zero).Width;
-			LabelAdditional.TranslationX = width + (string.IsNullOrWhiteSpace(Text) ? 0d : 5d);
+			LabelAdditional.TranslationX = width + (string.IsNullOrWhiteSpace(Text) ? InitialAdditionalX : 5d);
 		}
 
 		/// <summary>
@@ -240,6 +240,33 @@ namespace UnidosPerderemos.Core.Controls
 			set {
 				LabelAdditional.TranslationY = value;
 			}
+		}
+
+		/// <summary>
+		/// Gets or sets the additional translation x.
+		/// </summary>
+		/// <value>The additional translation x.</value>
+		public double AdditionalTranslationX {
+			get {
+				return LabelAdditional.TranslationX;
+			}
+			set {
+				LabelAdditional.TranslationX = value;
+
+				if (InitialAdditionalX == 0d)
+				{
+					InitialAdditionalX = value;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the initial additional x.
+		/// </summary>
+		/// <value>The initial additional x.</value>
+		double InitialAdditionalX {
+			get;
+			set;
 		}
 	}
 }
