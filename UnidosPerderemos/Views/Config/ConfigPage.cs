@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System;
 using UnidosPerderemos.Core.Pages;
 using UnidosPerderemos.Core.Styles;
+using UnidosPerderemos.Utils;
 
 namespace UnidosPerderemos.Views.Config
 {
@@ -151,10 +152,10 @@ namespace UnidosPerderemos.Views.Config
 			UserProfile.DateOfBirth = m_dateField.Date;
 			UserProfile.Gender = (Gender) m_inputGender.SelectedItem;
 			UserProfile.UserName = m_name.Text;
-			UserProfile.Weight = double.Parse(m_weightInput.Text);
-			UserProfile.Height = double.Parse(m_heightInput.Text);
-			UserProfile.GoalWeight = double.Parse(m_goalWeight.Text);
-			UserProfile.GoalTime = double.Parse(m_goalTime.Text);
+			UserProfile.Weight = m_weightInput.Text.ParseDouble();
+			UserProfile.Height = m_heightInput.Text.ParseDouble();
+			UserProfile.GoalWeight = m_goalWeight.Text.ParseDouble();
+			UserProfile.GoalTime = m_goalTime.Text.ParseDouble();
 			UserProfile.IsTacticExercise = m_entryTacticExercise.IsToggled;
 			UserProfile.IsTacticFeed = m_entryTacticFeed.IsToggled;
 

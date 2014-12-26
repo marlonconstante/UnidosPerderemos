@@ -6,6 +6,7 @@ using UnidosPerderemos.Core.Controls;
 using UnidosPerderemos.Views.Goal;
 using UnidosPerderemos.Models;
 using System.Collections.Generic;
+using UnidosPerderemos.Utils;
 
 namespace UnidosPerderemos.Views.About
 {
@@ -53,8 +54,8 @@ namespace UnidosPerderemos.Views.About
 
 			UserProfile.DateOfBirth = InputDateOfBirth.Date;
 			UserProfile.Gender = (Gender) InputGender.SelectedItem;
-			UserProfile.Weight = double.Parse(InputWeight.Text);
-			UserProfile.Height = double.Parse(InputHeight.Text);
+			UserProfile.Weight = InputWeight.Text.ParseDouble();
+			UserProfile.Height = InputHeight.Text.ParseDouble();
 
 			UserProfile.InitialWeight = UserProfile.Weight;
 

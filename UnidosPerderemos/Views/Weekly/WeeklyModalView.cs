@@ -2,6 +2,7 @@
 using UnidosPerderemos.Core.Controls;
 using Xamarin.Forms;
 using UnidosPerderemos.Models;
+using UnidosPerderemos.Utils;
 
 namespace UnidosPerderemos.Views.Weekly
 {
@@ -14,7 +15,7 @@ namespace UnidosPerderemos.Views.Weekly
 			InnerView = InputWeight;
 
 			ConfirmClicked += (object sender, EventArgs args) => {
-				UserProfile.Weight = double.Parse(InputWeight.Text);
+				UserProfile.Weight = InputWeight.Text.ParseDouble();
 			};
 		}
 

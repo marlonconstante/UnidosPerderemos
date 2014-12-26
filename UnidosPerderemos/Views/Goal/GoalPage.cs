@@ -7,6 +7,7 @@ using UnidosPerderemos.Core.Controls;
 using UnidosPerderemos.Views.Tactic;
 using UnidosPerderemos.Models;
 using UnidosPerderemos.Services;
+using UnidosPerderemos.Utils;
 
 namespace UnidosPerderemos.Views.Goal
 {
@@ -47,8 +48,8 @@ namespace UnidosPerderemos.Views.Goal
 		/// <param name="args">Arguments.</param>
 		async void OnContinueClicked(object sender, EventArgs args)
 		{
-			UserProfile.GoalWeight = double.Parse(InputWeight.Text);
-			UserProfile.GoalTime = double.Parse(InputTime.Text);
+			UserProfile.GoalWeight = InputWeight.Text.ParseDouble();
+			UserProfile.GoalTime = InputTime.Text.ParseDouble();
 
 			await Navigation.PushAsync(new TacticPage());
 		}
