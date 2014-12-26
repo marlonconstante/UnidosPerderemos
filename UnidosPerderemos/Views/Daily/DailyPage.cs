@@ -150,19 +150,19 @@ namespace UnidosPerderemos.Views.Daily
 				switch (UserProfile.PrizeWeeks)
 				{
 					case 1:
-						await DisplayAlert("Continue firme!", "É só o início e você está indo bem.", "Entendi");
+						await DisplayAlert("Continue firme!", "É só o início e você está indo bem.", "OK");
 						break;
 					case 2:
-						await DisplayAlert("Força!", "O resultado virá em breve!", "Entendi");
+						await DisplayAlert("Força!", "O resultado virá em breve!", "OK");
 						break;
 					case 3:
-						await DisplayAlert("Siga em frente!", "Sua dedicação será recompensada.", "Entendi");
+						await DisplayAlert("Siga em frente!", "Sua dedicação será recompensada.", "OK");
 						break;
 					case 4:
-						await DisplayAlert("Parabéns!", "Agora você pode aproveitar um “happy com os amigos”.", "Entendi");
+						await DisplayAlert("Parabéns!", "Agora você pode aproveitar um “happy com os amigos”.", "OK");
 						break;
 					default:
-						await DisplayAlert("Pronto!", "Progresso atualizado com sucesso.", "Entendi");
+						await DisplayAlert("Pronto!", "Progresso atualizado com sucesso.", "OK");
 						break;
 				}
 
@@ -170,7 +170,7 @@ namespace UnidosPerderemos.Views.Daily
 			}
 			else
 			{
-				await DisplayAlert("Ops...", "Ocorreu uma falha na conexão com o servidor.", "Entendi");
+				await DisplayAlert("Ops...", "Ocorreu uma falha na conexão com o servidor.", "OK");
 			}
 		}
 

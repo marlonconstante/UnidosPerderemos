@@ -50,7 +50,7 @@ namespace UnidosPerderemos.Views.Login
 			DependencyService.Get<IUserService>().LoginWithFacebook(() => {
 				App.Instance.PushAboutPageIfNeeded(Navigation);
 			}, () => {
-				DisplayAlert("Ops...", "Ocorreu um erro durante o processo de autenticação com o Facebook.", "Entendi");
+				DisplayAlert("Ops...", "Ocorreu um erro durante o processo de autenticação com o Facebook.", "OK");
 			});
 		}
 
@@ -67,7 +67,7 @@ namespace UnidosPerderemos.Views.Login
 			}
 			else
 			{
-				await DisplayAlert("Ops...", "E-mail e senha não conferem.", "Entendi");
+				await DisplayAlert("Ops...", "E-mail e senha não conferem.", "OK");
 			}
 		}
 

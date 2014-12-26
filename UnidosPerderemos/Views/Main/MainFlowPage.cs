@@ -37,7 +37,7 @@ namespace UnidosPerderemos.Views.Main
 		{
 			if (UserProfile == null)
 			{
-				DisplayAlert("Ops...", "As configurações ainda não foram carregadas.", "Entendi");
+				DisplayAlert("Ops...", "As configurações ainda não foram carregadas.", "OK");
 			}
 			else
 			{

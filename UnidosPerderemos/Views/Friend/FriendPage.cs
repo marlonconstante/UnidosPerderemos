@@ -104,7 +104,7 @@ namespace UnidosPerderemos.Views.Friend
 			}
 			else
 			{
-				await DisplayAlert("Ops...", "Para visualizar amigos, conecte-se com o facebook.", "Entendi");
+				await DisplayAlert("Ops...", "Para visualizar amigos, conecte-se com o facebook.", "OK");
 			}
 		}
 

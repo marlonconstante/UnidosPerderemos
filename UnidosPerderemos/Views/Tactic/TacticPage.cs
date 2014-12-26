@@ -73,7 +73,7 @@ namespace UnidosPerderemos.Views.Tactic
 			}
 			else
 			{
-				await DisplayAlert("Ops...", "Ocorreu uma falha na conexão com o servidor.", "Entendi");
+				await DisplayAlert("Ops...", "Ocorreu uma falha na conexão com o servidor.", "OK");
 			}
 		}
 
