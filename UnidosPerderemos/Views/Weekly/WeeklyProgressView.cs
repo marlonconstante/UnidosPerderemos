@@ -332,11 +332,14 @@ namespace UnidosPerderemos.Views.Weekly
 		/// <value>The items source.</value>
 		public IEnumerable<UserProgress> ItemsSource {
 			set {
+				var dates = new List<DateTime>();
 				DateProgress.Clear();
 				foreach (var userProgress in value)
 				{
+					dates.Add(userProgress.Date);
 					DateProgress.Add(userProgress.Date, userProgress);
 				}
+				RangeView.UpdateDateRange(dates);
 				UpdateWeek();
 			}
 		}
