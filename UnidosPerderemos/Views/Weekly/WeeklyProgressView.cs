@@ -39,9 +39,9 @@ namespace UnidosPerderemos.Views.Weekly
 			var index = 0;
 			foreach (var source in SourceHeaders)
 			{
-				var contentView = BuildContentView(5d, 0d, new Image { Source = source });
+				var contentView = BuildContentView((index == 0) ? 7d : 5d, 0d, new Image { Source = source });
 				GridWeekly.ColumnDefinitions.Add(new ColumnDefinition {
-					Width = (index == 0) ? 130d : new GridLength(1d, GridUnitType.Star)
+					Width = (index == 0) ? 95d : new GridLength(1d, GridUnitType.Star)
 				});
 				GridWeekly.Children.Add(contentView, index, 0);
 				index++;
@@ -56,7 +56,7 @@ namespace UnidosPerderemos.Views.Weekly
 			var index = 0;
 			foreach (var day in Days)
 			{
-				var contentView = BuildContentView(9d, (index == 0) ? 0d : 0.4d, BuildStarGrid(day));
+				var contentView = BuildContentView(9d, (index == 0) ? 0d : 0.4d, BuildLabel(day, "Roboto-Regular"));
 				ContentViews.Add(new KeyValuePair<int, int>(index, 0), contentView);
 				GridWeekly.RowDefinitions.Add(new RowDefinition {
 					Height = (index == 0) ? 40d : 55d
@@ -95,10 +95,12 @@ namespace UnidosPerderemos.Views.Weekly
 			{
 				ActivityIndicator.IsVisible = true;
 			}
+			var isPrizewinner = false;
 			for (var row = 1; row < Days.Length; row++)
 			{
 				var userProgress = GetDailyProgress(RangeView.CurrentStartOfWeek.AddDays(row - 1d));
-				for (var column = 0; column < SourceHeaders.Length; column++)
+				isPrizewinner = isPrizewinner || userProgress.IsPrizewinner;
+				for (var column = 1; column < SourceHeaders.Length; column++)
 				{
 					var key = new KeyValuePair<int, int>(row, column);
 					if (!ContentViews.ContainsKey(key))
@@ -110,6 +112,7 @@ namespace UnidosPerderemos.Views.Weekly
 					UpdateContentView(key, userProgress);
 				}
 			}
+			UpdateStarContent(GridWeekly, isPrizewinner);
 			if (ActivityIndicator != null)
 			{
 				Device.BeginInvokeOnMainThread(() => {
@@ -130,9 +133,6 @@ namespace UnidosPerderemos.Views.Weekly
 			{
 				switch (key.Value)
 				{
-					case 0:
-						UpdateStarContent((Grid) contentView.Content, userProgress);
-						break;
 					case 1:
 						UpdatePerformanceImage((Image) contentView.Content, userProgress.PerformanceExercise);
 						break;
@@ -149,12 +149,11 @@ namespace UnidosPerderemos.Views.Weekly
 		/// Updates the content of the star.
 		/// </summary>
 		/// <param name="grid">Grid.</param>
-		/// <param name="userProgress">User progress.</param>
-		async void UpdateStarContent(Grid grid, UserProgress userProgress)
+		/// <param name="full">If set to <c>true</c> full.</param>
+		async void UpdateStarContent(Grid grid, bool full)
 		{
-			var contentView = grid.Children[1] as ContentView;
+			var contentView = grid.Children[0] as ContentView;
 			var image = contentView.Content as Image;
-			var full = userProgress.IsPrizewinner;
 
 			ImageSource source;
 			if (StarImages.TryGetValue(full, out source))
@@ -224,30 +223,6 @@ namespace UnidosPerderemos.Views.Weekly
 				Content = content,
 				Padding = padding,
 				BackgroundColor = Color.White.MultiplyAlpha(backgroundOpacity)
-			};
-		}
-
-		/// <summary>
-		/// Builds the star grid.
-		/// </summary>
-		/// <returns>The star grid.</returns>
-		/// <param name="text">Text.</param>
-		Grid BuildStarGrid(string text)
-		{
-			return new Grid {
-				ColumnSpacing = 0d,
-				ColumnDefinitions = {
-					new ColumnDefinition {
-						Width = 84d
-					},
-					new ColumnDefinition {
-						Width = new GridLength(1d, GridUnitType.Star)
-					}
-				},
-				Children = {
-					{ BuildLabel(text, "Roboto-Regular"), 0, 0 },
-					{ BuildContentView(0d, 0d, new Image()), 1, 0 }
-				}
 			};
 		}
 
