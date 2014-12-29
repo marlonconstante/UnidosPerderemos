@@ -30,7 +30,7 @@ namespace UnidosPerderemos.Core.Controls
 			Padding = new Thickness(0f, 9f, 9f, 10f);
 			ColumnDefinitions = new ColumnDefinitionCollection {
 				new ColumnDefinition {
-					Width = new GridLength(1d, GridUnitType.Star)
+					Width = 195d
 				}
 			};
 			Children.Add(EmptyProgressImage);
