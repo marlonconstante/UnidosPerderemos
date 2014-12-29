@@ -22,7 +22,8 @@ namespace UnidosPerderemos.iOS.Services
 			{
 				var query = ParseObject.GetQuery("UserProgress")
 					.WhereEqualTo("user", ParseUser.CurrentUser)
-					.WhereEqualTo("date", DateTime.Now.Date);
+					.WhereEqualTo("date", DateTime.Now.Date)
+					.WhereEqualTo("dateInactivation", null);
 
 				var parseObject = await query.FirstOrDefaultAsync();
 				if (parseObject != null)
@@ -49,6 +50,7 @@ namespace UnidosPerderemos.iOS.Services
 			{
 				var query = ParseObject.GetQuery("UserProgress")
 					.WhereEqualTo("user", user.ToParseObject<ParseUser>())
+					.WhereEqualTo("dateInactivation", null)
 					.OrderByDescending((p) => p.Get<DateTime>("date"));
 
 				foreach (var parseObject in await query.FindAsync())

@@ -75,6 +75,33 @@ namespace UnidosPerderemos.iOS.Services
 		}
 
 		/// <summary>
+		/// Reset the specified userProfile.
+		/// </summary>
+		/// <param name="userProfile">User profile.</param>
+		public async Task<bool> Reset(UserProfile userProfile)
+		{
+			var parameters = new Dictionary<string, object>();
+			parameters.Add("inactivationDate", DateTime.Now.Date);
+
+			try
+			{
+				await ParseCloud.CallFunctionAsync<Task>("ResetUserProfile", parameters);
+
+				userProfile.StartDate = DateTime.Now.Date;
+				userProfile.DateLastWeekly = DateTime.Now.Date;
+				userProfile.DateLastDaily = DateTime.MinValue;
+				userProfile.DateLastPrize = null;
+				userProfile.WeeklyDedication = 0L;
+
+				return true;
+			}
+			catch (Exception ex)
+			{
+				return false;
+			}
+		}
+
+		/// <summary>
 		/// Save the specified userProfile.
 		/// </summary>
 		/// <param name="userProfile">User profile.</param>

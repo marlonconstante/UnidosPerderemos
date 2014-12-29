@@ -21,24 +21,16 @@ namespace UnidosPerderemos.Views.Config
 		TextField m_goalTime;
 		Switch m_entryTacticExercise;
 		Switch m_entryTacticFeed;
+		Button m_btnReset;
 		Button m_btnLogout;
 
 		public ConfigPage()
 		{
 			ConfigureToolbar();
 			SetupInputs();
+			CreateResetButton();
 			CreateLogoutButton();
 			CreateContentPage();
-		}
-
-		/// <summary>
-		/// Logout this instance.
-		/// </summary>
-		async void Logout()
-		{
-			await Navigation.PopModalAsync();
-			DependencyService.Get<IUserService>().Logout();
-			App.Instance.ReloadMainPage();
 		}
 
 		/// <summary>
@@ -90,6 +82,28 @@ namespace UnidosPerderemos.Views.Config
 		}
 
 		/// <summary>
+		/// Creates the reset button.
+		/// </summary>
+		void CreateResetButton()
+		{
+			m_btnReset = new Button {
+				Text = "Reiniciar",
+				TextColor = Color.Red,
+				Font = Font.OfSize("Roboto-Regular", 16),
+				BackgroundColor = Color.Transparent
+			};
+			m_btnReset.Clicked += async (sender, e) => {
+				var button = sender as Button;
+				try {
+					button.IsEnabled = false;
+					await Reset();
+				} finally {
+					button.IsEnabled = true;
+				}
+			};
+		}
+
+		/// <summary>
 		/// Creates the logout button.
 		/// </summary>
 		void CreateLogoutButton()
@@ -100,7 +114,15 @@ namespace UnidosPerderemos.Views.Config
 				Font = Font.OfSize("Roboto-Regular", 16),
 				BackgroundColor = Color.Transparent
 			};
-			m_btnLogout.Clicked += (sender, e) => Logout();
+			m_btnLogout.Clicked += async (sender, e) => {
+				var button = sender as Button;
+				try {
+					button.IsEnabled = false;
+					await Logout();
+				} finally {
+					button.IsEnabled = true;
+				}
+			};
 		}
 
 		/// <summary>
@@ -127,7 +149,18 @@ namespace UnidosPerderemos.Views.Config
 				},
 				new TableSection("") {
 					new ViewCell {
-						View = m_btnLogout
+						Height = 88.25d,
+						View = new StackLayout {
+							Spacing = 0d,
+							Children = {
+								m_btnReset,
+								new BoxView {
+									Color = Color.FromHex("c8c7cc"),
+									HeightRequest = 0.25d
+								},
+								m_btnLogout
+							}
+						}
 					}
 				}
 			};
@@ -139,15 +172,42 @@ namespace UnidosPerderemos.Views.Config
 		void CreateContentPage()
 		{
 			Content = new TableView {
+				HasUnevenRows = true,
 				Intent = TableIntent.Form,
 				Root = CreateTabbleViewRoot()
 			};
 		}
 
 		/// <summary>
+		/// Reset this instance.
+		/// </summary>
+		async Task Reset()
+		{
+			if (await DependencyService.Get<IProfileService>().Reset(UserProfile))
+			{
+				await DisplayAlert("Pronto!", "Configurações redefinidas com sucesso.", "OK");
+				await Navigation.PopModalAsync();
+			}
+			else
+			{
+				await DisplayAlert("Ops...", "Ocorreu uma falha na conexão com o servidor.", "OK");
+			}
+		}
+
+		/// <summary>
+		/// Logout this instance.
+		/// </summary>
+		async Task Logout()
+		{
+			await Navigation.PopModalAsync();
+			DependencyService.Get<IUserService>().Logout();
+			App.Instance.ReloadMainPage();
+		}
+
+		/// <summary>
 		/// Save this instance.
 		/// </summary>
-		async void Save()
+		async Task Save()
 		{
 			UserProfile.DateOfBirth = m_dateField.Date;
 			UserProfile.Gender = (Gender) m_inputGender.SelectedItem;

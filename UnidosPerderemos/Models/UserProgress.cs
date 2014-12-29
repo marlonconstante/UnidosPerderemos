@@ -134,6 +134,15 @@ namespace UnidosPerderemos.Models
 		}
 
 		/// <summary>
+		/// Gets or sets the date inactivation.
+		/// </summary>
+		/// <value>The date inactivation.</value>
+		public DateTime? DateInactivation {
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// Gets the not empty comments.
 		/// </summary>
 		/// <value>The not empty comments.</value>
