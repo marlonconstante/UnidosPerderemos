@@ -149,14 +149,14 @@ namespace UnidosPerderemos.Views.Config
 				},
 				new TableSection("") {
 					new ViewCell {
-						Height = 88.25d,
+						Height = 88.5d,
 						View = new StackLayout {
 							Spacing = 0d,
 							Children = {
 								m_btnReset,
 								new BoxView {
 									Color = Color.FromHex("c8c7cc"),
-									HeightRequest = 0.25d
+									HeightRequest = 0.5d
 								},
 								m_btnLogout
 							}
