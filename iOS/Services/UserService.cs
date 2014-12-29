@@ -38,7 +38,7 @@ namespace UnidosPerderemos.iOS.Services
 							parseUser["facebookId"] = userId;
 							parseUser["name"] = result["name"].ToString();
 							parseUser["gender"] = result["gender"].ToString().ToFirstUppercase();
-							parseUser["email"] = result["email"].ToString();
+							parseUser["emailAddress"] = result["email"].ToString();
 							parseUser.SaveAsync();
 						}
 						else

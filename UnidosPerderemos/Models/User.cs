@@ -46,10 +46,10 @@ namespace UnidosPerderemos.Models
 		}
 
 		/// <summary>
-		/// Gets or sets the email.
+		/// Gets or sets the email address.
 		/// </summary>
-		/// <value>The email.</value>
-		public string Email {
+		/// <value>The email address.</value>
+		public string EmailAddress {
 			get;
 			set;
 		}

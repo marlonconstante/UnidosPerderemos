@@ -180,7 +180,7 @@ Parse.Cloud.define("ResetUserProfile", function(request, response) {
 
 Parse.Cloud.afterSave(Parse.User, function(request) {
 		var user = request.object;
-		var email = user.get("email");
+		var email = user.get("emailAddress");
 		if (email && !user.get("isRegistrationFinished")) {
 			var name = user.get("name") || "usuário";
 			SendEmail(email, name, "Bem vindo ao Unidos Perderemos!", "Caro " + name + ", obrigado por utilizar o UP.");

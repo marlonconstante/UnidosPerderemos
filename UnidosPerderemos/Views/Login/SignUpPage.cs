@@ -80,7 +80,7 @@ namespace UnidosPerderemos.Views.Login
 			get {
 				return new User {
 					Name = InputName.Text,
-					Email = InputEmail.Text,
+					EmailAddress = InputEmail.Text,
 					Username = InputEmail.Text,
 					Password = InputPassword.Text
 				};
