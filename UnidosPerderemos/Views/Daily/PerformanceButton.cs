@@ -77,7 +77,7 @@ namespace UnidosPerderemos.Views.Daily
 				return Button.Opacity == 1d;
 			}
 			set {
-				Box.BackgroundColor = Color.White.MultiplyAlpha(value ? 0.3d : 0.2d);
+				Box.BackgroundColor = Color.White.MultiplyAlpha(value ? 0.4d : 0.2d);
 				Button.Opacity = value ? 1d : 0.5d;
 			}
 		}
