@@ -188,9 +188,15 @@ namespace UnidosPerderemos.Views.Weekly
 		/// <param name="date">Date.</param>
 		UserProgress GetDailyProgress(DateTime date)
 		{
+			var performance = RangeView.IsValidRange(date) ? Performance.Poor : Performance.Unknown;
+
 			UserProgress userProgress;
 			DateProgress.TryGetValue(date, out userProgress);
-			return userProgress ?? EmptyUserProgress;
+			return userProgress ?? new UserProgress {
+				Date = date,
+				PerformanceExercise = performance,
+				PerformanceFeed = performance
+			};
 		}
 
 		/// <summary>
@@ -273,14 +279,6 @@ namespace UnidosPerderemos.Views.Weekly
 		Dictionary<DateTime, UserProgress> DateProgress {
 			get;
 		} = new Dictionary<DateTime, UserProgress>();
-
-		/// <summary>
-		/// Gets the empty user progress.
-		/// </summary>
-		/// <value>The empty user progress.</value>
-		UserProgress EmptyUserProgress {
-			get;
-		} = new UserProgress();
 
 		/// <summary>
 		/// Gets the range view.
