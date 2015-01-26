@@ -87,7 +87,7 @@ namespace UnidosPerderemos.Views.Config
 		void CreateResetButton()
 		{
 			m_btnReset = new Button {
-				Text = "Reiniciar",
+				Text = "Zerar e Reiniciar",
 				TextColor = Color.Red,
 				Font = Font.OfSize("Roboto-Regular", 16),
 				BackgroundColor = Color.Transparent
