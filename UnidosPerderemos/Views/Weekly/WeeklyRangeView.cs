@@ -29,7 +29,7 @@ namespace UnidosPerderemos.Views.Weekly
 			DateRange.Clear();
 			DateRange.AddRange(dates);
 
-			CurrentStartOfWeek = MaxDate;
+			CurrentStartOfWeek = MaxDate.StartOfWeek();
 
 			UpdateInfo();
 		}
@@ -42,8 +42,8 @@ namespace UnidosPerderemos.Views.Weekly
 		{
 			CurrentStartOfWeek = CurrentStartOfWeek.AddDays(additionalWeeks * 7d);
 
-			UpdateButtonStatus(ButtonComeBack, CurrentStartOfWeek.AddDays(-7d) >= MinDate);
-			UpdateButtonStatus(ButtonGoForward, CurrentStartOfWeek.AddDays(7d) <= MaxDate);
+			UpdateButtonStatus(ButtonComeBack, CurrentStartOfWeek.AddDays(-7d) >= MinDate.StartOfWeek());
+			UpdateButtonStatus(ButtonGoForward, CurrentStartOfWeek.AddDays(7d) <= MaxDate.StartOfWeek());
 
 			LabelRange.Text = string.Concat(CurrentStartOfWeek.ToString("dd/MM/yyyy"), " à ", CurrentStartOfWeek.AddDays(6d).ToString("dd/MM/yyyy"));
 			if (additionalWeeks != 0 && WeekChanged != null)
@@ -138,7 +138,7 @@ namespace UnidosPerderemos.Views.Weekly
 		/// <value>The maximum date.</value>
 		DateTime MaxDate {
 			get {
-				return DateTime.Now.Date.StartOfWeek();
+				return DateTime.Now.Date;
 			}
 		}
 
@@ -148,7 +148,7 @@ namespace UnidosPerderemos.Views.Weekly
 		/// <value>The minimum date.</value>
 		DateTime MinDate {
 			get {
-				return (DateRange.Count == 0) ? MaxDate : DateRange.Min().StartOfWeek();
+				return (DateRange.Count == 0) ? MaxDate : DateRange.Min();
 			}
 		}
 
@@ -159,6 +159,15 @@ namespace UnidosPerderemos.Views.Weekly
 		List<DateTime> DateRange {
 			get;
 		} = new List<DateTime>();
+
+		/// <summary>
+		/// Determines whether this instance is valid range the specified date.
+		/// </summary>
+		/// <returns><c>true</c> if this instance is valid range the specified date; otherwise, <c>false</c>.</returns>
+		/// <param name="date">Date.</param>
+		public bool IsValidRange(DateTime date) {
+			return (date >= MinDate && date <= MaxDate);
+		}
 
 		/// <summary>
 		/// Gets or sets the current start of week.
